@@ -2,16 +2,16 @@
 title: 01. Python basics
 author: PanicAthe
 date: 2024-04-09 18:00:00 +0900
-categories: [study]
+categories: [Study]
 tags: [데이터프로그래밍, Python]
 toc: true
 ---
 
-#### 1. Python Indentation
+### 1. Python Indentation
 Where in other programming languages the indentation in code is for **readability** only, the indentation in Python is very **important**.
 
 
-#### 2. Python Comments
+### 2. Python Comments
 Comments starts with a #, and Python will ignore them.
 Python does not really have a syntax for multiline comments. To add a multiline comment you could insert a # for each line or use ctrl + /
 Or, not quite as intended, you can use a multiline string. Since Python will ignore string literals that are not assigned to a variable, you can add a multiline string (triple quotes) in your code, and place your comment inside it.
@@ -23,7 +23,7 @@ print("Hello, World!")
 ```
 
 
-#### 3. Python Data Types
+### 3. Python Data Types
     
 * Text Type: str
 * Numeric Types: int, float, complex
@@ -40,7 +40,7 @@ y = int(3)    # y will be 3
 z = float(3)  # z will be 3.0
 ```
 
-#### 4. String
+### 4. String
 You can return a range of characters by using the slice syntax. specify the start index and the end index, separated by a colon, to return a part of the string.
 ```python
 a = "Hello, World!"
@@ -74,7 +74,7 @@ myorder = "I want to pay {2} dollars for {0} pieces of item {1}."
 print(myorder.format(quantity, itemno, price))
 ```
 
-#### 5. Operators
+### 5. Operators
 ```python
 x = 5
 y = 3
@@ -101,7 +101,7 @@ print(x ** y)
 print(x // y) # 바닥 나눗셈 // 는 결과를 가장 가까운 정수로 내림합니다.
 ```
 
-#### 6. List
+### 6. List
 A list is the Python equivalent of an array, but is resizeable and can contain elements of different types
 ```python
 xs = [3, 1, 2]
@@ -130,7 +130,7 @@ squares = [x ** 2 for x in nums]
 print(squares)  #retrun [0, 1, 4, 9, 16]
 ```
 
-#### 7.  Dictionary
+### 7.  Dictionary
 A dictionary stores (key, value) pairs
  ```python
 d = {'cat': 'cute', 'dog': 'furry'}
@@ -163,7 +163,7 @@ print(even_num_to_square) #return {0: 0, 2: 4, 4: 16}
 
 ```
 
-#### 8. Function
+### 8. Function
 Python functions are defined using the def keyword
 ```python
 def sign(x):
