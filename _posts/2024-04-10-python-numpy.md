@@ -4,9 +4,11 @@ author: PanicAthe
 date: 2024-04-10 18:00:00 +0900
 categories: [Study]
 tags: [데이터프로그래밍, Python]
+last_modified_at: 2024-04-15 18:00:00 +0900
 toc: true
 ---
 
+**Num**erical **Py**thon
 The array object in NumPy is called **ndarray**.
 We can create a NumPy ndarray object by using the **array()** function.
 
@@ -14,17 +16,29 @@ We can create a NumPy ndarray object by using the **array()** function.
 import numpy as np
 print(np.__version__)
 
-arr = np.array([1, 2, 3, 4, 5])
+arr = np.array([1, 2, 3, 4, 5], dtype=np.int8)
 print(type(arr))  #return <class 'numpy.ndarray'>
 
 #0-D arrays, or Scalars, are the elements in an array.
 arr = np.array(42)
 
-#An array that has 0-D arrays as its elements is called uni-dimensional or 1-D array.
-arr = np.array([1, 2, 3, 4, 5])
+#1-D array
+np.arange(5) 
+# array([0, 1, 2, 3, 4])
+np.arange(2, 10, dtype=float) 
+# array([2., 3., 4., 5., 6., 7., 8., 9.])
+np.arange(2, 3, 0.1) 
+# array([2. , 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9])
+np.linspace(1., 4., 6) 
+# array([1. , 1.6, 2.2, 2.8, 3.4, 4. ])
 
-#An array that has 1-D arrays as its elements is called a 2-D array.
-arr = np.array([[1, 2, 3], [4, 5, 6]])
+#2-D array
+np.eye(3) 
+# array([[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]])
+np.diag([1, 5, 3]) 
+# array([[1, 0, 0], [0, 5, 0], [0, 0, 3]])
+a = np.array([[1, 2], [3, 4]]) 
+np.diag(a) #return array([1, 4])
 
 #An array that has 2-D arrays (matrices) as its elements is called 3-D array.
 arr = np.array([[[1, 2, 3], [4, 5, 6]], [[1, 2, 3], [4, 5, 6]]])
@@ -114,6 +128,7 @@ z = np.dot(x, y)  #[[19. 22.],[43. 50.]]
 
 ### Broadcasting
 The term broadcasting refers to the ability of NumPy to treat arrays with different dimensions during arithmetic operations.
+연산하는 두 배열의 맨 뒤 차원이 같거나 두 배열 중 하나가 1차원 배열이여야 가능하다.
 ```python
 x = np.array([[1,2,3],
               [4,5,6],
