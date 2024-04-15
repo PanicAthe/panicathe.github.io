@@ -128,7 +128,7 @@ z = np.dot(x, y)  #[[19. 22.],[43. 50.]]
 
 ### Broadcasting
 The term broadcasting refers to the ability of NumPy to treat arrays with different dimensions during arithmetic operations.
-연산하는 두 배열의 맨 뒤 차원이 같거나 두 배열 중 하나가 1차원 배열이여야 가능하다.
+
 ```python
 x = np.array([[1,2,3],
               [4,5,6],
