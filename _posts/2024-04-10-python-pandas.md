@@ -5,8 +5,10 @@ date: 2024-04-15 18:00:00 +0900
 categories: [Study]
 tags: [데이터프로그래밍, Python]
 toc: true
+last_modified_at: 2024-04-16 16:00:00 +0900
 ---
 
+**Pan**el **Da**ta
 
 ### Series
 
@@ -14,58 +16,48 @@ toc: true
 import numpy as np
 import pandas as pd
 
-# Create a Series with [1, "John", 3.5, "Hey"]
-obj = pd.Series([1, "John", 3.5, "Hey"])
+obj = pd.Series([1, "John", 3.5, "Hey"],index=["a", "b", "c", "d"])
 
 print(obj)
-#0       1
-#1    John
-#2     3.5
-#3     Hey
-#dtype: object
-
-print(obj.values)  #[1 'John' 3.5 'Hey']
-
-obj2 = pd.Series([1, "John", 3.5, "Hey"],index=["a", "b", "c", "d"])
-
-print(obj2)
 #a       1
 #b    John
 #c     3.5
 #d     Hey
 #dtype: object
-print(obj2["b"])   #John
-print(obj2.index) # Index(['a', 'b', 'c', 'd'], dtype='object')
+print(obj["b"])   #John
+print(obj.values)  #[1 'John' 3.5 'Hey']
+print(obj.index) # Index(['a', 'b', 'c', 'd'], dtype='object')
 
 
 score = {"Jane": 90,
          "Bill": 80,
-         "Elon": 85,
-         "Tom": 75,
-         "Tim": 95}
+         "Elon": 75}
 
 # Convert the given dictionary to Series
-names = pd.Series(score)
+names = pd.Series(score, index=["Jane","Bill","d","Elon"])
 
 print(names)
-#Jane    90
-#Bill      80
-#Elon    85
-#Tom    75
-#Tim     95
-#dtype: int64
+#Jane    90.0
+#Bill    80.0
+#d        NaN
+#Elon    75.0
+#dtype: float64
 
-print(names["Tom"])   #75
+print(names["Bill"])   #80
 
 # Change a score of whom is lower than 80 to 83
 names[names <= 80] = 83
 print(names)
 #Jane    90
-#Bill      83
-#Elon    85
-#Tom    83
-#Tim     95
-#dtype: int64
+#Bill    83
+#d       NaN
+#Elon    83
+#dtype: float64
+
+names[names>names.median()]
+names[[2,1]]
+np.exp(names)
+
 ```
 
 
@@ -81,10 +73,8 @@ data={"name": ["Bill", "Tom", "Tim", "John", "Alex", "Vanessa", "Kate"],
 df = pd.DataFrame(data)
 
 # Create a DataFrame with explicit columns
-# 해당 열의 데이터를 모두 포함해서 작성한 순서대로 index 바뀜.
 df = pd.DataFrame(data, columns=["name", "sport", "sex", "score"])
 print(df)
-
 #      name      sport sex  score
 #0     Bill  Wrestling   M     90
 #1      Tom   Football   M     80
@@ -94,10 +84,9 @@ print(df)
 #5  Vanessa     Karete   F     60
 #6     Kate    Surfing   F     65
 
-# Print the first five rows
-print(df.head())       #df.tail()은 last five rows
+df["pass"] = df.socre > 80  #Add column
 
-# Append gender adn age column on the given data and
+# Append gender and age column on the given data and
 # designate the index as ["one", "two", "three", "four", "five", "six", "seven"]
 df = pd.DataFrame(data, columns=["name", "sport", "gender", "score", "age"],
                 index=["one", "two", "three", "four", "five", "six", "seven"])
@@ -110,5 +99,29 @@ df = pd.DataFrame(data, columns=["name", "sport", "gender", "score", "age"],
 #five      Alex     Tennis    NaN     95  NaN
 #six    Vanessa     Karete    NaN     60  NaN
 #seven     Kate    Surfing    NaN     65  NaN
+
+#Functions#
+# df.sum()
+# df.cumsum() - 누적 합
+# df.mena()
+# df.idmax()
+# df.head() - 첫 5개 행
+# df.tail() - 마지막 5개 행
+# df.shape - 행과 열의 개수를 튜플로 (행수, 열수)
+# df.info() - 기본 정보를 출력
+# df.index 
+# df.columns 
+# df.describe() - 요약 통계를 반환. 평균값, 표준편차, 최소값, 최대값 등.
+# df.nunique() - 각 열의 고유한 값의 수
+
+#Indexing#
+# df.loc[] - 열 이름을 매개변수로
+# df.iloc[] - 행, 열의 순서(index)를 매개변수로
+# df[열 이름]
+
+#With Missing Data#
+# df.isna() - 각 셀이 결측치인지 여부를 boolean으로 반환
+# df.dropna() - 결측치를 포함하는 행 또는 열을 제거
+# df.fillna(값) - 결측치를 특정 값 또는 방법으로 채움
 ```
 
