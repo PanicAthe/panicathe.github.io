@@ -257,7 +257,7 @@ def my_function(*args):
 
 ```
 
-In Python, prefixing a parameter name with an asterisk (*) in a function definition means that the parameter can accept a variable number of positional arguments. This is known as "variable positional arguments" or "argument packing". Essentially, no matter how many positional arguments are passed to the function, they are bundled into a **tuple** and can be used within the function. Additionally, using a double asterisk (**) in the function definition allows it to receive keyword arguments as a **dictionary**.
+In Python, prefixing a parameter name with an asterisk (\*) in a function definition means that the parameter can accept a variable number of positional arguments. This is known as "variable positional arguments" or "argument packing". Essentially, no matter how many positional arguments are passed to the function, they are bundled into a **tuple** and can be used within the function. Additionally, using a double asterisk(\*\*) in the function definition allows it to receive keyword arguments as a **dictionary**.
 
 
 ### 11. Object oriented programming
