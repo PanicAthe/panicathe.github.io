@@ -56,11 +56,10 @@ plt.title('Cosine')
 # Show the figure.
 plt.suptitle("Sine and Cosine")
 plt.show()
-
-
 ```
 ### Plotting images with Matplotlib
-```Python
+
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -88,5 +87,6 @@ img.thumbnail((64, 64))  #64x64 픽셀로 축소
 img_thum = plt.imshow(img)
 
 imgplot = plt.imshow(img, interpolation="bilinear") #픽셀 간을 부드럽게
+
 ```
 
