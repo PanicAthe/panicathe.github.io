@@ -21,7 +21,7 @@ future: true
 
 title: PanicAthe # the main title
 
-tagline: 공부 기록 블로그 # it will display as the sub-title
+tagline: 공부한거 적는 블로그 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
