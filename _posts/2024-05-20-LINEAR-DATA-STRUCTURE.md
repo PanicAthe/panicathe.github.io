@@ -5,7 +5,7 @@ date: 2024-05-20 18:00:00 +0900
 categories: [Study]
 tags: [자료구조]
 toc: true
-last_modified_at: 2024-05-21 18:00:00 +0900
+last_modified_at: 2024-05-23 18:00:00 +0900
 ---
 ### 01. 배열(Array)
 - 각 데이터와 인덱스가 1:1 대응
@@ -235,7 +235,7 @@ public class CustomStack {
     }
 }
 ```
-- [연습문제 : 백준 25556 포스택](http://boj.kr/4615e81e5f324c0daeffcfd196091604)
+- [연습문제 : 25556번 포스택](http://boj.kr/4615e81e5f324c0daeffcfd196091604)
     스택에 수(x)를 넣을 때마다 x보다 작은 수가 있거나 비어있는지 확인해가면서 push하는 방식으로 해결.
 
 
@@ -375,6 +375,10 @@ class CustomQueue {
 
 ### 05. 덱(Deque)
 
+- 양방향에서 삽입, 삭제가 가능한 구조
+- 한 쪽 입력을 제한하면 Scroll
+- 한 쪽 출력을 제한하면 Shelf
+
 ```java
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -424,7 +428,27 @@ public class Main {
         System.out.println("Peek first: " + peekFirst);
         System.out.println("Peek last: " + peekLast);
         System.out.println("Deque after peekFirst and peekLast: " + deque);
+
+        // 2의 현재 위치를 찾기 위해 Iterator 사용
+        int pos = 0;
+        for (int val : deque) {
+            if (val == 2) {
+                break;
+            }
+            pos++;
+        }
     }
 }
-
 ```
+- [연습문제 : 1021번 - 회전하는 큐](http://boj.kr/cfec250567ce4c029b52818ecdd8be59)
+
+
+### 06. 해시 테이블
+- 키, 값을 대응시켜 저장
+- 해싱: 키를 특정 계산식에 넣어 나온 결과를 사용하여 값에 접근하는 과정
+- 키: 해시 테이블 접근을 위한 입력 값
+- 해시 함수: 키를 해시 값으로 매핑하는 연산
+- 해시 값: 해시 테이블의 인덱스
+- 해시 테이블: 키-값을 연관시켜 저장하는 데이터 구조
+  
+  키 --(해시 함수)--> 해시 값 -> 해시 테이블
