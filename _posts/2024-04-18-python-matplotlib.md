@@ -3,7 +3,7 @@ title: 04. Matplotlib
 author: PanicAthe
 date: 2024-04-18 17:00:00 +0900
 categories: [Study]
-tags: [데이터프로그래밍, Python]
+tags: [Python]
 toc: true
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: 06. Linear algebra keywords
+title: Linear algebra keywords
 author: PanicAthe
 date: 2024-04-19 15:00:00 +0900
 categories: [Study]
-tags: [데이터프로그래밍, Python]
+tags: [선형대수]
 toc: true
 math: true
 mermaid: true

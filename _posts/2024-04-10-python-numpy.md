@@ -3,7 +3,7 @@ title: 02. Numpy
 author: PanicAthe
 date: 2024-04-10 18:00:00 +0900
 categories: [Study]
-tags: [데이터프로그래밍, Python]
+tags: [Python]
 last_modified_at: 2024-04-15 18:00:00 +0900
 toc: true
 ---

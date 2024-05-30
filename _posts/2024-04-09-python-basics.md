@@ -3,7 +3,7 @@ title: 01. Python basics
 author: PanicAthe
 date: 2024-04-09 18:00:00 +0900
 categories: [Study]
-tags: [데이터프로그래밍, Python]
+tags: [Python]
 toc: true
 last_modified_at: 2024-04-15 18:00:00 +0900
 ---
