@@ -5,7 +5,7 @@ date: 2024-05-20 18:00:00 +0900
 categories: [Study]
 tags: [자료구조]
 toc: true
-last_modified_at: 2024-05-23 18:00:00 +0900
+last_modified_at: 2024-06-18 18:00:00 +0900
 ---
 ### 01. 배열(Array)
 - 각 데이터와 인덱스가 1:1 대응
@@ -374,10 +374,12 @@ class CustomQueue {
 ```
 
 ### 05. 덱(Deque)
-
-- 양방향에서 삽입, 삭제가 가능한 구조
+- Deque: Doubly-ended Queue
+- 양방향에서 삽입, 삭제가 가능한 구조 
 - 한 쪽 입력을 제한하면 Scroll
 - 한 쪽 출력을 제한하면 Shelf
+- add, remove, offer, poll : O(1)
+- Search: O(n)
 
 ```java
 import java.util.ArrayDeque;
@@ -387,6 +389,9 @@ public class Main {
     public static void main(String[] args) {
         // Deque 생성
         Deque<Integer> deque = new ArrayDeque<>();
+
+        //add와 remove 메소드는 공간이 없거나 뺄 데이터가 없을 때 예외 발생.
+        //offer와 poll은 같은 상황에서 null 반환.
 
         // addFirst(E e)와 addLast(E e) 사용
         deque.addFirst(10);
@@ -443,12 +448,49 @@ public class Main {
 - [연습문제 : 1021번 - 회전하는 큐](http://boj.kr/cfec250567ce4c029b52818ecdd8be59)
 
 
-### 06. 해시 테이블
+### 06. 해시 테이블(Hash Table)
 - 키, 값을 대응시켜 저장
-- 해싱: 키를 특정 계산식에 넣어 나온 결과를 사용하여 값에 접근하는 과정
-- 키: 해시 테이블 접근을 위한 입력 값
-- 해시 함수: 키를 해시 값으로 매핑하는 연산
-- 해시 값: 해시 테이블의 인덱스
-- 해시 테이블: 키-값을 연관시켜 저장하는 데이터 구조
-  
-  키 --(해시 함수)--> 해시 값 -> 해시 테이블
+- **키** : 해시 테이블 접근을 위한 입력 값
+- **해시 함수** : 키를 해시 값으로 매핑하는 연산
+- **해시 값** : 해시 테이블의 인덱스
+- 해시 테이블 : 키-값을 연관시켜 저장하는 데이터 구조
+- 해싱 : 키를 특정 계산식에 넣어 나온 결과를 사용하여 값에 접근하는 과정
+- 해시 충돌 : 서로 다른 키의 해시 함수를 통한 해시 값이 동일한 경우
+    1. 개방 주소법으로 해결(테이블에서 빈 공간의 해시를 찾아 데이터 저장)
+    2. 분리 연결법으로 해결(해시 테이블을 연결 리스트로 구성)
+
+```java
+import java.util.Hashtable;
+
+public class HashTableExample {
+
+    public static void main(String[] args) {
+        // 해시테이블 생성
+        Hashtable<String, Integer> hashtable = new Hashtable<>();
+
+        // 데이터 추가
+        hashtable.put("apple", 10);
+        hashtable.put("banana", 20);
+        hashtable.put("cherry", 30);
+
+        // 데이터 조회
+        int cherryValue = hashtable.get("cherry");
+        System.out.println("Value of 'cherry': " + cherryValue);
+
+        // 키의 존재 여부 확인
+        boolean containsKey = hashtable.containsKey("banana");
+        System.out.println("'banana' key exists: " + containsKey);
+
+        // 데이터 삭제
+        hashtable.remove("apple");
+
+        // 모든 키-값 쌍 출력
+        System.out.println("Hashtable contents:");
+        for (String key : hashtable.keySet()) {
+            int value = hashtable.get(key);
+            System.out.println(key + ": " + value);
+        }
+    }
+}
+
+```
