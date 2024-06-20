@@ -3,7 +3,7 @@ title: 선형 자료구조(Linear Data Structure)
 author: PanicAthe
 date: 2024-05-20 18:00:00 +0900
 categories: [Study]
-tags: [자료구조]
+tags: [자료구조, 배열, 연결 리스트, 스택, 큐, 덱, 해시]
 toc: true
 last_modified_at: 2024-06-18 18:00:00 +0900
 ---
