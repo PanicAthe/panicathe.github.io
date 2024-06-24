@@ -3,11 +3,11 @@ title: 비선형 자료구조(NonLinear Data Structure) 01. Tree
 author: PanicAthe
 date: 2024-06-18 18:00:00 +0900
 categories: [Study]
-tags: [자료구조, 트리, DFS, BFS]
+tags: [자료구조, 트리, DFS, BFS, 힙]
 toc: true
 mermaid: true
 math: true
-last_modified_at: 2024-06-20 18:00:00 +0900
+last_modified_at: 2024-06-24 21:00:00 +0900
 ---
 
 ### 1. 트리(Tree)
@@ -36,8 +36,9 @@ last_modified_at: 2024-06-20 18:00:00 +0900
   - **균형 이진 트리(Balanced Binary Tree)**: 좌우 서브트리 높이 차이가 1이상 차이 나지 않는 트리
   - **이진 탐색 트리(Binary Search Tree, BST)**: 왼쪽 서브트리 노드는 루트보다 작고, 오른쪽 서브트리 노드는 루트보다 큰 트리.
 
-- **AVL 트리(AVL Tree)**: 자가 균형 이진 탐색 트리. 모든 노드의 두 자식 트리 높이 차이가 1 이하.
-- **레드-블랙 트리(Red-Black Tree)**: 자가 균형 이진 탐색 트리. 각 노드가 적색 또는 흑색으로 색칠되어 특정 규칙을 따름.
+- **균형 이진 탐색 트리(Balanced Binary Search Tree)**: 노드의 삽입과 삭제 연산 시 균형을 유지
+  - **AVL 트리(AVL Tree)**: 모든 노드의 두 자식 트리 높이 차이가 1 이하.
+  - **레드-블랙 트리(Red-Black Tree)**: 각 노드가 적색 또는 흑색으로 색칠되어 특정 규칙을 따름.
 - **B-트리(B-Tree)**: 데이터베이스와 파일 시스템에서 사용하는 트리. 노드가 여러 자식을 가질 수 있음.
 
 ### 3. 트리의 순회 (Traversal)
@@ -209,3 +210,200 @@ public class ArrayBinaryTree {
 }
 ```
 
+Sure! Let's add information about heaps to your document.
+
+### 7. 힙(Heap)
+
+- **힙**: 최대값 또는 최솟값을 빠르게 찾기 위해 고안된 완전 이진 트리 형태의 자료구조. 대개 배열로 구현되며, 각 노드는 특정 조건을 만족해야 함.
+  - **최대 힙(Max Heap)**: 부모 노드의 값이 자식 노드의 값보다 크거나 같은 완전 이진 트리.
+    - 루트 노드가 최대값.
+  - **최소 힙(Min Heap)**: 부모 노드의 값이 자식 노드의 값보다 작거나 같은 완전 이진 트리.
+    - 루트 노드가 최소값.
+
+- **특징**:
+  - **중복 값 허용**
+  - **형제 노드 간의 정렬 보장 X**
+  - **완전 이진 트리 구조**: 마지막 레벨을 제외한 모든 레벨이 노드로 채워져 있으며, 마지막 레벨의 노드는 왼쪽부터 채워짐.
+  - **힙 속성**: 최대 힙이나 최소 힙의 특성을 만족해야 함.
+    - 최대 힙: 부모 노드의 값 ≥ 자식 노드의 값
+    - 최소 힙: 부모 노드의 값 ≤ 자식 노드의 값
+
+- **응용**:
+  - **우선순위 큐(Priority Queue)**: 힙을 이용하여 우선순위가 가장 높은 데이터를 빠르게 접근할 수 있는 자료구조.
+  - **힙 정렬(Heap Sort)**: 힙을 이용한 정렬 알고리즘으로, 시간 복잡도가 O(n log n)인 효율적인 정렬 방법.
+
+- **구현**:
+  - **배열 기반**: 힙의 각 노드를 배열의 요소로 표현하며, 인덱스 계산을 통해 부모와 자식 노드를 쉽게 찾을 수 있음.
+  - **삽입과 삭제**: 힙에 요소를 삽입하거나 삭제할 때도 O(log n)의 시간 복잡도를 가짐.
+
+#### 힙의 예시와 해석
+
+```
+        10
+       /  \
+     8     9
+    / \   /
+   7   5 3
+```
+
+- **최대 힙의 예시**: 부모 노드의 값이 항상 자식 노드의 값보다 크거나 같음.
+  - 루트 노드: 10
+  - 왼쪽 자식: 8, 9
+  - 오른쪽 자식: 7, 5, 3
+
+#### 자바에서 힙 구현 예시
+
+```java
+import java.util.*;
+
+public class MaxHeapExample {
+    private List<Integer> heap;
+
+    public MaxHeapExample() {
+        this.heap = new ArrayList<>();
+    }
+
+    // 요소 삽입
+    public void insert(int value) {
+        heap.add(value);
+        int index = heap.size() - 1;
+        heapifyUp(index);
+    }
+
+    private void heapifyUp(int index) {
+        int parent = (index - 1) / 2;
+        while (index > 0 && heap.get(index) > heap.get(parent)) {
+            // 부모와 값 교환
+            int temp = heap.get(index);
+            heap.set(index, heap.get(parent));
+            heap.set(parent, temp);
+
+            // 인덱스 업데이트
+            index = parent;
+            parent = (index - 1) / 2;
+        }
+    }
+
+    // 최대값 삭제
+    public int deleteMax() {
+        if (heap.isEmpty()) {
+            throw new NoSuchElementException("Heap is empty");
+        }
+
+        int maxValue = heap.get(0);
+        int lastValue = heap.remove(heap.size() - 1);
+
+        if (!heap.isEmpty()) {
+            heap.set(0, lastValue);
+            heapifyDown(0);
+        }
+
+        return maxValue;
+    }
+
+    private void heapifyDown(int index) {
+        int leftChild;
+        int rightChild;
+        int largerChild;
+
+        while (index < heap.size() / 2) {
+            leftChild = 2 * index + 1;
+            rightChild = 2 * index + 2;
+
+            // 두 자식 중에서 더 큰 자식 선택
+            if (rightChild < heap.size() && heap.get(rightChild) > heap.get(leftChild)) {
+                largerChild = rightChild;
+            } else {
+                largerChild = leftChild;
+            }
+
+            // 자식이 더 크면 부모와 값 교환
+            if (heap.get(index) >= heap.get(largerChild)) {
+                break;
+            }
+
+            int temp = heap.get(index);
+            heap.set(index, heap.get(largerChild));
+            heap.set(largerChild, temp);
+
+            // 인덱스 업데이트
+            index = largerChild;
+        }
+    }
+
+    public static void main(String[] args) {
+        MaxHeapExample maxHeap = new MaxHeapExample();
+
+        maxHeap.insert(10);
+        maxHeap.insert(8);
+        maxHeap.insert(9);
+        maxHeap.insert(7);
+        maxHeap.insert(5);
+        maxHeap.insert(3);
+
+        System.out.println("Max Heap: " + maxHeap.heap); // [10, 8, 9, 7, 5, 3]
+
+        System.out.println("Deleted max value: " + maxHeap.deleteMax()); // 10
+        System.out.println("Max Heap after deletion: " + maxHeap.heap); // [9, 8, 3, 7, 5]
+
+        maxHeap.insert(12);
+        System.out.println("Max Heap after insertion: " + maxHeap.heap); // [12, 9, 3, 7, 5, 8]
+    }
+}
+```
+
+#### 우선순위 큐(Priority Queue)
+
+우선순위 큐는 각 요소에 우선순위를 부여하여, 우선순위가 높은 요소가 먼저 처리되는 자료구조. 일반적으로 힙(heap)을 기반으로 구현되며, 데이터를 추가할 때 우선순위가 높은 요소가 먼저 나오도록 정렬.
+
+- **구조**:
+  - 각 요소는 키(key)와 값(value)으로 구성될 수 있으며, 키는 우선순위를 나타냄.
+  - 일반적으로 높은 우선순위 값이 작은 숫자일수록 더 높은 우선순위를 갖는다.
+
+- **주요 연산**:
+  - **Insert(Enqueue)**: 요소를 추가하면서 우선순위에 따라 정렬된 위치에 삽입.
+  - **Extract-Min(Dequeue)**: 우선순위가 가장 높은 요소를 제거하고 반환.
+  - **Peek**: 우선순위가 가장 높은 요소를 반환하지만 제거하지는 않는다.
+  - **IsEmpty**: 우선순위 큐가 비어있는지 확인.
+
+- **응용**:
+  - **작업 스케줄링**: CPU 스케줄링, 작업 처리 순서 관리에 사용.
+  - **이벤트 처리**: 이벤트 발생 시 처리 우선순위에 따라 큐에 저장하여 처리.
+  - **최단 경로 찾기**: 다익스트라 알고리즘과 같이 최소 비용 경로를 찾는 알고리즘에서 사용.
+
+##### 우선순위 큐의 예시와 해석
+
+```java
+import java.util.*;
+
+public class PriorityQueueExample {
+    public static void main(String[] args) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        // Enqueue elements
+        pq.offer(3);
+        pq.offer(1);
+        pq.offer(2);
+
+        System.out.println("PriorityQueue: " + pq); // [1, 3, 2]
+
+        // Dequeue element
+        int removedElement = pq.poll();
+        System.out.println("Removed element: " + removedElement); // 1
+        System.out.println("PriorityQueue after dequeue: " + pq); // [2, 3]
+
+        // Peek element
+        int peekedElement = pq.peek();
+        System.out.println("Peeked element: " + peekedElement); // 2
+        System.out.println("PriorityQueue after peek: " + pq); // [2, 3]
+
+        // Check if empty
+        boolean isEmpty = pq.isEmpty();
+        System.out.println("Is PriorityQueue empty? " + isEmpty); // false
+
+        // Clear the queue
+        pq.clear();
+        System.out.println("PriorityQueue after clearing: " + pq); // []
+    }
+}
+```
