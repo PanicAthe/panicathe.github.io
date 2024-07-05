@@ -7,7 +7,7 @@ tags: [CS, 운영체제]
 toc: true
 mermaid: true
 math: true
-last_modified_at: 2024-07-04 20:00:00 +0900
+last_modified_at: 2024-07-05 20:00:00 +0900
 ---
 <style>
 /* 큰제목 스타일 */
@@ -188,13 +188,153 @@ h4 {
 **특징**:
 - **경량 프로세스 (Lightweight Process)**라고도 불린다.
 - 하나의 프로세스 내에서 여러 개의 스레드를 생성할 수 있다.
-- 스레드들은 동시에 실행될 수 있으며, 각 스레드는 프로세스의 주소 공간과 자원을 공유.
+- 스레드들은 동시에 실행될 수 있으며, 프로세스는 각기 자신만의 주소영역을 가지는 것과 달리 스레드는 프로세스의 주소 공간과 자원을 공유.
 - 스레드는 프로세스의 코드, 데이터, 파일 등에 대해 직접 접근할 수 있다.
+- 프로세스 간에는 IPC 기법으로 통신해야하는데 반해 스레드는 빌요 없음.
 
 **멀티스레드**:
 - 프로세스 내에서 여러 스레드가 동시에 실행되는 것을 말함.
 - 멀티스레드는 병렬성을 활용하여 프로세스의 성능을 향상시킬 수 있다.
 - 각 스레드는 독립적인 실행 흐름을 가지며, 스레드 간의 데이터 공유와 동기화에 유의.
+- 한 프로세스 내부에 스레드 중 한 스레드만 문제가 있어도 프로세스 전반에 영향 줌.(해당 프로세스의 모든 스레드와 같이)
+
+#### 동기화(Synchronization) 이슈
+
+멀티스레드 환경에서 동기화는 여러 스레드가 공유 자원에 접근하거나 데이터를 조작할 때, 그 접근이 일관되고 안전하게 이루어지도록 하는 것을 의미. 동기화 이슈는 다음과 같은 형태로 나타날 수 있다:
+
+1. **경쟁 조건(Race Condition)**
+
+   여러 스레드가 동시에 공유 자원에 접근할 때, 그 결과가 스레드의 실행 순서에 따라 달라지는 상황을 말한다. 이로 인해 예상치 못한 결과가 발생하거나, 데이터 무결성이 손상될 수 있다. 예를 들어, 두 개의 스레드가 동시에 같은 변수의 값을 갱신하려고 할 때, 한 스레드의 작업이 완료되기 전에 다른 스레드가 작업을 시작하면 잘못된 데이터가 저장 됨.
+
+   ```c
+   int counter = 0;
+
+   void *increment_counter(void *arg) {
+       for (int i = 0; i < 1000000; i++) {
+           counter++; // Race condition 발생 가능
+       }
+       return NULL;
+   }
+   ```
+
+2. **교착상태(Deadlock)**
+
+   교착상태는 두 개 이상의 스레드가 서로가 가지고 있는 자원을 기다리면서 무한정 대기하는 상태를 말한다. 각 스레드가 다른 스레드의 자원에 접근하려고 시도할 때 발생하며, 이러한 교착 상태에 빠지면 프로그램은 진행되지 못함.
+
+   ```c
+   pthread_mutex_t lock1, lock2;
+
+   void *thread1(void *arg) {
+       pthread_mutex_lock(&lock1);
+       pthread_mutex_lock(&lock2);
+       // 자원 사용
+       pthread_mutex_unlock(&lock2);
+       pthread_mutex_unlock(&lock1);
+       return NULL;
+   }
+
+   void *thread2(void *arg) {
+       pthread_mutex_lock(&lock2);
+       pthread_mutex_lock(&lock1);
+       // 자원 사용
+       pthread_mutex_unlock(&lock1);
+       pthread_mutex_unlock(&lock2);
+       return NULL;
+   }
+   ```
+
+3. **기아 상태(Starvation)**
+   기아 상태는 특정 스레드가 자원에 접근할 기회를 계속 박탈당해, 자신의 작업을 진행할 수 없는 상태. 자원 접근이 우선순위가 높은 스레드에게 지속적으로 할당되는 경우, 우선순위가 낮은 스레드가 무한정 대기.
+
+4. **라이브락(Livelock)**
+   라이브락은 스레드들이 서로의 진행을 방해하며, 계속해서 자원 사용을 시도하지만 실제로 아무 작업도 하지 못하는 상태. 데드락과 유사하지만, 자원이 계속해서 변화하면서도 해결되지 않는 상황.
+
+#### 동기화(Synchronization)
+
+Mutual exclusion (상호 배제) 
+: 여러 스레드가 접촉하는 임계 자원(Critical resource)에 Exclusive Access 설정.
+
+1. **뮤텍스(Mutex)**   
+   뮤텍스는 상호 배제를 통해 동기화 문제를 해결. 단일 스레드만이 임계 구역(Critical Section)에 들어갈 수 있도록 보장하며, 다른 스레드는 해당 뮤텍스가 해제될 때까지 대기한다. 이는 경쟁 조건을 방지하는 데 유용.
+
+   ```c
+   pthread_mutex_t lock;
+
+   void *increment_counter(void *arg) {
+       for (int i = 0; i < 1000000; i++) {
+           pthread_mutex_lock(&lock);
+           counter++; // 뮤텍스로 보호된 코드
+           pthread_mutex_unlock(&lock);
+       }
+       return NULL;
+   }
+   ```
+
+2. **세마포어(Semaphore)**
+
+   세마포어는 주어진 수의 스레드가 자원에 접근할 수 있도록 허용. 이를 통해 제한된 자원에 대한 접근을 동기화할 수 있다. 세마포어는 일반적으로 초기화된 값에서 접근할 수 있는 최대 스레드 수를 설정.
+   즉, Mutex는 임계구역에 하나의 스레드만 들어가게 하고, Semaphore는 임계구역에 설정한 수의 스레드만 들어가게 함.
+
+   ```c
+   sem_t semaphore;
+
+   void *thread_function(void *arg) {
+       sem_wait(&semaphore); // 세마포어 획득
+       // 공유 자원 접근
+       sem_post(&semaphore); // 세마포어 해제
+       return NULL;
+   }
+   ```
+
+3. **데드락 회피 및 해결**
+
+   데드락을 피하기 위해 자원 할당 순서를 정하거나, 타임아웃을 설정할 수 있습니다. 또한, 데드락이 발생한 경우 이를 감지하고 적절히 해결하는 방법도 있습니다. 자원을 정해진 순서로 요청하여 데드락을 예방할 수 있으며, 타임아웃을 통해 일정 시간이 지나면 자원 요청을 포기하도록 할 수 있습니다.
+
+   ```c
+   pthread_mutex_t lock1, lock2;
+
+   void *thread1(void *arg) {
+       pthread_mutex_lock(&lock1);
+       if (pthread_mutex_trylock(&lock2) == 0) {
+           // 자원 사용
+           pthread_mutex_unlock(&lock2);
+       }
+       pthread_mutex_unlock(&lock1);
+       return NULL;
+   }
+
+   void *thread2(void *arg) {
+       pthread_mutex_lock(&lock2);
+       if (pthread_mutex_trylock(&lock1) == 0) {
+           // 자원 사용
+           pthread_mutex_unlock(&lock1);
+       }
+       pthread_mutex_unlock(&lock2);
+       return NULL;
+   }
+   ```
+
+
+### 05. 가상 메모리(Virtual Memory)
+
+가상 메모리는 실제 물리적 메모리보다 더 많은 메모리를 사용할 수 있게 하는 기술. 이를 통해 프로그램들은 물리 메모리의 제약 없이 동작.
+
+- **가상 주소와 물리 주소**  
+  프로세스는 가상 주소를 사용하여 메모리에 접근하며, MMU(Memory Management Unit)가 이를 물리 주소로 변환한다. 실제 데이터 접근은 이 변환을 통해 이루어진다.
+
+#### 페이징 시스템(Paging System)
+
+페이징 시스템은 가상 메모리를 고정 크기의 페이지로 나누어 관리하는 방식.
+
+- **페이지와 프레임**  
+  가상 메모리는 페이지(Page)로, 물리 메모리는 프레임(Frame)으로 나뉜다. 각 페이지는 하나의 프레임에 매핑되며, MMU가 이를 관리.
+
+- **페이지 테이블(Page Table)**  
+  페이지 테이블은 각 가상 페이지가 물리 메모리의 어느 프레임에 위치하는지 매핑 정보를 저장. MMU는 이를 참조하여 가상 주소를 물리 주소로 변환.
+
+- **페이지 교체(Page Replacement)**  
+  물리 메모리가 부족할 때, 사용되지 않는 페이지를 디스크로 내보내고, 필요한 페이지를 불러오는 방식으로 메모리를 관리. 이를 통해 제한된 물리 메모리 자원을 효율적으로 사용할 수 있다.
+
 
 ### 기타
 - **CPU 바운드 프로그램**은 주로 연산 작업에 많은 시간을 소비하며, CPU에서 대부분의 작업을 처리하는 프로그램
