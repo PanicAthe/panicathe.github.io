@@ -7,7 +7,8 @@ tags: [스프링, Spring,  MVC]
 toc: true
 mermaid: true
 math: true
-last_modified_at: 2024-07-21 20:00:00 +0900
+last_modified_at: 2024-07-24 18:00:00 +0900
+
 ---
 <style>
 /* 큰제목 스타일 */
@@ -248,6 +249,71 @@ public class ParameterController {
     }
 }
 ```
+
+
+### 서블릿
+서블릿(Servlet)은 자바 프로그래밍 언어를 사용하여 웹 서버에서 동적으로 요청을 처리하기 위해 설계된 서버 측 프로그램입니다. 서블릿은 자바 EE (Enterprise Edition) 스펙의 일부로, 웹 애플리케이션을 개발할 때 자주 사용됩니다. 
+
+
+1. **서블릿 컨테이너 (Servlet Container)**:
+   - 서블릿을 관리하고 실행하는 환경입니다. Tomcat, Jetty, WildFly 등이 대표적인 서블릿 컨테이너입니다.
+   - HTTP 요청을 받아서 서블릿에게 전달하고, 서블릿의 응답을 클라이언트에게 전달합니다.
+
+2. **서블릿 클래스**:
+   - `javax.servlet.http.HttpServlet` 클래스를 상속하여 작성됩니다.
+   - `doGet()`, `doPost()`, `doPut()`, `doDelete()` 등의 메서드를 오버라이드하여 HTTP 메서드별로 요청을 처리할 수 있습니다.
+
+#### 서블릿의 생명주기
+
+서블릿의 생명주기(lifecycle)는 다음과 같은 단계로 이루어집니다:
+
+1. **로드 (Loading)**:
+   - 서블릿 컨테이너가 서블릿 클래스를 메모리에 로드합니다.
+   
+2. **초기화 (Initialization)**:
+   - `init()` 메서드를 호출하여 서블릿을 초기화합니다. 이 메서드는 서블릿이 최초로 요청을 받을 때 한 번 호출됩니다.
+
+3. **요청 처리 (Request Handling)**:
+   - `service()` 메서드가 호출되어 각 요청을 처리합니다. 이 메서드는 내부적으로 `doGet()`, `doPost()` 등을 호출합니다.
+
+4. **소멸 (Destruction)**:
+   - `destroy()` 메서드를 호출하여 서블릿을 소멸시킵니다. 서블릿 컨테이너가 종료되거나 서블릿이 제거될 때 호출됩니다.
+
+
+```java
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloWorldServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        
+        response.getWriter().write("<html><body>");
+        response.getWriter().write("<h1>Hello, World!</h1>");
+        response.getWriter().write("</body></html>");
+    }
+}
+```
+
+#### 서블릿의 장점
+
+- **플랫폼 독립성**: 자바로 작성되었기 때문에 운영체제에 상관없이 동일하게 동작합니다.
+- **안정성과 보안**: 자바의 강력한 메모리 관리와 예외 처리 기능을 활용할 수 있습니다.
+- **확장성**: 서블릿 기반의 웹 애플리케이션은 쉽게 확장 가능합니다.
+
+#### 서블릿의 단점
+
+- **복잡성**: 스프링 MVC나 JSP 같은 고수준의 웹 프레임워크에 비해 상대적으로 복잡합니다.
+- **생산성**: 동적인 웹 페이지를 생성하는 데 있어서 JSP, Thymeleaf 등의 템플릿 엔진보다 생산성이 낮습니다.
+
+서블릿은 자바를 사용하여 웹 서버에서 동적인 요청을 처리하기 위한 서버 측 컴포넌트로, 스프링과 같은 프레임워크의 기반 기술로 사용됩니다.
 
 ### 필터와 인터셉터
 스프링에서 필터(Filter)와 인터셉터(Interceptor)는 요청과 응답을 처리하는 과정에서 다양한 작업을 수행할 수 있는 메커니즘을 제공합니다. 두 가지 모두 요청 처리 파이프라인에서 동작하지만, 사용 목적과 동작 방식에 차이가 있습니다.
@@ -525,5 +591,175 @@ public class CustomExceptionHandler {
 - **ResponseStatusException**: HTTP 상태 코드와 오류 메시지를 직접 설정할 수 있는 예외.
 - **사용자 정의 예외**: 애플리케이션의 요구에 맞는 사용자 정의 예외를 만들어 보다 구체적인 예외 처리를 구현.
 
+
+### Test
+#### JUnit
+
+**JUnit**은 자바 애플리케이션을 테스트하기 위한 가장 널리 사용되는 테스트 프레임워크입니다. 단위 테스트(unit test)와 통합 테스트(integration test)를 지원하며, 테스트 주도 개발(TDD) 방법론에서 필수적인 도구입니다. JUnit은 간단한 어노테이션을 통해 테스트 케이스를 정의하고 실행할 수 있습니다.
+
+- **어노테이션 기반 테스트**: `@Test`, `@Before`, `@After`, `@BeforeClass`, `@AfterClass` 등의 어노테이션을 사용하여 테스트 메서드와 테스트 실행 전후의 초기화 및 정리 작업을 정의할 수 있습니다.
+- **어설션(Assertions)**: `assertEquals`, `assertTrue`, `assertFalse`, `assertNull`, `assertNotNull` 등 다양한 어설션 메서드를 제공하여 테스트 결과를 검증할 수 있습니다.
+- **테스트 실행 및 리포팅**: 테스트를 실행하고 결과를 리포팅하는 다양한 도구와 통합되어 있습니다. 예를 들어, Maven, Gradle, IDE(이클립스, IntelliJ IDEA) 등과 통합되어 쉽게 테스트를 실행할 수 있습니다.
+
+
+```java
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CalculatorTest {
+
+    private Calculator calculator;
+
+    @BeforeEach
+    public void setUp() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    public void testAdd() {
+        assertEquals(5, calculator.add(2, 3));
+    }
+
+    @Test
+    public void testSubtract() {
+        assertEquals(1, calculator.subtract(3, 2));
+    }
+}
+```
+
+위 예제에서는 `Calculator` 클래스의 `add`와 `subtract` 메서드를 테스트하고 있습니다. `@BeforeEach` 어노테이션을 사용하여 각 테스트 메서드 실행 전에 `setUp` 메서드가 호출되어 `Calculator` 객체를 초기화합니다.
+
+#### Mockito
+
+**Mockito**는 자바 애플리케이션에서 객체의 모킹(mocking)을 지원하는 프레임워크입니다. 모킹은 테스트 대상 객체의 동작을 시뮬레이션하기 위해 가짜 객체(mock object)를 만드는 방법입니다. 이를 통해 실제 객체와 상호작용하지 않고도 테스트할 수 있습니다.
+
+- **모킹**: 가짜 객체를 생성하고 동작을 정의할 수 있습니다.
+- **스텁(stubbing)**: 특정 메서드 호출에 대해 예상되는 반환 값을 정의할 수 있습니다.
+- **베리피케이션(Verification)**: 특정 메서드가 호출되었는지 여부를 검증할 수 있습니다.
+- **어노테이션 기반 모킹**: `@Mock`, `@InjectMocks`, `@Spy` 등의 어노테이션을 사용하여 간편하게 모킹을 설정할 수 있습니다.
+
+Mockito는 자바에서 모의 객체를 생성하고 제어할 수 있는 프레임워크로, 주로 단위 테스트에서 의존성을 대체하기 위해 사용됩니다. 아래 코드는 Spring MVC 컨트롤러를 테스트하기 위해 Mockito와 MockMvc를 사용하는 방법을 보여줍니다.
+
+##### 1. 필요한 의존성 추가
+Gradle이나 Maven을 사용하여 프로젝트에 필요한 의존성을 추가해야 합니다. 
+
+Gradle 예시:
+```gradle
+dependencies {
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+}
+```
+
+##### 2. 테스트 클래스 설정
+테스트할 컨트롤러 클래스를 지정하고, 필요한 빈과 MockMvc를 주입받습니다.
+
+```java
+@WebMvcTest(AccountController.class)
+class AccountControllerTest {
+    @MockBean
+    private AccountService accountService;
+
+    @MockBean
+    private RedisTestService redisTestService;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+}
+```
+
+##### 3. Mockito 설정 및 검증
+테스트 메서드에서 `given`을 사용하여 Mockito의 동작을 설정하고, MockMvc를 사용하여 HTTP 요청을 시뮬레이션합니다.
+
+```java
+@Test
+void successCreateAccount() throws Exception {
+    //given
+    given(accountService.createAccount(anyLong(), anyLong()))
+            .willReturn(AccountDto.builder()
+                    .userId(1L)
+                    .accountNumber("1234567890")
+                    .registeredAt(LocalDateTime.now())
+                    .unRegisteredAt(LocalDateTime.now())
+                    .build());
+
+    //when
+
+    //then
+    mockMvc.perform(post("/account")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(
+                    new CreateAccount.Request(1L, 100L)
+            )))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.userId").value(1))
+            .andExpect(jsonPath("$.accountNumber").value("12345678"))
+            .andDo(print());
+}
+```
+
+- **`given(accountService.createAccount(anyLong(), anyLong()))`**:
+  - `accountService.createAccount` 메서드가 호출될 때 반환할 값을 설정합니다. 이 경우 `AccountDto` 객체를 반환하도록 설정합니다.
+  
+- **`mockMvc.perform(post("/account")`**:
+  - MockMvc를 사용하여 POST 요청을 `/account` 경로로 보냅니다.
+
+- **`contentType(MediaType.APPLICATION_JSON)`**:
+  - 요청의 Content-Type을 `application/json`으로 설정합니다.
+
+- **`content(objectMapper.writeValueAsString(new CreateAccount.Request(1L, 100L)))`**:
+  - `CreateAccount.Request` 객체를 JSON 문자열로 변환하여 요청 본문에 추가합니다.
+
+- **`andExpect(status().isOk())`**:
+  - 응답 상태 코드가 200 OK인지 검증합니다.
+
+- **`andExpect(jsonPath("$.userId").value(1))`**:
+  - 응답 JSON의 `userId` 필드가 1인지 검증합니다.
+
+- **`andExpect(jsonPath("$.accountNumber").value("12345678"))`**:
+  - 응답 JSON의 `accountNumber` 필드가 `"12345678"`인지 검증합니다.
+
+- **`andDo(print())`**:
+  - 요청과 응답 내용을 콘솔에 출력합니다.
+
+##### 4. 또 다른 테스트 예시
+다른 테스트 메서드에서도 유사한 패턴으로 Mockito와 MockMvc를 사용할 수 있습니다.
+
+```java
+@Test
+void successGetAccount() throws Exception {
+    //given
+    given(accountService.getAccount(anyLong()))
+            .willReturn(Account.builder()
+                    .accountNumber("3456")
+                    .accountStatus(AccountStatus.IN_USE)
+                    .build());
+
+    //when
+    //then
+    mockMvc.perform(get("/account/876"))
+            .andDo(print())
+            .andExpect(jsonPath("$.accountNumber").value("3456"))
+            .andExpect(jsonPath("$.accountStatus").value("IN_USE"))
+            .andExpect(status().isOk());
+}
+```
+
+- **Mockito 설정**: `@MockBean`을 사용하여 모의 객체를 생성하고, `given`을 사용하여 메서드 호출 시 반환할 값을 설정합니다.
+- **MockMvc 사용**: MockMvc를 사용하여 HTTP 요청을 시뮬레이션하고, `perform` 메서드로 요청을 보낸 후, `andExpect`를 사용하여 응답을 검증합니다.
+- **응답 검증**: `status().isOk()`, `jsonPath` 등을 사용하여 응답 상태 코드와 JSON 필드를 검증합니다.
+- **디버깅**: `andDo(print())`를 사용하여 요청과 응답 내용을 출력합니다.
+
+#### 요약
+
+- **JUnit**: 자바 애플리케이션의 단위 테스트 및 통합 테스트를 위한 프레임워크입니다. 어노테이션을 통해 테스트 메서드를 정의하고 어설션을 사용하여 테스트 결과를 검증할 수 있습니다.
+- **Mockito**: 자바 애플리케이션에서 객체의 모킹을 지원하는 프레임워크입니다. 모킹을 통해 테스트 대상 객체의 동작을 시뮬레이션하고, 테스트를 독립적이고 격리된 환경에서 수행할 수 있습니다.
+
+JUnit과 Mockito를 함께 사용하면 테스트를 보다 효과적이고 유연하게 작성할 수 있습니다. JUnit은 테스트 메서드를 정의하고 실행하는 데 중점을 두며, Mockito는 테스트 중에 외부 의존성을 모킹하여 테스트를 단순화하는 데 중점을 둡니다.
 
 ###
