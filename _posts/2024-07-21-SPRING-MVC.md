@@ -7,7 +7,7 @@ tags: [스프링, Spring]
 toc: true
 mermaid: true
 math: true
-last_modified_at: 2025-01-01 01:10:00 +0900
+last_modified_at: 2025-01-03 01:10:00 +0900
 
 ---
 <style>
@@ -99,6 +99,41 @@ public class MemberServiceImpl implements MemberService {
 ```
 다형성을 극대화하기 위해 인터페이스를 안정적으로 설계하는 것이 중요.
 
+
+### 의존 관계와 관련 개념 정리
+의존 관계는 소프트웨어 구성 요소 간의 관계를 나타내며, 이를 분석하고 관리하는 것은 효과적인 설계와 유지보수에 필수적입니다. 의존 관계는 다음과 같은 두 가지 주요 관점에서 분석할 수 있습니다.
+
+#### 정적인 클래스 의존 관계
+- **정의**: 소스 코드 상에서 클래스 간의 의존성을 분석하는 것으로, `import` 구문을 통해 쉽게 파악할 수 있습니다.
+- **특징**: 애플리케이션 실행 여부와 상관없이 분석 가능하며, 설계 단계에서 구조적인 의존성을 이해하는 데 도움을 줍니다.
+- **예시**: `MemberServiceImpl` 클래스가 `MemberRepository` 인터페이스를 참조하고 있다면, 이는 정적인 의존 관계로 표현됩니다.
+
+#### 동적인 객체 인스턴스 의존 관계
+- **정의**: 애플리케이션 실행 시점에 생성된 실제 객체 인스턴스 간의 참조 관계를 말합니다.
+- **특징**: 실행 시점에 어떤 구현체가 주입되었는지 확인 가능하며, 런타임 의존성을 분석하는 데 활용됩니다.
+- **예시**: `AppConfig` 클래스에서 `MemberServiceImpl` 객체가 생성될 때, `MemberRepository`의 구현체가 주입됩니다. 이 동적 관계는 애플리케이션 실행 중에 설정됩니다.
+
+
+#### 의존 관계 주입 (Dependency Injection, DI)
+- **정의**: 애플리케이션 실행 시점에 외부에서 실제 구현 객체를 생성하고, 이를 클라이언트에 주입하여 의존 관계를 설정하는 방식입니다.
+- **장점**: 
+  - 객체 간의 의존 관계를 명확히 분리하고 관리할 수 있습니다.
+  - 클라이언트 코드의 정적인 클래스 의존 관계를 수정하지 않고 클라이언트가 호출하는 대상의 타입 인스턴스를 변경할 수 있다.
+
+
+#### IoC 컨테이너와 DI 컨테이너
+- **IoC 컨테이너**: 객체의 생성과 생명 주기를 관리하며, 객체 간의 의존 관계를 제어하는 역할을 합니다.
+- **DI 컨테이너**: IoC 컨테이너의 기능 중 의존 관계 주입에 특화된 부분을 지칭하며, 런타임 시 의존 관계를 설정합니다.
+- **예시**: Spring Framework의 `ApplicationContext`는 대표적인 DI 컨테이너로, 객체 생성, 초기화, 소멸 과정을 관리하며 의존성을 주입합니다. 이전 코드에서 `AppConfig` 클래스도 이에 해당한다.
+
+
+### 스프링 컨테이너
+- `ApplicationContext`를 스프링 컨테이너라고 한다.
+- 스프링 컨테이너는 `@Configuration`을 붙인 `AppConfig`를 설정 정보로 사용한다. 여기서 `@Bean`를 적은 모든 메서드를 모두 호출하여 반환된 객체를 스프링 컨테이너에 등록한다. 이렇게 스프링 컨테이너에 등록된 객체를 스프링 빈이라 한다.
+```java
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+```
 
 ### Tips
 - IntelliJ 설정-> Build, Execution, Deployment -> Build Tools -> Gradle 에 들어가서 `Build and run using`과 `Run tests using`을 `IntelliJ IDEA`로 바꿔주면 더 빠르다.
