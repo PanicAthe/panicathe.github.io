@@ -7,7 +7,7 @@ tags: [스프링, Spring]
 toc: true
 mermaid: true
 math: true
-last_modified_at: 2025-01-03 01:10:00 +0900
+last_modified_at: 2025-01-15 01:10:00 +0900
 
 ---
 <style>
@@ -134,6 +134,172 @@ public class MemberServiceImpl implements MemberService {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
 ```
+
+### 싱글톤 패턴과 스프링에서의 적용
+
+**싱글톤(Singleton)**은 클래스의 인스턴스를 하나만 생성하여 애플리케이션 전역에서 공유하도록 하는 디자인 패턴입니다. 스프링 프레임워크는 기본적으로 싱글톤 패턴을 활용하여 빈을 관리합니다.
+
+#### 1. 싱글톤 사용 시 주의사항
+
+1. **Stateless(무상태성) 유지**  
+   - 싱글톤 객체는 상태를 가지지 않도록 설계해야 합니다.  
+   - 필드를 통해 상태를 공유하면 동시성 문제가 발생할 수 있습니다.
+
+2. **특정 클라이언트에 의존하지 말 것**  
+   - 싱글톤 객체는 다수의 클라이언트가 동시에 사용할 수 있으므로 특정 클라이언트에 의존성을 가지면 안 됩니다.
+
+3. **클라이언트가 값을 변경할 수 있는 필드 금지**  
+   - 싱글톤 빈의 필드는 불변(immutable) 상태로 유지하는 것이 좋습니다.  
+   - 가변 상태가 필요할 경우, 지역 변수나 메서드 매개변수로 처리해야 합니다.
+
+4. **읽기 전용 권장**  
+   - 싱글톤 객체는 읽기 전용으로 설계하는 것이 이상적입니다.
+
+5. **필드 대신 지역 변수 사용**  
+   - 공유되지 않는 데이터를 다룰 때는 필드 대신 지역 변수, 메서드 매개변수, 또는 `ThreadLocal`을 활용하여 데이터를 분리해야 합니다.
+
+6. **`@Configuration`의 필요성**  
+   - 스프링에서 `@Configuration`이 적용된 설정 클래스는 내부적으로 CGLIB 프록시를 사용하여 빈이 싱글톤으로 유지되도록 보장합니다.  
+   - `@Configuration`이 없는 경우, 매번 새로운 객체가 생성될 수 있습니다.
+
+
+#### 2. 싱글톤 패턴의 한계와 스프링의 보완
+
+1. **싱글톤 패턴의 한계**  
+   - 직접 구현 시 코드가 복잡해질 수 있습니다.
+   - 테스트하기 어렵고, 객체의 라이프사이클 관리가 어려울 수 있습니다.
+
+2. **스프링의 보완**  
+   - 스프링 컨테이너는 싱글톤 패턴을 손쉽게 구현할 수 있도록 지원하며, 객체 생성과 라이프사이클을 관리합니다.
+   - 개발자는 객체의 생성 방식에 대해 고민하지 않아도 됩니다.
+
+
+#### 정리
+
+- 싱글톤 패턴은 객체를 효율적으로 재사용할 수 있는 중요한 설계 방식입니다.
+- 스프링 컨테이너는 기본적으로 싱글톤 패턴을 활용하여 빈을 관리하며, 이를 통해 개발자는 객체의 라이프사이클을 직접 관리할 필요가 없습니다.
+- 싱글톤 객체는 **무상태성**을 유지하고, **가변 상태**를 피하도록 설계해야 합니다.  
+- `@Configuration`을 사용하면 스프링 컨테이너가 자동으로 싱글톤을 보장합니다.
+
+
+
+
+### @ComponentScan
+**`@ComponentScan`**은 스프링이 특정 패키지를 스캔하여 `@Component`가 붙은 모든 클래스를 자동으로 스프링 빈으로 등록하도록 설정하는 기능입니다.
+
+#### 1. 주요 특징
+- **자동 빈 등록**: `@Component` 어노테이션이 붙은 클래스는 자동으로 스프링 빈으로 등록됩니다.
+  - 이를 포함하는 어노테이션(`@Controller`, `@Service`, `@Repository`)도 동일하게 동작합니다.
+- **패키지 스캔 위치 지정**: `@ComponentScan`의 `basePackages` 속성을 사용하여 스캔할 패키지를 지정할 수 있습니다. 지정하지 않으면 기본적으로 `@ComponentScan`이 선언된 클래스의 패키지와 하위 패키지를 스캔합니다.
+
+#### 2. 의존 관계 자동 주입
+- 스프링 컨테이너는 `@Autowired` 어노테이션을 통해 의존 관계를 자동으로 주입합니다.
+- 빈이 여러 개일 경우, 필드 이름이나 `@Qualifier`로 특정 빈을 선택할 수 있습니다.
+
+---
+
+### 의존 관계 주입 방법
+
+스프링에서는 다양한 방식으로 의존 관계를 주입할 수 있습니다. 주입 방식은 애플리케이션의 설계 요구사항에 따라 선택됩니다.
+
+---
+
+#### 1. 생성자 주입
+- **특징**:
+  - 의존 관계를 생성자를 통해 주입합니다.
+  - 생성자가 하나뿐이라면 `@Autowired` 어노테이션 없이도 스프링이 자동으로 의존 관계를 주입합니다.
+- **장점**:
+  - 필수 의존성을 명확하게 표현할 수 있습니다.
+  - 객체 생성 시점에 모든 의존 관계가 주입되어 불변성을 보장합니다.
+- **예제**:
+  ```java
+  @Component
+  public class OrderService {
+      private final MemberRepository memberRepository;
+
+      public OrderService(MemberRepository memberRepository) {
+          this.memberRepository = memberRepository;
+      }
+  }
+  ```
+
+---
+#### 2. 수정자 주입 (Setter 주입)
+
+- **특징**:  
+  - `@Autowired`를 메서드에 붙여 의존 관계를 주입합니다.  
+  - 선택적인 의존 관계에 적합하며, 변경 가능성이 있는 의존성을 주입할 때 사용합니다.
+
+- **`required` 속성**:  
+  - `@Autowired`는 기본적으로 **필수 의존 관계**를 설정합니다. 주입 대상이 없으면 애플리케이션이 실행되지 않고 예외를 발생시킵니다.
+  - 특정 의존 관계를 선택적으로 주입하고 싶다면, `@Autowired(required = false)`로 설정할 수 있습니다.
+    - 이 경우, 대상 빈이 없으면 해당 의존성을 주입하지 않고 null로 남깁니다.
+
+- **단점**:  
+  - 생성자 주입에 비해 객체의 불변성이 약화될 수 있습니다.  
+  - 선택적 주입을 사용할 경우, 런타임에 예상치 못한 `null` 문제가 발생할 가능성이 있으므로 주의해야 합니다.
+
+- **예제**:
+
+  ##### 기본 설정 (필수 주입)
+  ```java
+  @Component
+  public class OrderService {
+      private MemberRepository memberRepository;
+
+      @Autowired
+      public void setMemberRepository(MemberRepository memberRepository) {
+          this.memberRepository = memberRepository;
+      }
+  }
+  ```
+  - 이 경우, 스프링 컨테이너에 `MemberRepository` 빈이 등록되어 있지 않으면 애플리케이션 실행 시점에 예외가 발생합니다.
+
+  ##### 선택적 설정 (`required = false`)
+  ```java
+  @Component
+  public class OrderService {
+      private MemberRepository memberRepository;
+
+      @Autowired(required = false)
+      public void setMemberRepository(MemberRepository memberRepository) {
+          this.memberRepository = memberRepository;
+      }
+  }
+  ```
+  - `required = false`를 설정하면 `MemberRepository` 빈이 스프링 컨테이너에 없더라도 예외가 발생하지 않으며, `memberRepository`는 `null`로 초기화됩니다.
+
+---
+
+#### **주의 사항**
+- **필수 의존 관계인 경우**: 생성자 주입을 사용하는 것이 더 명확하고 안전합니다.  
+- **선택적 의존 관계인 경우**: 
+  - `@Autowired(required = false)`를 사용하거나, 자바의 `Optional` 클래스를 활용할 수 있습니다.
+  - 예를 들어:
+    ```java
+    @Autowired
+    public void setMemberRepository(Optional<MemberRepository> memberRepository) {
+        this.memberRepository = memberRepository.orElse(null);
+    }
+    ```
+
+---
+
+#### 각 주입 방식 비교
+
+| **주입 방식**       | **장점**                                         | **단점**                                | **추천 사용 시점**                     |
+|--------------------|------------------------------------------------|----------------------------------------|---------------------------------------|
+| 생성자 주입         | 불변성 보장, 필수 의존성 명확화                 | 의존 관계가 많을 경우 생성자 코드 복잡 | 대부분의 경우 기본 선택               |
+| 수정자 주입         | 선택적 의존성 주입 가능                         | 객체의 상태 변경 가능성                | 선택적 의존 관계가 필요할 때          |
+| 필드 주입           | 코드 간결                                      | 테스트 및 유지보수 어려움              | 테스트 코드 외 권장되지 않음          |
+| 일반 메서드 주입     | 복잡한 의존성 설정 가능                        | 코드 가독성 저하                       | 특정 상황에서 유연한 구성 필요할 때   |
+
+---
+
+스프링에서는 **생성자 주입**을 가장 권장하며, 이는 불변성과 테스트 용이성을 보장하기 때문입니다. 수정자 주입과 필드 주입은 특별한 요구 사항이 있을 때만 사용하는 것이 좋습니다.
+또, **생성자 주입**은 `final`키워드를 사용하여 값이 설정되지 않았다면 컴파일 오류를 일으키도록 유도할 수 있습니다.
+
+### Lombok
 
 ### Tips
 - IntelliJ 설정-> Build, Execution, Deployment -> Build Tools -> Gradle 에 들어가서 `Build and run using`과 `Run tests using`을 `IntelliJ IDEA`로 바꿔주면 더 빠르다.
