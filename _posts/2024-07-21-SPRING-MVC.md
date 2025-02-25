@@ -269,21 +269,6 @@ public class MemberServiceImpl implements MemberService {
   ```
   - `required = false`를 설정하면 `MemberRepository` 빈이 스프링 컨테이너에 없더라도 예외가 발생하지 않으며, `memberRepository`는 `null`로 초기화됩니다.
 
----
-
-#### **주의 사항**
-- **필수 의존 관계인 경우**: 생성자 주입을 사용하는 것이 더 명확하고 안전합니다.  
-- **선택적 의존 관계인 경우**: 
-  - `@Autowired(required = false)`를 사용하거나, 자바의 `Optional` 클래스를 활용할 수 있습니다.
-  - 예를 들어:
-    ```java
-    @Autowired
-    public void setMemberRepository(Optional<MemberRepository> memberRepository) {
-        this.memberRepository = memberRepository.orElse(null);
-    }
-    ```
-
----
 
 #### 각 주입 방식 비교
 
@@ -299,7 +284,14 @@ public class MemberServiceImpl implements MemberService {
 스프링에서는 **생성자 주입**을 가장 권장하며, 이는 불변성과 테스트 용이성을 보장하기 때문입니다. 수정자 주입과 필드 주입은 특별한 요구 사항이 있을 때만 사용하는 것이 좋습니다.
 또, **생성자 주입**은 `final`키워드를 사용하여 값이 설정되지 않았다면 컴파일 오류를 일으키도록 유도할 수 있습니다.
 
-### Lombok
+#### Lombok 활용
+Lombok을 활용하여 생성자 주입을 간소화할 수 있다. @RequiredArgsConstructor 애너테이션을 사용하면 final 필드나 @NonNull이 붙은 필드들을 대상으로 자동으로 생성자가 생성된다. 이를 통해 스프링 프레임워크에서 일반적으로 사용하는 @Autowired 애너테이션을 생성자 주입 시 명시하지 않아도 의존성 주입이 가능하다. 스프링에서는 생성자가 하나뿐인 경우 자동으로 해당 생성자를 통해 의존성을 주입하기 때문에, @RequiredArgsConstructor를 활용하면 코드의 간결성과 가독성을 높일 수 있다.
+
+### @Autowired할 빈이 2개 이상.
+@Autowired 필드 명 매칭
+@Qualifier @Qualifier끼리 매칭 빈 이름 매칭
+@Primary 사용
+
 
 ### Tips
 - IntelliJ 설정-> Build, Execution, Deployment -> Build Tools -> Gradle 에 들어가서 `Build and run using`과 `Run tests using`을 `IntelliJ IDEA`로 바꿔주면 더 빠르다.
