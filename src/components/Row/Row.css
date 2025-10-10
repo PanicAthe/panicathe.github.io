@@ -78,13 +78,18 @@
   object-fit: contain;
 }
 
-/* Projects: Make image fill the container */
 .row--projects .row__poster img,
 .row--projects .row__poster video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 3px; /* Apply radius to the media itself */
+}
+
+.row--projects .row__poster iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
 }
 
 /* Certifications: Image with date below */

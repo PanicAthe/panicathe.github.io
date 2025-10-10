@@ -72,8 +72,8 @@ const allProjects = [
       '/images/projects/penglobe/28.jpg',
     ],
     galleryVideoUrls: [
-      'https://github.com/PanicAthe/panicathe.github.io/releases/download/Demo/Penglobe_Demo.mp4',
-      'https://github.com/PanicAthe/panicathe.github.io/releases/download/Demo/Penglobe_Interview.mp4'
+      '/images/projects/penglobe/Penglobe_Demo.mp4',
+      '/images/projects/penglobe/Penglobe_Interview.mp4'
     ],
     overview: '개인의 작은 실천을 데이터·보상·감정 피드백으로 연결하는 환경 금융 플랫폼.\n걸음, 식습관, 미션 데이터를 기반으로 탄소 절감량을 시각화하고, 얻은 포인트로 친환경 소비나 기부를 실천할 수 있습니다.',
     role: [
@@ -107,7 +107,7 @@ const allProjects = [
       '/images/projects/takku/takku_2.gif',
     ],
     galleryVideoUrls: [
-      'https://github.com/PanicAthe/panicathe.github.io/releases/download/Demo/Takku_Demo.mp4'
+      'https://www.youtube.com/embed/xAiQKTEeKnU'
     ],
     overview: '소상공인을 위한 AI 자동 홍보 및 펀딩형 쿠폰 판매 플랫폼',
     role: [
@@ -134,10 +134,10 @@ const allProjects = [
     id: 3,
     name: 'commINUty – 위치 기반 소셜 네트워킹 앱',
     period: '2023.09 ~ 2024.05',
-    thumbnailUrl: 'https://github.com/PanicAthe/panicathe.github.io/releases/download/Demo/comINUty_Demo.mp4',
+    thumbnailUrl: '/images/projects/comminuty/comINUty_Demo.mp4',
     galleryImageUrls: [],
     galleryVideoUrls: [
-      'https://github.com/PanicAthe/panicathe.github.io/releases/download/Demo/comINUty_Demo.mp4',
+      '/images/projects/comminuty/comINUty_Demo.mp4',
       '/images/projects/comminuty/1.PNG',
     ],
     overview: '사용자 위치 기반으로 소통할 수 있는 소셜 네트워킹 서비스',

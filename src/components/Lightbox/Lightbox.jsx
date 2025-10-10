@@ -13,7 +13,7 @@ function Lightbox({ media, onClose }) {
       <div className="lightbox-content" onClick={e => e.stopPropagation()}>
         <button className="lightbox-close-button" onClick={onClose}>&times;</button>
         {isVideo ? (
-          <video src={media} controls autoPlay loop />
+          <video src={media} controls autoPlay muted loop playsInline />
         ) : (
           <img src={media} alt="Fullscreen media" />
         )}

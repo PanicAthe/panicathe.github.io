@@ -46,17 +46,33 @@ function ProjectDetailPage({ projects }) {
 
   const renderMedia = (url, isThumbnail = false) => {
     if (!url) return null;
-    const isVideo = url.endsWith('.mp4');
 
-    const mediaProps = {
-      src: url,
-      className: isThumbnail ? 'thumbnail-media' : 'main-media',
-    };
+    const className = isThumbnail ? 'thumbnail-media' : 'main-media';
 
-    if (isVideo) {
-      return <video {...mediaProps} controls={!isThumbnail} autoPlay={!isThumbnail} muted loop playsInline />;
+    if (url.includes('youtube.com/embed')) {
+      const videoId = url.split('/').pop().split('?')[0];
+      let embedUrl = `https://www.youtube.com/embed/${videoId}?&mute=1&loop=1&playlist=${videoId}`;
+      if (!isThumbnail) {
+        embedUrl += '&autoplay=1&controls=1';
+      } else {
+        embedUrl += '&controls=0';
+      }
+
+      return (
+        <iframe 
+          className={className}
+          src={embedUrl} 
+          title="YouTube video player" 
+          frameBorder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (url.endsWith('.mp4')) {
+      return <video src={url} className={className} controls={!isThumbnail} autoPlay={!isThumbnail} muted loop playsInline />;
     }
-    return <img {...mediaProps} alt={project.name} />;
+
+    return <img src={url} className={className} alt={project.name} />;
   };
 
   return (
