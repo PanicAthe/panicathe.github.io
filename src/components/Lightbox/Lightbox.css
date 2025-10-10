@@ -1,0 +1,48 @@
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Reduced opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 80vw; /* Reduced size */
+  max-height: 80vh; /* Reduced size */
+}
+
+.lightbox-content img,
+.lightbox-content video {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.lightbox-close-button {
+  position: absolute;
+  top: -40px; /* Position above the content */
+  right: 0;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

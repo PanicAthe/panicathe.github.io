@@ -1,0 +1,228 @@
+.row {
+  margin-left: 50px;
+  color: var(--text-color);
+}
+
+.row__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.row__posters {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  padding: 20px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.row__posters::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.row__posters {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.row__poster {
+  position: relative;
+  flex-shrink: 0; /* Prevent items from shrinking */
+  width: 250px; /* Increased width */
+  height: 140px; /* Decreased height */
+  margin-right: 10px;
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 450ms, background-color 300ms;
+  overflow: hidden; /* Hide parts of the info box that might overflow */
+  cursor: default; /* Default cursor */
+}
+
+/* Make stack containers square for visual consistency */
+.row--stacks .row__poster {
+  width: 100px;
+  height: 100px;
+}
+
+.row__poster--clickable {
+  cursor: pointer;
+}
+
+.row__poster--clickable:hover {
+  transform: scale(1.08);
+  background-color: var(--card-bg-hover);
+}
+
+.row__poster--clickable:hover .row__poster-info {
+  opacity: 1;
+}
+
+.row__poster-info h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Remove generic styling and white background */
+.row__poster img {
+  display: block;
+}
+
+/* Stacks: Constrain logo size for square container */
+.row--stacks .row__poster img {
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+/* Projects: Make image fill the container */
+.row--projects .row__poster img,
+.row--projects .row__poster video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px; /* Apply radius to the media itself */
+}
+
+/* Certifications: Image with date below */
+.certifications-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 25px;
+  padding: 10px 0;
+}
+
+.certification-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.certification-item img {
+  height: 40px;
+}
+
+.certification-date {
+  font-size: 0.9rem;
+  color: var(--text-color-hover);
+}
+
+.row__poster-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: white; /* Keep text white for readability on dark overlay */
+  text-align: center;
+}
+
+.row__poster-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-image: linear-gradient(45deg, var(--card-bg-color) 25%, var(--card-bg-hover) 25%, var(--card-bg-hover) 50%, var(--card-bg-color) 50%, var(--card-bg-color) 75%, var(--card-bg-hover) 75%, var(--card-bg-hover) 100%);
+  background-size: 56.57px 56.57px;
+}
+
+.row__poster-placeholder h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  /* Add a subtle text shadow to make it pop */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 1000px) {
+  .row {
+    margin-left: 0;
+    padding: 0 20px;
+  }
+
+  .row__title {
+    font-size: 1.2rem;
+  }
+
+  .row__posters {
+    /* Re-enable horizontal scrolling like on desktop */
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px 0;
+  }
+
+  .row__poster {
+    width: 200px;
+    height: 112px;
+    margin-bottom: 0; /* Remove bottom margin for horizontal layout */
+  }
+
+  .row--stacks .row__poster {
+    width: 90px;
+    height: 90px;
+  }
+
+  .row--stacks .row__poster img {
+    max-width: 55px;
+    max-height: 55px;
+  }
+}
+
+.row__scroll-container {
+  position: relative;
+}
+
+.row__scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 2rem;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.row__scroll-container:hover .row__scroll-button {
+  opacity: 1;
+}
+
+.row__scroll-button.left {
+  left: 5px;
+}
+
+.row__scroll-button.right {
+  right: 22px;
+}
+
+/* Adjust button size and position for mobile */
+@media (max-width: 768px) {
+  .row__scroll-button {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+    line-height: 30px;
+  }
+}

@@ -1,0 +1,79 @@
+.stack-modal-content {
+  /* Inherits from modal-content in ProjectModal.css */
+  max-width: 900px;
+}
+
+.stack-modal-title {
+  padding: 20px 30px;
+  margin: 0;
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--footer-border-color);
+}
+
+.stack-modal-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.stack-modal-project-item {
+  background-color: var(--card-bg-hover);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stack-modal-project-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stack-modal-project-item img,
+.stack-modal-project-item video {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.stack-modal-project-item h3 {
+  margin: 0;
+  padding: 15px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.stack-modal-project-placeholder {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-image: linear-gradient(45deg, var(--card-bg-color) 25%, var(--card-bg-hover) 25%, var(--card-bg-hover) 50%, var(--card-bg-color) 50%, var(--card-bg-color) 75%, var(--card-bg-hover) 75%, var(--card-bg-hover) 100%);
+  background-size: 40px 40px;
+}
+
+.stack-modal-project-placeholder h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+  .stack-modal-title {
+    font-size: 1.3rem;
+    padding: 15px;
+  }
+
+  .stack-modal-projects-grid {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 15px;
+  }
+}

@@ -1,0 +1,122 @@
+:root {
+  --background-color: #141414;
+  --text-color: #ffffff;
+  --text-color-hover: #b3b3b3;
+  --primary-color: #e50914;
+  --header-bg-color: rgba(20, 20, 20, 0.8);
+  --card-bg-color: #282828;
+  --card-bg-hover: #404040;
+  --footer-text-color: #808080;
+  --footer-border-color: #303030;
+  --fade-color: rgba(37, 37, 37, 0.61);
+}
+
+[data-theme='light'] {
+  --background-color: #f0f2f5;
+  --text-color: #1c1e21;
+  --text-color-hover: #555;
+  --primary-color: #e50914; /* Keeping Netflix red for branding */
+  --header-bg-color: rgba(255, 255, 255, 0.8);
+  --card-bg-color: #ffffff;
+  --card-bg-hover: #e8e8e8;
+  --footer-text-color: #65676b;
+  --footer-border-color: #ddd;
+  --fade-color: rgba(240, 242, 245, 0.61);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Reusable Primary Button */
+.btn-primary {
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 8px; /* Rounded rectangle */
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between icon and text */
+  text-decoration: none; /* For cases where it's an <a> tag */
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #e6e6e6; /* Slightly darker on hover */
+}
+
+.btn-primary .icon {
+  width: 24px;
+  height: 24px;
+  fill: black;
+}
+
+/* Reusable Secondary Button */
+.btn-secondary {
+  background-color: rgba(109, 109, 110, 0.7);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(109, 109, 110, 0.4);
+}
+
+.btn-secondary .icon {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+/* Add padding to the main app container to account for the fixed header */
+.App {
+  padding-top: 80px;
+}
+
+/* Add smooth transitions for theme changes */
+.header, .header__nav a, .theme-toggle-label,
+.row, .modal-content, .modal-period, .tech-tag,
+.footer {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding-top: 60px;
+  }
+}
+
+@media (min-width: 769px) {
+  .banner__buttons .btn-primary,
+  .banner__buttons .btn-secondary {
+    padding: 14px 32px;
+    font-size: 1.2rem;
+  }
+
+  .banner__buttons .btn-primary .icon,
+  .banner__buttons .btn-secondary .icon {
+    width: 28px;
+    height: 28px;
+  }
+}
