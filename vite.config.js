@@ -1,16 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { copyFileSync, mkdirSync } from 'fs'
+import fs from 'fs'
+import path from 'path'
 
-// 수동으로 public/images/projects 안의 mp4를 dist로 복사
-const copyMP4 = () => {
+function copyMP4() {
   return {
     name: 'copy-mp4',
     closeBundle() {
-      const fs = require('fs')
-      const path = require('path')
-      const srcDir = path.resolve(__dirname, 'public/images/projects')
-      const destDir = path.resolve(__dirname, 'dist/images/projects')
+      const srcDir = path.resolve(process.cwd(), 'public/images/projects')
+      const destDir = path.resolve(process.cwd(), 'dist/images/projects')
 
       const copyRecursive = (src, dest) => {
         if (!fs.existsSync(src)) return
@@ -18,10 +16,15 @@ const copyMP4 = () => {
         for (const file of fs.readdirSync(src)) {
           const srcPath = path.join(src, file)
           const destPath = path.join(dest, file)
-          if (fs.lstatSync(srcPath).isDirectory()) copyRecursive(srcPath, destPath)
-          else if (srcPath.endsWith('.mp4')) fs.copyFileSync(srcPath, destPath)
+          const stat = fs.lstatSync(srcPath)
+          if (stat.isDirectory()) copyRecursive(srcPath, destPath)
+          else if (srcPath.endsWith('.mp4')) {
+            fs.copyFileSync(srcPath, destPath)
+            console.log(`📦 Copied: ${file}`)
+          }
         }
       }
+
       copyRecursive(srcDir, destDir)
       console.log('✅ MP4 files copied successfully!')
     },
