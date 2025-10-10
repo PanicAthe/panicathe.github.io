@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,11 +32,19 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # ✅ mp4 포함 업로드 (upload-pages-artifact 단독, zip 묶지 않음)
-      - name: Upload to GitHub Pages
+      # ✅ 디버그용: dist 내용 확인 (mp4 있는지 로그로 표시)
+      - name: List built files
+        run: |
+          echo "=== DIST 파일 목록 ==="
+          find dist -type f -print
+          echo "======================="
+
+      # ✅ 무손실 업로드 (mp4 포함)
+      - name: Upload dist to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist  # dist 그대로 업로드
+          path: dist
+          retention-days: 7
 
   deploy:
     needs: build
@@ -46,6 +55,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
