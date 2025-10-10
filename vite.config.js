@@ -2,16 +2,14 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  root: '.', // ✅ 명시적으로 지정
-  base: '/', // ✅ GitHub Pages 루트니까 '/' 유지
-  publicDir: 'public', // ✅ 명시
+  base: '/',
   plugins: [react()],
-  assetsInclude: ['**/*.mp4', '**/*.glb', '**/*.webm'], // ✅ mp4 추가
+  assetsInclude: ['**/*.glb', '**/*.mp4'], // ✅ mp4 강제 포함
   build: {
-    outDir: 'dist',
     rollupOptions: {
       input: 'index.html',
     },
-    copyPublicDir: true, // ✅ 반드시 포함
+    copyPublicDir: true, // ✅ public 폴더 그대로 dist에 복사
+    assetsInlineLimit: 0, // ✅ mp4 등 대형 파일 인라인 방지
   },
 })
