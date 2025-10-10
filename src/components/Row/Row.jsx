@@ -54,16 +54,7 @@ function Row({ title, items = [], onItemClick, rowType = 'default' }) {
                 onClick={() => isClickable && onItemClick(item)}
               >
                 {hasMedia ? (
-                  url.includes('youtube.com/embed') ? (
-                    <iframe 
-                      width="100%" 
-                      height="100%" 
-                      src={`${url.split('?')[0]}?autoplay=1&mute=1&loop=1&controls=0&playlist=${url.split('/').pop()}`}
-                      title={item.name}
-                      frameBorder="0"
-                      allow="autoplay; encrypted-media;"
-                    ></iframe>
-                  ) : url.endsWith('.mp4') ? (
+                  url.endsWith('.mp4') ? (
                     <video src={url} autoPlay loop muted playsInline />
                   ) : (
                     <img src={url} alt={item.name} />

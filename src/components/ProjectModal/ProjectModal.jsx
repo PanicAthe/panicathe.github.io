@@ -39,20 +39,7 @@ function ProjectModal({ project, onClose }) {
   const renderMedia = (url) => {
     if (!url) return null;
 
-    if (url.includes('youtube.com/embed')) {
-      const videoId = url.split('/').pop().split('?')[0];
-      const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}`;
-      return (
-        <iframe 
-          className="modal-media" 
-          src={embedUrl} 
-          title="YouTube video player" 
-          frameBorder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowFullScreen
-        ></iframe>
-      );
-    } else if (url.endsWith('.mp4')) {
+    if (url.endsWith('.mp4')) {
       return <video className="modal-media" src={url} controls autoPlay muted loop playsInline />;
     }
     

@@ -49,26 +49,7 @@ function ProjectDetailPage({ projects }) {
 
     const className = isThumbnail ? 'thumbnail-media' : 'main-media';
 
-    if (url.includes('youtube.com/embed')) {
-      const videoId = url.split('/').pop().split('?')[0];
-      let embedUrl = `https://www.youtube.com/embed/${videoId}?&mute=1&loop=1&playlist=${videoId}`;
-      if (!isThumbnail) {
-        embedUrl += '&autoplay=1&controls=1';
-      } else {
-        embedUrl += '&controls=0';
-      }
-
-      return (
-        <iframe 
-          className={className}
-          src={embedUrl} 
-          title="YouTube video player" 
-          frameBorder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowFullScreen
-        ></iframe>
-      );
-    } else if (url.endsWith('.mp4')) {
+    if (url.endsWith('.mp4')) {
       return <video src={url} className={className} controls={!isThumbnail} autoPlay={!isThumbnail} muted loop playsInline />;
     }
 
