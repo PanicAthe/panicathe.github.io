@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20  
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
@@ -31,13 +31,24 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload built files (include binary like mp4)
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-dist
+          path: dist
+          compression-level: 0     
+          if-no-files-found: error 
+
+      - name: Prepare Pages artifact
+        run: |
+          mkdir upload
+          mv dist upload/
+        shell: bash
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
-          retention-days: 7             
-          if-no-files-found: error       
-          compression-level: 0           
+          path: upload/dist
 
   deploy:
     needs: build
