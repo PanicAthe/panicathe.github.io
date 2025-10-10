@@ -31,24 +31,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload built files (include binary like mp4)
-        uses: actions/upload-artifact@v4
-        with:
-          name: built-dist
-          path: dist
-          compression-level: 0     
-          if-no-files-found: error 
-
-      - name: Prepare Pages artifact
-        run: |
-          mkdir upload
-          mv dist upload/
-        shell: bash
-
-      - name: Upload Pages artifact
+      # ✅ mp4 포함 업로드 (upload-pages-artifact 단독, zip 묶지 않음)
+      - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: upload/dist
+          path: dist  # dist 그대로 업로드
 
   deploy:
     needs: build
