@@ -6,6 +6,7 @@ import Row from './components/Row/Row';
 import Footer from './components/Footer/Footer';
 import ProjectModal from './components/ProjectModal/ProjectModal';
 import StackModal from './components/StackModal/StackModal';
+import Lanyard from './components/Lanyard/Lanyard';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 
@@ -213,6 +214,7 @@ function PortfolioContent() {
 
       <ProjectModal project={selectedProject} onClose={closeProjectModal} />
       <StackModal />
+      <Lanyard />
     </div>
   );
 }

@@ -7,6 +7,7 @@ export const useProjects = () => useContext(ProjectContext);
 export const ProjectProvider = ({ children, projects }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedStack, setSelectedStack] = useState(null);
+  const [isLanyardModalOpen, setIsLanyardModalOpen] = useState(false);
 
   const selectProject = (project) => {
     setSelectedProject(project);
@@ -30,15 +31,26 @@ export const ProjectProvider = ({ children, projects }) => {
     selectProject(project);
   };
 
+  const openLanyardModal = () => {
+    setIsLanyardModalOpen(true);
+  };
+
+  const closeLanyardModal = () => {
+    setIsLanyardModalOpen(false);
+  };
+
   const value = {
     projects,
     selectedProject,
     selectedStack,
+    isLanyardModalOpen,
     selectProject,
     closeProjectModal,
     selectStack,
     clearSelectedStack,
     selectProjectFromStackModal,
+    openLanyardModal,
+    closeLanyardModal,
   };
 
   return (
