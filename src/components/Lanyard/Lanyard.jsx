@@ -16,7 +16,7 @@ import { useProjects } from '../../contexts/ProjectContext';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-export default function Lanyard({ position = [0, 0, 17], gravity = [0, -40, 0], fov = 20, transparent = true }) {
+export default function Lanyard({ position = [0, 0, 13], gravity = [0, -40, 0], fov = 20, transparent = true }) {
   const { isLanyardModalOpen, closeLanyardModal } = useProjects();
 
   if (!isLanyardModalOpen) {
