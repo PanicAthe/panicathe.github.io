@@ -3,14 +3,18 @@ import './Banner.css';
 import SplitText from '../SplitText/SplitText';
 import Silk from '../Silk/Silk';
 import { useProjects } from '../../contexts/ProjectContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 function Banner() {
   const { openLanyardModal } = useProjects();
+  const { theme } = useTheme();
+
+  const silkColor = theme === 'light' ? '#89CFF0' : '#dc4444ff';
 
   return (
     <div className="banner">
       <div className="banner-background">
-        <Silk color="#dc4444ff" />
+        <Silk color={silkColor} />
       </div>
       <div className="banner__contents">
         <SplitText 
@@ -22,7 +26,7 @@ function Banner() {
         <SplitText 
           tag="h2" 
           className="banner__subtitle" 
-          text="Spring 기반 백엔드 개발 역량을 바탕으로 클라우드 배포, AI/모바일 앱 연동, 그리고 안정적인 서비스 구축을 경험한 개발자입니다. 문제 해결과 가치 창출에 기여합니다."
+          text="백엔드 개발을 중심으로, 클라우드·AI·모바일 기술을 연결해 하나의 서비스로 완성하는 개발자입니다. 기술을 넘어, 문제 해결과 사용자 경험 향상에 집중합니다."
           textAlign="left"
           delay={10}
         />

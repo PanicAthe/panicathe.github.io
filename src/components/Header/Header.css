@@ -7,7 +7,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 0 50px;
+  height: 80px;
   background-color: var(--header-bg-color, #141414);
   backdrop-filter: blur(10px);
   z-index: 100;
@@ -25,15 +26,37 @@
   align-items: center;
 }
 
+.header__nav {
+  display: flex;
+  align-items: center;
+}
+
 .header__nav a {
   color: var(--text-color, white);
   text-decoration: none;
   margin-left: 20px;
-  font-weight: 500;
 }
 
 .header__nav a:hover {
   color: var(--text-color-hover, #b3b3b3);
+}
+
+.header__nav a.header__download-btn {
+  background-color: var(--primary-color, #e50914);
+  color: white;
+  padding: 0 20px; /* Adjusted padding since height is fixed */
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.header__download-btn:hover {
+  background-color: var(--primary-color-hover, #f40612);
+  color: white;
 }
 
 .theme-toggle-container {

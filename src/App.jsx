@@ -8,6 +8,7 @@ import ProjectModal from './components/ProjectModal/ProjectModal';
 import StackModal from './components/StackModal/StackModal';
 import Lanyard from './components/Lanyard/Lanyard';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 
 // --- DATA ---
@@ -221,12 +222,14 @@ function PortfolioContent() {
 
 function App() {
   return (
-    <ProjectProvider projects={allProjects}>
-      <Routes>
-        <Route path="/" element={<PortfolioContent />} />
-        <Route path="/project/:projectId" element={<ProjectDetailPage projects={allProjects} />} />
-      </Routes>
-    </ProjectProvider>
+    <ThemeProvider>
+      <ProjectProvider projects={allProjects}>
+        <Routes>
+          <Route path="/" element={<PortfolioContent />} />
+          <Route path="/project/:projectId" element={<ProjectDetailPage projects={allProjects} />} />
+        </Routes>
+      </ProjectProvider>
+    </ThemeProvider>
   );
 }
 

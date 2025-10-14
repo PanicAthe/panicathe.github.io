@@ -68,7 +68,7 @@ void main() {
 }
 `;
 
-const SilkPlane = forwardRef(function SilkPlane({ uniforms }, ref) {
+const SilkPlane = forwardRef(function SilkPlane({ uniforms, color }, ref) {
   const { viewport } = useThree();
 
   useLayoutEffect(() => {
@@ -84,7 +84,7 @@ const SilkPlane = forwardRef(function SilkPlane({ uniforms }, ref) {
   return (
     <mesh ref={ref}>
       <planeGeometry args={[1, 1, 1, 1]} />
-      <shaderMaterial uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} />
+      <shaderMaterial key={color} uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} />
     </mesh>
   );
 });
@@ -107,7 +107,7 @@ const Silk = ({ speed = 5, scale = 1, color = '#e8e3ecff', noiseIntensity = 1.5,
 
   return (
     <Canvas dpr={[1, 2]} frameloop="always">
-      <SilkPlane ref={meshRef} uniforms={uniforms} />
+      <SilkPlane ref={meshRef} uniforms={uniforms} color={color} />
     </Canvas>
   );
 };
