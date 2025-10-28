@@ -1,6 +1,6 @@
 .banner {
   position: relative;
-  height: 650px;
+  height: 400px;
   background-size: cover;
   background-position: center center;
   color: #ffffff;
@@ -18,17 +18,17 @@
 
 .banner__contents {
   padding-left: 50px;
-  padding-top: 150px;
+  padding-top: 60px;
 }
 
 .banner__title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   padding-bottom: 0; /* Reduced space */
 }
 
 .banner__subtitle {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 500;
   padding-bottom: 1rem;
   max-width: 800px; /* Constrain width */
@@ -55,20 +55,20 @@
 
 @media (max-width: 768px) {
   .banner {
-    height: 550px;
+    height: 350px;
   }
 
   .banner__contents {
     padding-left: 20px;
-    padding-top: 100px;
+    padding-top: 40px;
   }
 
   .banner__title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .banner__subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
 

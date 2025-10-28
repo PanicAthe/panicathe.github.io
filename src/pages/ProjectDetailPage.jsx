@@ -59,7 +59,7 @@ function ProjectDetailPage({ projects }) {
   return (
     <div className="project-detail-page">
       <button className="back-button" onClick={() => navigate(-1)}>
-        &larr; Back
+        &larr; 뒤로가기
       </button>
       
       <header className="project-detail-header">
@@ -70,11 +70,13 @@ function ProjectDetailPage({ projects }) {
       <section className="project-detail-gallery">
         <div className="gallery-main-image">
           {renderMedia(selectedMedia)}
-          <button className="fullscreen-button" onClick={() => openLightbox(selectedMedia)} title="View Fullscreen">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="icon">
-              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 2h-2v3h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"></path>
-            </svg>
-          </button>
+          {!selectedMedia?.endsWith('.mp4') && (
+            <button className="fullscreen-button" onClick={() => openLightbox(selectedMedia)} title="View Fullscreen">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
+              </svg>
+            </button>
+          )}
         </div>
         {displayMedia.length > 1 && (
           <div className="gallery-thumbnails">

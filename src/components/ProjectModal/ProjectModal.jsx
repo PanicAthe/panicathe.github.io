@@ -63,8 +63,8 @@ function ProjectModal({ project, onClose }) {
           {renderMedia(displayMedia[currentIndex])}
           
           <button className="btn-primary modal-play-button" onClick={handleNavigate} title="Go to Project Page">
-            <svg viewBox="0 0 24 24" className="icon">
-              <path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor"></path>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="icon">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
             </svg>
             <span>상세 보기</span>
           </button>

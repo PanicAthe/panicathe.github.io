@@ -18,13 +18,13 @@ function Banner() {
       </div>
       <div className="banner__contents">
         <SplitText 
-          tag="h1" 
+          tag="h2" 
           className="banner__title" 
           text="안녕하세요, 최은진입니다." 
           textAlign="left"
         />
         <SplitText 
-          tag="h2" 
+          tag="h3" 
           className="banner__subtitle" 
           text="백엔드 개발을 중심으로, 클라우드·AI·모바일 기술을 연결해 하나의 서비스로 완성하는 개발자입니다. 기술을 넘어, 문제 해결과 사용자 경험 향상에 집중합니다."
           textAlign="left"
@@ -33,7 +33,7 @@ function Banner() {
         <div className="banner__buttons">
           <button className="btn-primary" onClick={openLanyardModal}>
             <svg viewBox="0 0 24 24" className="icon">
-              <path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor"></path>
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v.511l7.443 4.652a1 1 0 001.114 0L20 6.511V6H4zm16 12V8.388l-8 5-8-5V18h16z" fill="currentColor"></path>
             </svg>
             <span>연락하기</span>
           </button>
