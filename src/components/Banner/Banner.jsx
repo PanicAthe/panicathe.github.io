@@ -6,7 +6,7 @@ import { useProjects } from '../../contexts/ProjectContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
 function Banner() {
-  const { openLanyardModal } = useProjects();
+  const { openContactModal } = useProjects();
   const { theme } = useTheme();
 
   const silkColor = theme === 'light' ? '#89CFF0' : '#dc4444ff';
@@ -31,7 +31,7 @@ function Banner() {
           delay={10}
         />
         <div className="banner__buttons">
-          <button className="btn-primary" onClick={openLanyardModal}>
+          <button className="btn-primary" onClick={openContactModal}>
             <svg viewBox="0 0 24 24" className="icon">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v.511l7.443 4.652a1 1 0 001.114 0L20 6.511V6H4zm16 12V8.388l-8 5-8-5V18h16z" fill="currentColor"></path>
             </svg>

@@ -8,6 +8,7 @@ export const ProjectProvider = ({ children, projects }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedStack, setSelectedStack] = useState(null);
   const [isLanyardModalOpen, setIsLanyardModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const selectProject = (project) => {
     setSelectedProject(project);
@@ -39,11 +40,20 @@ export const ProjectProvider = ({ children, projects }) => {
     setIsLanyardModalOpen(false);
   };
 
+  const openContactModal = () => {
+    setIsContactModalOpen(true);
+  };
+
+  const closeContactModal = () => {
+    setIsContactModalOpen(false);
+  };
+
   const value = {
     projects,
     selectedProject,
     selectedStack,
     isLanyardModalOpen,
+    isContactModalOpen,
     selectProject,
     closeProjectModal,
     selectStack,
@@ -51,6 +61,8 @@ export const ProjectProvider = ({ children, projects }) => {
     selectProjectFromStackModal,
     openLanyardModal,
     closeLanyardModal,
+    openContactModal,
+    closeContactModal,
   };
 
   return (

@@ -6,6 +6,7 @@ import Row from './components/Row/Row';
 import Footer from './components/Footer/Footer';
 import ProjectModal from './components/ProjectModal/ProjectModal';
 import StackModal from './components/StackModal/StackModal';
+import ContactModal from './components/ContactModal/ContactModal';
 import Lanyard from './components/Lanyard/Lanyard';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -190,7 +191,9 @@ function PortfolioContent() {
     selectedProject, 
     closeProjectModal, 
     selectProject, 
-    selectStack 
+    selectStack,
+    isContactModalOpen,
+    closeContactModal
   } = useProjects();
 
   return (
@@ -215,7 +218,7 @@ function PortfolioContent() {
 
       <ProjectModal project={selectedProject} onClose={closeProjectModal} />
       <StackModal />
-      <Lanyard />
+      <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
     </div>
   );
 }
