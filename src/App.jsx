@@ -48,9 +48,26 @@ const collaborationAndDesign = [
 ];
 
 const certifications = [
-    { id: 'info-proc', name: '정보처리기사', imageUrl: 'https://img.shields.io/badge/정보처리기사-2E8B57?style=for-the-badge&logo=google-scholar&logoColor=white', date: '2025-09-12' },
-    { id: 'sqld', name: 'SQLD', imageUrl: 'https://img.shields.io/badge/SQLD-003B57?style=for-the-badge&logo=databricks&logoColor=white', date: '2025-09-19' },
+    { 
+        id: 'info-proc', 
+        name: '정보처리기사', 
+        imageUrl: 'https://img.shields.io/badge/정보처리기사-2E8B57?style=for-the-badge&logo=google-scholar&logoColor=white', 
+        date: '2025-09-12' 
+    },
+    { 
+        id: 'sqld', 
+        name: 'SQLD', 
+        imageUrl: 'https://img.shields.io/badge/SQLD-003B57?style=for-the-badge&logo=databricks&logoColor=white', 
+        date: '2025-09-19' 
+    },
+    { 
+        id: 'toeic', 
+        name: 'TOEIC 900점', 
+        imageUrl: 'https://img.shields.io/badge/TOEIC-900점-0054A6?logoColor=white&labelColor=ce0018', 
+        date: '2025-11-09' 
+    }
 ];
+
 
 const allProjects = [
   {
