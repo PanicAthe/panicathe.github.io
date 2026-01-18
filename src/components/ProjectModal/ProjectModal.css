@@ -4,40 +4,53 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeInOverlay 0.3s ease-out;
 }
 
 .modal-content {
-  background-color: var(--card-bg-color, #181818);
-  color: var(--text-color, white);
-  border-radius: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  color: var(--text-color, #1a1d23);
+  border-radius: 18px;
   width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
+  max-width: 920px;
+  max-height: 88vh;
   overflow-y: auto;
   position: relative;
-  animation: fadeIn 0.3s ease-out;
+  animation: slideUpModal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 40px 96px rgba(15, 23, 42, 0.28), 0 16px 32px rgba(15, 23, 42, 0.12);
+  border: 1.5px solid rgba(148, 163, 184, 0.15);
 }
 
 .modal-close-button {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #404040;
-  color: white; /* This will be inherited by the SVG's 'currentColor' */
-  border: none;
+  top: 18px;
+  right: 18px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(79, 70, 229, 0.05));
+  color: var(--text-color);
+  border: 1.5px solid rgba(79, 70, 229, 0.25);
   border-radius: 50%;
-  width: 36px; /* Slightly larger for better touch area */
-  height: 36px;
+  width: 44px;
+  height: 44px;
   cursor: pointer;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.modal-close-button:hover {
+  background: rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.4);
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.15);
 }
 
 .modal-close-button .icon {
@@ -48,11 +61,14 @@
 .modal-image-gallery {
   position: relative;
   width: 100%;
-  height: 450px;
-  background-color: #000;
+  height: 480px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.1);
 }
 
 .modal-media {
@@ -70,24 +86,27 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(79, 70, 229, 0.7));
   color: white;
-  border: none;
-  border-radius: 50%; /* Make it circular */
-  width: 40px; /* Set fixed size */
-  height: 40px; /* Set fixed size */
-  font-size: 1.5rem; /* Adjust icon size */
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.3rem;
   cursor: pointer;
-  transition: background-color 0.3s;
-  z-index: 1;
-  display: flex; /* Center the icon */
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 5;
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0; /* Remove padding */
+  padding: 0;
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
 }
 
 .gallery-nav-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 1), rgba(79, 70, 229, 0.85));
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.45);
 }
 
 .gallery-nav-button.prev {
@@ -100,61 +119,101 @@
 
 .modal-play-button {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 24px;
+  left: 24px;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 3;
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.35);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 20px !important;
+  font-weight: 700 !important;
+  color: white !important;
 }
 
 .modal-image-gallery:hover .modal-play-button {
   opacity: 1;
+  transform: translateY(-2px);
 }
 
 .modal-body {
-  padding: 20px 30px;
+  padding: 36px 40px 40px 40px;
 }
 
 .modal-header {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1.5px solid rgba(148, 163, 184, 0.15);
 }
 
 .modal-title {
   font-size: 2rem;
-  margin: 0 0 5px 0; /* Add margin below the title */
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  color: var(--text-color);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .modal-period {
   font-size: 1rem;
-  color: var(--text-color-hover);
-  margin: 0; /* Reset margin */
+  color: var(--footer-text-color);
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .modal-overview {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 30px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 32px;
+  color: #334155;
+  padding: 20px;
+  background: rgba(81, 112, 255, 0.04);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary-color);
 }
 
 .modal-section {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.15);
 }
 
 .modal-section h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  border-left: 4px solid var(--primary-color);
-  padding-left: 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: var(--primary-color);
+  border-left: 5px solid var(--primary-color);
+  padding-left: 16px;
+  letter-spacing: -0.01em;
 }
 
 .modal-section ul {
-  list-style-position: inside;
-  padding-left: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .modal-section li {
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 12px;
+  line-height: 1.7;
+  padding-left: 24px;
+  position: relative;
+  color: #475569;
+}
+
+.modal-section li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: bold;
 }
 
 .modal-tech-list {
@@ -169,6 +228,30 @@
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 0.9rem;
+}
+
+.tech-tag--core {
+  background: linear-gradient(135deg, rgba(81, 112, 255, 0.15) 0%, rgba(81, 112, 255, 0.08) 100%);
+  color: var(--primary-color);
+  font-weight: 600;
+  border: 1px solid rgba(81, 112, 255, 0.3);
+}
+
+.tech-category-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color-hover);
+  margin: 12px 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tech-category-label:first-of-type {
+  margin-top: 0;
+}
+
+.modal-tech-list--core {
+  margin-bottom: 16px;
 }
 
 .modal-repo-list {
@@ -193,6 +276,35 @@
   background-color: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
+}
+
+.modal-section--github {
+  background: linear-gradient(135deg, rgba(81, 112, 255, 0.08) 0%, rgba(81, 112, 255, 0.03) 100%);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(81, 112, 255, 0.2);
+  margin-top: 20px;
+}
+
+.modal-section--github h3 {
+  color: var(--primary-color);
+  border-left: 4px solid var(--primary-color);
+}
+
+.modal-section--github .modal-repo-list {
+  gap: 12px;
+}
+
+.modal-section--github .repo-link {
+  background-color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(81, 112, 255, 0.15);
+  border: 2px solid rgba(81, 112, 255, 0.3);
+}
+
+.modal-section--github .repo-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(81, 112, 255, 0.3);
 }
 
 @keyframes fadeIn {

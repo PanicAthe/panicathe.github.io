@@ -82,6 +82,13 @@ function ProjectModal({ project, onClose }) {
           <p className="modal-overview">{project.overview}</p>
           
           <div className="modal-section">
+            <h3>주요 성과</h3>
+            <ul>
+              {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
+            </ul>
+          </div>
+
+          <div className="modal-section">
             <h3>나의 역할 및 기여</h3>
             <ul>
               {project.role.map((r, index) => <li key={index}>{r}</li>)}
@@ -89,22 +96,38 @@ function ProjectModal({ project, onClose }) {
           </div>
 
           <div className="modal-section">
-            <h3>성과 및 학습</h3>
-            <ul>
-              {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
-            </ul>
-          </div>
-
-          <div className="modal-section">
             <h3>기술 스택</h3>
-            <div className="modal-tech-list">
-              {project.technologies.map(tech => <span key={tech} className="tech-tag">{tech}</span>)}
-            </div>
+            {(() => {
+              const coreTechs = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
+              const coreTechnologies = project.technologies.filter(tech => coreTechs.includes(tech));
+              const otherTechnologies = project.technologies.filter(tech => !coreTechs.includes(tech));
+              
+              return (
+                <>
+                  {coreTechnologies.length > 0 && (
+                    <>
+                      <p className="tech-category-label">핵심 기술</p>
+                      <div className="modal-tech-list modal-tech-list--core">
+                        {coreTechnologies.map(tech => <span key={tech} className="tech-tag tech-tag--core">{tech}</span>)}
+                      </div>
+                    </>
+                  )}
+                  {otherTechnologies.length > 0 && (
+                    <>
+                      {coreTechnologies.length > 0 && <p className="tech-category-label">사용 기술</p>}
+                      <div className="modal-tech-list">
+                        {otherTechnologies.map(tech => <span key={tech} className="tech-tag">{tech}</span>)}
+                      </div>
+                    </>
+                  )}
+                </>
+              );
+            })()}
           </div>
 
           {project.githubUrls && (
-            <div className="modal-section">
-              <h3>Repositories</h3>
+            <div className="modal-section modal-section--github">
+              <h3>GitHub Repository</h3>
               <div className="modal-repo-list">
                               {project.githubUrls.organization && (
                                 <a href={project.githubUrls.organization} target="_blank" rel="noopener noreferrer" className="repo-link">

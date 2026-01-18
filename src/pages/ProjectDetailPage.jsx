@@ -59,7 +59,7 @@ function ProjectDetailPage({ projects }) {
   return (
     <div className="project-detail-page">
       <button className="back-button" onClick={() => navigate(-1)}>
-        &larr; 뒤로가기
+        ← 뒤로가기
       </button>
       
       <header className="project-detail-header">
@@ -73,7 +73,7 @@ function ProjectDetailPage({ projects }) {
           {!selectedMedia?.endsWith('.mp4') && (
             <button className="fullscreen-button" onClick={() => openLightbox(selectedMedia)} title="View Fullscreen">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="icon">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
               </svg>
             </button>
           )}
@@ -84,7 +84,7 @@ function ProjectDetailPage({ projects }) {
               <div 
                 key={index} 
                 className={`thumbnail-item ${media === selectedMedia ? 'active' : ''}`}
-                onClick={() => setSelectedMedia(media)} // This just changes the main view
+                onClick={() => setSelectedMedia(media)}
               >
                 {renderMedia(media, true)} 
               </div>
@@ -93,11 +93,17 @@ function ProjectDetailPage({ projects }) {
         )}
       </section>
 
-      <section className="project-detail-body"> 
-        {/* ... rest of the body ... */}
+      <section className="project-detail-body">
         <div className="project-detail-section">
           <h2>개요</h2>
           <p>{project.overview}</p>
+        </div>
+
+        <div className="project-detail-section">
+          <h2>주요 성과</h2>
+          <ul>
+            {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
+          </ul>
         </div>
 
         <div className="project-detail-section">
@@ -108,22 +114,32 @@ function ProjectDetailPage({ projects }) {
         </div>
 
         <div className="project-detail-section">
-          <h2>성과 및 학습</h2>
-          <ul>
-            {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
-          </ul>
-        </div>
-
-        <div className="project-detail-section">
           <h2>기술 스택</h2>
-          <div className="tech-list">
-            {project.technologies.map(tech => <span key={tech} className="tech-tag">{tech}</span>)}
-          </div>
+          {(() => {
+            const coreTechs = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
+            const coreTechnologies = project.technologies.filter(tech => coreTechs.includes(tech));
+            const otherTechnologies = project.technologies.filter(tech => !coreTechs.includes(tech));
+            
+            return (
+              <>
+                {coreTechnologies.length > 0 && (
+                  <div className="tech-list">
+                    {coreTechnologies.map(tech => <span key={tech} className="tech-tag">{tech}</span>)}
+                  </div>
+                )}
+                {otherTechnologies.length > 0 && (
+                  <div className="tech-list">
+                    {otherTechnologies.map(tech => <span key={tech} className="tech-tag">{tech}</span>)}
+                  </div>
+                )}
+              </>
+            );
+          })()}
         </div>
 
         {project.githubUrls && (
           <div className="project-detail-section">
-            <h2>Repositories</h2>
+            <h2>GitHub Repository</h2>
             <div className="repo-list">
               {project.githubUrls.organization && (
                 <a href={project.githubUrls.organization} target="_blank" rel="noopener noreferrer" className="repo-link">

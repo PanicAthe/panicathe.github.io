@@ -1,35 +1,38 @@
 import React from 'react';
 import './Banner.css';
 import SplitText from '../SplitText/SplitText';
-import Silk from '../Silk/Silk';
 import { useProjects } from '../../contexts/ProjectContext';
-import { useTheme } from '../../contexts/ThemeContext';
 
 function Banner() {
   const { openContactModal } = useProjects();
-  const { theme } = useTheme();
-
-  const silkColor = theme === 'light' ? '#89CFF0' : '#dc4444ff';
 
   return (
     <div className="banner">
-      <div className="banner-background">
-        <Silk color={silkColor} />
-      </div>
       <div className="banner__contents">
-        <SplitText 
-          tag="h2" 
-          className="banner__title" 
-          text="안녕하세요, 최은진입니다." 
-          textAlign="left"
-        />
-        <SplitText 
-          tag="h3" 
-          className="banner__subtitle" 
-          text="백엔드 개발을 중심으로, 클라우드·AI·모바일 기술을 연결해 하나의 서비스로 완성하는 개발자입니다. 기술을 넘어, 문제 해결과 사용자 경험 향상에 집중합니다."
-          textAlign="left"
-          delay={10}
-        />
+        <div className="banner__header">
+          <SplitText 
+            tag="h1" 
+            className="banner__name" 
+            text="안녕하세요 👋 백엔드 개발자 최은진입니다" 
+            textAlign="left"
+          />
+        </div>
+        <div className="banner__description">
+          <div className="banner__badges">
+            <span className="banner__badge banner__badge--primary">AWS SAA</span>
+            <span className="banner__badge banner__badge--award">신한DS 금융 아카데미 🥇 최우수상</span>
+          </div>
+          <p className="banner__intro">
+            인천대학교 컴퓨터공학부 졸업 · 신한DS 금융 SW 아카데미 수료
+          </p>
+          <p className="banner__details">
+            탄탄한 CS 지식과 실무 중심 백엔드 역량을 바탕으로,<br />
+            <strong>확장성 있는 설계</strong>와 <strong>AI·백엔드 융합</strong>에 관심이 많습니다.
+          </p>
+          <p className="banner__learning">
+            현재 <span className="banner__tech">Spring Boot</span>, <span className="banner__tech">Spring AI</span>, <span className="banner__tech">RAG</span>를 학습 중입니다.
+          </p>
+        </div>
         <div className="banner__buttons">
           <button className="btn-primary" onClick={openContactModal}>
             <svg viewBox="0 0 24 24" className="icon">
@@ -45,7 +48,6 @@ function Banner() {
           </a>
         </div>
       </div>
-      <div className="banner--fadeBottom" />
     </div>
   );
 }

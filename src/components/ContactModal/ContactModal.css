@@ -4,76 +4,157 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .contact-modal-content {
-  background-color: var(--card-bg-color, #181818);
-  color: var(--text-color, white);
-  border-radius: 8px;
-  padding: 20px 30px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+  color: var(--text-color, #1a1d23);
+  border-radius: 16px;
+  padding: 40px 32px;
   position: relative;
-  animation: fadeIn 0.3s ease-out;
   width: 90%;
-  max-width: 400px;
+  max-width: 420px;
   text-align: center;
+  box-shadow: 0 24px 56px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .contact-modal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-color, white);
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(79, 70, 229, 0.05));
+  border: 1.5px solid rgba(79, 70, 229, 0.25);
+  font-size: 1.8rem;
+  color: var(--text-color, #1a1d23);
   cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.contact-modal-close:hover {
+  background: rgba(79, 70, 229, 0.15);
+  border-color: rgba(79, 70, 229, 0.4);
+  transform: rotate(90deg);
 }
 
 .contact-modal-content h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
+  margin: 0 0 28px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.01em;
 }
 
 .contact-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  gap: 12px;
   align-items: center;
-  background-color: var(--card-bg-hover);
-  padding: 10px 15px;
-  border-radius: 5px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(79, 70, 229, 0.02));
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(79, 70, 229, 0.2);
 }
 
 .contact-info p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-color);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 
 .copy-button {
-  background-color: var(--primary-color);
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
   color: white;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 10px 18px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.25);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .copy-button:hover {
-  background-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(79, 70, 229, 0.35);
+}
+
+.copy-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .contact-modal-content {
+    padding: 28px 20px;
+    max-width: 90vw;
+  }
+
+  .contact-modal-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .contact-info {
+    flex-direction: row;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+
+  .contact-info p {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .copy-button {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    backdrop-filter: blur(4px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

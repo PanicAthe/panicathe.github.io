@@ -2,17 +2,32 @@
   --background-color: #e6f3ff;
   --text-color: #1c1e21;
   --text-color-hover: #555;
-  --primary-color: #5170ff; /* Changed from red to blue for light theme */
-  --header-bg-color: rgba(255, 255, 255, 0.8);
+  --primary-color: #5170ff;
+  --header-bg-color: rgba(255, 255, 255, 0.9);
   --card-bg-color: #ffffff;
-  --card-bg-hover: #e8e8e8;
+  --card-bg-hover: #edf1ff;
   --footer-text-color: #65676b;
-  --footer-border-color: #ddd;
+  --footer-border-color: #d5d9e5;
   --fade-color: rgba(240, 242, 245, 0.61);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --content-max-width: 1120px;
+  --page-horizontal-padding: 24px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 100px;
 }
 
 body {
-  background-color: var(--background-color);
+  background: radial-gradient(circle at top left, #f3f7ff 0, var(--background-color) 55%);
   color: var(--text-color);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
@@ -20,6 +35,13 @@ body {
   transition: background-color 0.3s, color 0.3s;
   text-rendering: optimizeLegibility;
   font-synthesis: none;
+  line-height: 1.6;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Reusable Primary Button */
@@ -80,7 +102,26 @@ body {
 
 /* Add padding to the main app container to account for the fixed header */
 .App {
+  min-height: 100vh;
   padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-horizontal-padding);
+}
+
+.section {
+  margin-top: 56px;
+}
+
+.section:first-of-type {
+  margin-top: 40px;
 }
 
 /* Add smooth transitions for theme changes */
@@ -93,6 +134,10 @@ body {
 @media (max-width: 768px) {
   .App {
     padding-top: 60px;
+  }
+
+  .app-main {
+    padding: 0 16px;
   }
 }
 

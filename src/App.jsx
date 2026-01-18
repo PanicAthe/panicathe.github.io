@@ -37,7 +37,6 @@ const dbAndTools = [
   { id: 'postman', name: 'Postman', imageUrl: 'https://skillicons.dev/icons?i=postman' },
   { id: 'git', name: 'Git', imageUrl: 'https://skillicons.dev/icons?i=git' },
   { id: 'github', name: 'GitHub', imageUrl: 'https://techstack-generator.vercel.app/github-icon.svg' },
-  { id: 'prettier', name: 'Prettier', imageUrl: 'https://techstack-generator.vercel.app/prettier-icon.svg' },
 ];
 
 const collaborationAndDesign = [
@@ -47,32 +46,66 @@ const collaborationAndDesign = [
   { id: 'chartjs', name: 'Chart.js', imageUrl: 'https://www.chartjs.org/media/logo-title.svg' },
 ];
 
+const awards = [
+  {
+    id: 'shinhan-best',
+    name: '신한 DS 금융 SW 아카데미',
+    label: '🥇 최우수상',
+    date: '2025.10',
+    project: '펭글로브 (Penglobe)',
+    projectId: 1, // Penglobe 프로젝트 ID
+    description: '팀 프로젝트에서 기술 완성도와 서비스 구현력에서 높은 평가를 받아 수상'
+  },
+  {
+    id: 'inu-encouragement',
+    name: '인천대학교 졸업작품 경진대회',
+    label: '🥉 장려상',
+    date: '2024.05',
+    project: 'commINUty',
+    projectId: 3, // commINUty 프로젝트 ID
+    description: 'GPS 기반 커뮤니티 앱 서비스 개발 프로젝트로 수상'
+  },
+];
+
 const certifications = [
-    { 
-        id: 'info-proc', 
-        name: '정보처리기사', 
-        imageUrl: 'https://img.shields.io/badge/정보처리기사-2E8B57?style=for-the-badge&logo=google-scholar&logoColor=white', 
-        date: '2025-09-12' 
-    },
-    { 
-        id: 'sqld', 
-        name: 'SQLD', 
-        imageUrl: 'https://img.shields.io/badge/SQLD-003B57?style=for-the-badge&logo=databricks&logoColor=white', 
-        date: '2025-09-19' 
-    },
-    { 
-        id: 'toeic', 
-        name: 'TOEIC 900점', 
-        imageUrl: 'https://img.shields.io/badge/TOEIC-900점-0054A6?logoColor=white&labelColor=ce0018', 
-        date: '2025-11-09' 
-    }
+  {
+    id: 'aws-saa',
+    name: 'AWS Certified Solutions Architect – Associate',
+    label: 'Pass',
+    date: '2026.01',
+    linkUrl: 'https://www.credly.com/badges/2e996661-2393-4397-99f5-49fb2f83b5ce/public_url',
+  },
+  {
+    id: 'info-proc',
+    name: '정보처리기사',
+    label: 'Pass',
+    date: '2025.09',
+  },
+  {
+    id: 'sqld',
+    name: 'SQLD',
+    label: 'Pass',
+    date: '2025.09',
+  },
+  {
+    id: 'toeic',
+    name: 'TOEIC',
+    label: '900',
+    date: '2025.11',
+  },
+  {
+    id: 'toeic-speaking',
+    name: 'TOEIC Speaking',
+    label: 'IH (150)',
+    date: '2025.12',
+  },
 ];
 
 
 const allProjects = [
   {
     id: 1,
-    name: '🐧 Penglobe - 환경 금융 플랫폼 (🏆 최우수상 수상)',
+    name: '🐧 Penglobe - 환경 금융 플랫폼 (🏆최우수상)',
     period: '2025.08 ~ 2025.09',
     thumbnailUrl: '/images/projects/penglobe/8.jpg',
     galleryImageUrls: [
@@ -94,22 +127,22 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Demo.mp4',
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Interview.mp4'
     ],
-    overview: '개인의 작은 실천을 데이터·보상·감정 피드백으로 연결하는 환경 금융 플랫폼.\n걸음, 식습관, 미션 데이터를 기반으로 탄소 절감량을 시각화하고, 얻은 포인트로 친환경 소비나 기부를 실천할 수 있습니다.',
+    overview: '일상 속 친환경 활동을 기록하여 탄소 절감량을 시각화하고, 이를 포인트로 전환하여 기부 및 금융 상품과 연계하는 ESG 금융 플랫폼입니다.',
     role: [
-      '백엔드 아키텍처 설계, 관리 및 서버 배포 (Ubuntu, Docker)',
-      '펭걸음 기능 (GPS 기반 이동거리별 탄소 절감량 계산) 구현',
-      'Spring Boot 백엔드 서버 클라우드 배포',
-      'MariaDB 스키마 설계 및 연동',
-      'Android 빌드 및 배포 관리',
-      'AI 툴을 활용한 서비스 캐릭터 및 일러스트 제작'
+      'GPS 정밀 보정 알고리즘 구현: React Native에서 좌표 튐 현상 제거로 이동 거리 측정 정확도 향상',
+      '펭걸음 기능 풀스택 개발: 보정 데이터 수신 및 탄소 절감량 계산 서버 로직 설계',
+      'Docker 기반 인프라 구축: Spring Boot와 MariaDB 컨테이너 구성 및 배포 파이프라인 주도',
+      'Expo 의존성 이슈 해결: SDK 업그레이드 호환성 문제 해결 및 Android 빌드/배포 전담',
+      'AI 브랜딩 적용: 생성형 AI(Gemini)를 활용한 캐릭터와 일러스트 제작 및 앱 전반 적용',
+      '로딩 스크린 최적화: 앱 초기 진입 시 체감 대기 시간 단축'
     ],
     learnings: [
+      '시범 운영 결과 사용자 94.4%가 "친환경 습관 형성에 도움"이라고 긍정 응답',
+      '신한금융 SW 아카데미 최우수상 수상 - 기술 완성도와 서비스 구현력에서 높은 평가',
       'React Native 앱과 Spring Boot 서버를 연동한 엔드투엔드 서비스 개발 경험',
-      '빌드 및 환경 설정 문제 해결을 통한 운영 최적화 경험',
-      '개발뿐 아니라 AI 툴을 활용한 브랜딩/디자인 차별화 경험',
-      '신한금융 SW 아카데미 5기 최우수상 수상'
+      'Android 빌드 이슈 해결을 통해 프로젝트 완성도 제고 및 팀 내 기술적 병목 해소'
     ],
-    technologies: ['Java', 'Spring Boot', 'JPA', 'Swagger', 'React Native', 'Expo', 'TailwindCSS', 'MariaDB', 'Groq AI', 'FoodLens SDK', 'Ubuntu', 'Docker', 'GitHub', 'Figma', 'Notion', 'Slack', 'MySQL', 'Git', 'REST API', 'JavaScript'],
+    technologies: ['Java', 'Spring Boot', 'JPA', 'Swagger', 'React Native', 'Expo', 'Postman', 'TailwindCSS', 'MariaDB', 'Groq AI', 'FoodLens SDK', 'Ubuntu', 'Docker', 'GitHub', 'Figma', 'Notion', 'Slack', 'Git', 'REST API', 'JavaScript'],
     githubUrls: {
       organization: 'https://github.com/Penglobe',
       backend: 'https://github.com/Penglobe/server',
@@ -128,22 +161,23 @@ const allProjects = [
     galleryVideoUrls: [
       'https://panicathe.github.io/images/projects/takku/Takku_Demo.mp4'
     ],
-    overview: '소상공인을 위한 AI 자동 홍보 및 펀딩형 쿠폰 판매 플랫폼',
+    overview: '소상공인의 자금 확보를 돕는 크라우드 펀딩 기능과, 생성형 AI(LLM)를 활용한 자동 홍보글 생성 및 고객 리뷰 분석을 제공하는 올인원 마케팅 플랫폼입니다.',
     role: [
-      '백엔드 API 및 대시보드 기능 개발',
-      '서버/DB 배포 담당',
-      'Swagger API 문서화',
-      'FastAPI 기반 AI 추천/요약 모듈 구현',
-      'Chart.js 활용 대시보드 시각화',
-      'Groq AI 연동 자동 홍보 문구 생성 기능 구현'
+      'FastAPI 기반 AI 모듈 분리: Java(Spring)와 Python(FastAPI) 서버를 별도 구축하여 MSA 아키텍처로 분리',
+      '하이브리드 추천 시스템: TF-IDF + 코사인 유사도를 결합한 상품 추천 알고리즘 구현',
+      '리뷰 요약 기능: TextRank 알고리즘으로 방대한 리뷰 데이터를 긍정/부정 키워드로 자동 요약',
+      'LLM 파이프라인 최적화: Context Injection 및 Output Formatting으로 응답 성공률 개선 및 고품질 홍보글 자동 생성',
+      'Spring Legacy + Oracle API 개발: 펀딩 생성, 추천, 리뷰 요약 핵심 비즈니스 로직 구현 및 Swagger 문서화',
+      '통계 대시보드 풀스택 구현: MyBatis 동적 쿼리로 데이터 추출 후 JSP + Chart.js로 시각화 인터페이스 완성',
+      '인프라 구축: AWS EC2에 Server 및 Oracle DB 직접 설치·운영하여 RDS 비용 절감'
     ],
     learnings: [
-      'Spring Legacy, MyBatis 환경에서 핵심 API 구현 경험',
-      '비용 문제 해결을 위한 EC2 DB 직접 설치 및 운영 경험',
-      '코사인 유사도, TextRank 등 AI 모델 활용 기능 개발',
-      '서비스 전체 아키텍처 이해도 증진'
+      '마이크로서비스 구조 설계 및 FastAPI와 Spring 서버 연동 경험',
+      'LLM 파이프라인 최적화를 통한 응답 품질 향상 및 후처리 로직 적용 경험',
+      '코사인 유사도, TextRank 등 AI 모델을 활용한 실용 기능 개발',
+      '비용 최적화를 위한 인프라 직접 운영 경험 및 대시보드 풀스택 구현 능력 강화'
     ],
-    technologies: ['Spring Legacy', 'Servlet', 'MyBatis', 'OracleDB', 'Tomcat', 'AWS', 'JSP', 'HTML', 'CSS', 'JavaScript', 'jQuery', 'Groq AI', 'Iamport', 'SOLAPI', 'GitHub', 'Notion','Figma',  'Slack', 'Swagger', 'Python', 'Java', 'Git', 'Oracle', 'Docker', 'Chart.js'],
+    technologies: ['Spring Legacy', 'Servlet', 'MyBatis', 'OracleDB', 'Tomcat', 'Postman', 'AWS', 'JSP', 'HTML', 'CSS', 'JavaScript', 'jQuery', 'Groq AI', 'Iamport', 'SOLAPI', 'GitHub', 'Notion','Figma',  'Slack', 'Swagger', 'Python', 'Java', 'Git', 'Oracle', 'Docker', 'Chart.js'],
     githubUrls: {
       organization: 'https://github.com/4-team-project/takku',
       aiApi: 'https://github.com/4-team-project/takku-ai-api'
@@ -159,18 +193,22 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
       '/images/projects/comminuty/1.PNG',
     ],
-    overview: '사용자 위치 기반으로 소통할 수 있는 소셜 네트워킹 서비스',
+    overview: '위치를 기반으로 주변 학우들과 소통하고 정보를 공유하는 소셜 네트워킹 서비스입니다.',
     role: [
-      '팀 리더로서 프로젝트 기획 및 운영 주도',
-      'ERD 설계 및 API 개발',
-      'AWS EC2 & RDS 배포 담당'
+      '팀 리더로서 9개월간 프로젝트 기획, 일정 관리, 이슈 트래킹 및 기술적 의사결정 주도',
+      '안전한 커뮤니티 생태계 구축: 사용자/게시글 신고 로직 및 중복 방지, 제재 시스템 구현',
+      '인증/인가 시스템: Spring Security와 JWT를 도입하여 Stateless 환경에서 안전한 로그인 및 API 접근 권한 제어',
+      'ERD 설계 및 API 개발: 데이터 모델링과 기능 명세 작성부터 API 설계 전반 담당',
+      '인프라 구축: AWS EC2에 서버 배포 및 RDS(MySQL) 연동으로 실제 서비스 가능한 클라우드 환경 구축',
+      '프로필 및 인증 관리: 이메일 인증 회원가입 절차 및 프로필 이미지 변경 API 구현'
     ],
     learnings: [
-      'Spring Boot, JPA 기반 API 구현',
-      'Spring Security, JWT 기반 인증/인가 시스템 구축',
-      'AWS EC2 서버 및 RDS 운영 경험'
+      '인천대학교 졸업작품 경진대회 장려상 수상',
+      '장기 프로젝트(9개월) 완주 및 팀 리더십 경험',
+      'Spring Boot, JPA, Spring Security, JWT 기반 전체 인증/인가 시스템 구축',
+      'AWS 클라우드 환경에서 실제 서비스 운영 경험 및 협업 커뮤니케이션 역량 강화'
     ],
-    technologies: ['Spring Boot', 'JPA', 'Spring Security', 'JWT', 'AWS EC2', 'AWS RDS']
+    technologies: ['Spring Boot', 'JPA', 'Java', 'Spring Security', 'GitHub', 'Postman', 'Git', 'Notion', 'MySQL', 'JWT', 'AWS', 'AWS EC2', 'AWS RDS']
   },
   {
     id: 4,
@@ -178,11 +216,17 @@ const allProjects = [
     period: '2024.07 ~ 2024.08',
     thumbnailUrl: '',
     galleryImageUrls: [],
-    overview: '실제 금융 서비스 환경을 고려한 계좌 생성·거래 관리 시스템',
-    role: ['개인 프로젝트'],
+    overview: '다중 사용자 환경에서 동시 거래의 안전성을 보장하는 계좌 생성·거래 관리 시스템',
+    role: [
+      'Redis 분산 락 구현: 여러 사용자의 동시 거래 요청에서도 데이터 일관성 보장',
+      '트랜잭션 관리: 계좌 생성 및 거래 처리 시 데이터 무결성 보장 로직 구현',
+      'Spring Boot + JPA 기반 REST API 개발',
+      '금융 서비스 환경을 고려한 예외 처리 및 검증 로직 설계'
+    ],
     learnings: [
-      'Redis 기반 분산 락을 적용하여 거래 동시성 문제 해결',
-      '트랜잭션 관리를 통한 데이터 무결성 보장 경험'
+      'Redis 기반 분산 락 패턴 적용으로 동시성 문제 해결 경험',
+      '트랜잭션 격리 수준과 락 메커니즘을 통한 데이터 무결성 보장',
+      '실제 금융 서비스 환경을 고려한 안전한 API 설계 역량 강화'
     ],
     technologies: ['Spring Boot', 'JPA', 'Redis', 'Git', 'GitHub','REST API', 'Java']
   },
@@ -192,12 +236,18 @@ const allProjects = [
     period: '2024.08 ~ 2024.09',
     thumbnailUrl: '',
     galleryImageUrls: [],
-    overview: '매장 예약 기능과 사용자 인증을 포함한 REST API 서비스',
-    role: ['개인 프로젝트'],
+    overview: '예약 기능과 사용자 인증을 포함한 매장 예약 관리 REST API 서비스',
+    role: [
+      'Spring Security + JWT 기반 인증/인가 시스템 구축',
+      '예약 기능 동시성 처리: 동일 시간대 예약 충돌 방지 로직 구현',
+      'Swagger API 문서화: 체계적인 API 명세서 작성으로 협업 효율 증대',
+      'RESTful API 설계: 리소스 중심의 직관적인 엔드포인트 구조 설계'
+    ],
     learnings: [
-      'Spring Boot, Spring Security, JWT 기반 API 구축',
-      '예약 기능 동시성 처리 최적화',
-      'Swagger를 활용한 체계적인 API 문서화 역량 강화'
+      'Spring Security와 JWT를 활용한 Stateless 인증 시스템 구축',
+      '예약 기능의 동시성 문제 해결 및 최적화 경험',
+      'Swagger를 활용한 체계적인 API 문서화 역량 강화',
+      '테스트 코드 작성으로 안정적인 API 개발 프로세스 경험'
     ],
     technologies: ['Spring Boot', 'JWT', 'Swagger', 'Git','GitHub', 'REST API', 'Java']
   }
@@ -216,21 +266,46 @@ function PortfolioContent() {
   return (
     <div className="App">
       <Header />
-      <Banner />
-      
-      <Row 
-        title="Projects" 
-        items={allProjects} 
-        onItemClick={selectProject} 
-        rowType="projects"
-      />
-      
-      <Row title="Languages & Web" items={languagesAndWeb} onItemClick={selectStack} rowType="stacks" />
-      <Row title="Backend & Infra" items={backendAndInfra} onItemClick={selectStack} rowType="stacks" />
-      <Row title="Databases & Dev Tools" items={dbAndTools} onItemClick={selectStack} rowType="stacks" />
-      <Row title="Collaboration & Design" items={collaborationAndDesign} onItemClick={selectStack} rowType="stacks" />
-      <Row title="Certifications" items={certifications} rowType="certifications" />
-      
+      <main className="app-main">
+        <section id="hero" className="section">
+          <Banner />
+        </section>
+
+        <section id="projects" className="section">
+          <Row 
+            title="Projects" 
+            items={allProjects} 
+            onItemClick={selectProject} 
+            rowType="projects"
+          />
+        </section>
+
+        <section id="awards" className="section">
+          <Row 
+            title="Awards" 
+            items={awards} 
+            rowType="certifications"
+            onItemClick={(award) => {
+              const project = allProjects.find(p => p.id === award.projectId);
+              if (project) {
+                selectProject(project);
+              }
+            }}
+          />
+        </section>
+
+        <section id="certifications" className="section">
+          <Row title="Certifications" items={certifications} rowType="certifications" />
+        </section>
+
+        <section id="skills" className="section">
+          <Row title="Languages & Web" items={languagesAndWeb} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+          <Row title="Backend & Infra" items={backendAndInfra} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+          <Row title="Databases & Dev Tools" items={dbAndTools} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+          <Row title="Collaboration & Design" items={collaborationAndDesign} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+        </section>
+      </main>
+
       <Footer />
 
       <ProjectModal project={selectedProject} onClose={closeProjectModal} />

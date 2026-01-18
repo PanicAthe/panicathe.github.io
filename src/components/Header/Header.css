@@ -3,21 +3,27 @@
   top: 0;
   left: 0;
   width: 100%;
-  box-sizing: border-box; /* Ensure padding is included in the width */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 50px;
+  box-sizing: border-box;
   height: 80px;
   background-color: var(--header-bg-color, #141414);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
   z-index: 100;
+}
 
+.header__inner {
+  max-width: var(--content-max-width);
+  padding: 0 var(--page-horizontal-padding);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header__logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--primary-color, #e50914);
 }
 
@@ -29,34 +35,67 @@
 .header__nav {
   display: flex;
   align-items: center;
+  gap: 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .header__nav a {
   color: var(--text-color, white);
   text-decoration: none;
-  margin-left: 20px;
+  position: relative;
+}
+
+.header__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary-color), #7f94ff);
+  transition: width 0.2s ease-out;
 }
 
 .header__nav a:hover {
-  color: var(--text-color-hover, #b3b3b3);
+  color: var(--text-color-hover, #4b5563);
 }
 
-.header__nav a.header__download-btn {
+.header__nav a:hover::after {
+  width: 100%;
+}
+
+.header__download-btn {
+  margin-left: 32px;
   background-color: var(--primary-color, #e50914);
   color: white;
-  padding: 0 20px; /* Adjusted padding since height is fixed */
-  height: 40px;
+  padding: 10px 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  text-decoration: none;
+  border-radius: 999px;
   transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
 }
 
 .header__download-btn:hover {
   background-color: var(--primary-color-hover, #f40612);
   color: white;
+}
+
+.header__download-btn--disabled {
+  background-color: rgba(148, 163, 184, 0.4);
+  color: var(--footer-text-color);
+  cursor: default;
+}
+
+.header__download-btn--disabled:hover {
+  background-color: rgba(148, 163, 184, 0.4);
+  color: var(--footer-text-color);
 }
 
 .theme-toggle-container {
@@ -72,12 +111,67 @@
 }
 
 @media (max-width: 768px) {
-  .header {
-    padding: 15px 20px;
-  }
-
   .header__logo {
     font-size: 1.2rem;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__mobile-menu-btn {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+    margin-left: 16px;
+    padding: 4px;
+  }
+
+  .header__mobile-menu-btn span {
+    width: 24px;
+    height: 2.5px;
+    background-color: var(--text-color, white);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .header__mobile-nav {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    z-index: 99;
+  }
+
+  .header__mobile-nav a {
+    padding: 12px 24px;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .header__mobile-nav a:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    border-left-color: var(--primary-color, #e50914);
+    color: var(--primary-color, #e50914);
+  }
+
+  .header__download-btn {
+    margin-left: 0;
+    padding: 8px 16px;
+    font-size: 0.85rem;
   }
 
   .header__nav a {
@@ -91,5 +185,15 @@
 
   .theme-toggle-label {
     display: none; /* Hide the label on mobile to save space */
+  }
+}
+
+@media (min-width: 769px) {
+  .header__mobile-menu-btn {
+    display: none;
+  }
+
+  .header__mobile-nav {
+    display: none;
   }
 }

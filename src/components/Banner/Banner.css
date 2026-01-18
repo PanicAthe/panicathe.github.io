@@ -1,10 +1,11 @@
 .banner {
   position: relative;
-  height: 400px;
-  background-size: cover;
-  background-position: center center;
-  color: #ffffff;
-  object-fit: contain;
+  min-height: 300px;
+  padding: 20px 0 0;
+  background: transparent;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .banner-background {
@@ -17,60 +18,279 @@
 }
 
 .banner__contents {
-  padding-left: 50px;
-  padding-top: 60px;
+  position: relative;
+  margin: 0 12px;
+  padding: 32px 32px 28px;
+  max-width: 1080px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(81, 112, 255, 0.2);
+  border: 1px solid rgba(81, 112, 255, 0.15);
+  color: #f1f5f9;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner__contents::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(81, 112, 255, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  transform: translate(30%, -30%);
+}
+
+.banner__contents::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(81, 112, 255, 0.03) 20px,
+      rgba(81, 112, 255, 0.03) 40px
+    );
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.banner__header {
+  position: relative;
+  margin-bottom: 16px;
+  z-index: 1;
 }
 
 .banner__title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  padding-bottom: 0; /* Reduced space */
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  padding-bottom: 8px;
+  color: #94a3b8;
+  z-index: 1;
+  margin: 0;
 }
 
-.banner__subtitle {
-  font-size: 1.2rem;
+.banner__name {
+  position: relative;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  line-height: 1.2;
+  z-index: 1;
+}
+
+.banner__description {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.2rem;
+}
+
+.banner__badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.banner__badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.banner__badge--primary {
+  background: linear-gradient(135deg, rgba(81, 112, 255, 0.25) 0%, rgba(81, 112, 255, 0.15) 100%);
+  color: #93c5fd;
+  border: 1px solid rgba(81, 112, 255, 0.3);
+}
+
+.banner__badge--award {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.25) 0%, rgba(255, 193, 7, 0.15) 100%);
+  color: #fde68a;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.banner__intro {
+  font-size: 1.1rem;
   font-weight: 500;
-  padding-bottom: 1rem;
-  max-width: 800px; /* Constrain width */
+  color: #cbd5e1;
+  margin: 0 0 16px 0;
+  line-height: 1.6;
+}
+
+.banner__details {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #e2e8f0;
+  margin: 0 0 16px 0;
+  line-height: 1.8;
+}
+
+.banner__details strong {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.banner__learning {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.banner__tech {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 0 2px;
+  background: rgba(81, 112, 255, 0.15);
+  color: #93c5fd;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95em;
 }
 
 .banner__buttons {
-  margin-top: 2rem; /* Add space above button */
+  position: relative;
+  margin-top: auto;
   display: flex;
-  gap: 10px;
+  gap: 14px;
+  z-index: 1;
+  justify-content: flex-end;
 }
 
-
-
-
-
-.banner--fadeBottom {
-  height: 4rem;
-  background-image: linear-gradient(180deg, transparent, var(--fade-color), var(--background-color));
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.banner__buttons .btn-primary {
+  background: linear-gradient(135deg, #5170ff 0%, #3b5bff 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(81, 112, 255, 0.3);
+  transition: all 0.25s ease;
 }
+
+.banner__buttons .btn-primary:hover {
+  background: linear-gradient(135deg, #3b5bff 0%, #2952ff 100%);
+  box-shadow: 0 6px 24px rgba(81, 112, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.banner__buttons .btn-primary .icon {
+  fill: white;
+}
+
+.banner__buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.banner__buttons .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.banner__buttons .btn-secondary .icon {
+  fill: #f1f5f9;
+}
+
 
 @media (max-width: 768px) {
   .banner {
-    height: 350px;
+    min-height: auto;
+    padding: 24px 0 12px;
   }
 
   .banner__contents {
-    padding-left: 20px;
-    padding-top: 40px;
+    margin: 0 16px;
+    padding: 20px 18px 16px;
+  }
+
+  .banner__contents::before,
+  .banner__contents::after {
+    display: none;
   }
 
   .banner__title {
-    font-size: 1.8rem;
-  }
-
-  .banner__subtitle {
     font-size: 0.9rem;
+    margin-bottom: 6px;
   }
 
+  .banner__name {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    line-height: 1.1;
+  }
 
+  .banner__header {
+    margin-bottom: 8px;
+  }
 
+  .banner__intro {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .banner__details {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .banner__badges {
+    margin-bottom: 8px;
+    gap: 5px;
+  }
+
+  .banner__badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .banner__learning {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .banner__buttons {
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .banner__buttons .btn-primary,
+  .banner__buttons .btn-secondary {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
 }
