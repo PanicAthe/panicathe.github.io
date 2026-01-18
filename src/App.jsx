@@ -105,7 +105,7 @@ const certifications = [
 const allProjects = [
   {
     id: 1,
-    name: '🐧 Penglobe - 환경 금융 플랫폼 (🏆최우수상)',
+    name: '🐧 Penglobe - 친환경 가치 소비 플랫폼',
     period: '2025.08 ~ 2025.09',
     thumbnailUrl: '/images/projects/penglobe/8.jpg',
     galleryImageUrls: [
@@ -127,7 +127,7 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Demo.mp4',
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Interview.mp4'
     ],
-    overview: '일상 속 친환경 활동을 기록하여 탄소 절감량을 시각화하고, 이를 포인트로 전환하여 기부 및 금융 상품과 연계하는 ESG 금융 플랫폼입니다.',
+    overview: '일상 속 친환경 활동을 기록하여 탄소 절감량을 시각화하고, 이를 포인트로 전환하여 기부 및 상품과 연계하는 플랫폼입니다.',
     role: [
       'GPS 정밀 보정 알고리즘 구현: React Native에서 좌표 튐 현상 제거로 이동 거리 측정 정확도 향상',
       '펭걸음 기능 풀스택 개발: 보정 데이터 수신 및 탄소 절감량 계산 서버 로직 설계',
@@ -151,7 +151,7 @@ const allProjects = [
   },
   {
     id: 2,
-    name: '딱쿠(Takku) – 소상공인 펀딩 기반 쿠폰 플랫폼',
+    name: '딱쿠(Takku) – 소상공인 펀딩 플랫폼',
     period: '2025.06 ~ 2025.07',
     thumbnailUrl: '/images/projects/takku/takku_1.gif',
     galleryImageUrls: [
@@ -298,11 +298,14 @@ function PortfolioContent() {
           <Row title="Certifications" items={certifications} rowType="certifications" />
         </section>
 
-        <section id="skills" className="section">
-          <Row title="Languages & Web" items={languagesAndWeb} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-          <Row title="Backend & Infra" items={backendAndInfra} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-          <Row title="Databases & Dev Tools" items={dbAndTools} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-          <Row title="Collaboration & Design" items={collaborationAndDesign} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+        <section id="skills" className="section section--skills">
+          <h2 className="section-title">Skills</h2>
+          <div className="skills-categories">
+            <Row title="Languages & Web" items={languagesAndWeb} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+            <Row title="Backend & Infra" items={backendAndInfra} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+            <Row title="Databases & Dev Tools" items={dbAndTools} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+            <Row title="Collaboration & Design" items={collaborationAndDesign} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
+          </div>
         </section>
       </main>
 
