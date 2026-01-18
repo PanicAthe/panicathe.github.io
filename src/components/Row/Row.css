@@ -362,7 +362,7 @@
   padding: 24px;
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-  border: 1px solid var(--border-light);
+  border: 1px solid  rgba(37, 99, 235, 0.3);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
   cursor: default;
@@ -385,7 +385,7 @@
 
 .certification-item--clickable {
   cursor: pointer;
-  border-color: var(--border-light);
+  border-color:  rgba(37, 99, 235, 0.3);
 }
 
 .certification-item--clickable:hover {

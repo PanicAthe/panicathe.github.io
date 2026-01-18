@@ -1,11 +1,21 @@
 .banner {
   position: relative;
-  min-height: 320px;
-  padding: 40px 0;
+  min-height: 280px;
+  padding: 24px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background: linear-gradient(135deg, 
+    #f8fafc 0%, 
+    #f1f5f9 20%,
+    #e0e7ff 40%,
+    #ede9fe 60%,
+    #f1f5f9 80%,
+    #f8fafc 100%
+  );
+  border-radius: var(--radius-2xl);
+  margin: 0 40px;
 }
 
 .banner-background {
@@ -22,11 +32,17 @@
   max-width: 1200px;
   width: calc(100% - 80px);
   margin: 0 40px;
-  padding: 48px 64px;
+  padding: 32px 48px;
   border-radius: var(--radius-2xl);
-  background: #ffffff;
-  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(148, 163, 184, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .banner__contents::before {
@@ -35,7 +51,11 @@
   inset: -2px;
   border-radius: var(--radius-2xl);
   padding: 2px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.15));
+  background: linear-gradient(135deg, 
+    rgba(37, 99, 235, 0.3) 0%, 
+    rgba(124, 58, 237, 0.3) 50%,
+    rgba(37, 99, 235, 0.3) 100%
+  );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -166,12 +186,14 @@
 
 @media (max-width: 768px) {
   .banner {
-    min-height: 500px;
-    padding: 60px 0;
+    min-height: auto;
+    padding: 20px 0;
+    margin: 0 20px;
+    border-radius: var(--radius-xl);
   }
   
   .banner__contents {
-    padding: 48px 32px;
+    padding: 28px 24px;
     width: calc(100% - 40px);
     margin: 0 20px;
     border-radius: var(--radius-xl);
