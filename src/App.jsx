@@ -28,7 +28,6 @@ const backendAndInfra = [
   { id: 'rest', name: 'REST API', imageUrl: 'https://techstack-generator.vercel.app/restapi-icon.svg' },
   { id: 'docker', name: 'Docker', imageUrl: 'https://techstack-generator.vercel.app/docker-icon.svg' },
   { id: 'aws', name: 'AWS', imageUrl: 'https://techstack-generator.vercel.app/aws-icon.svg' },
-  { id: 'redis', name: 'Redis', imageUrl: 'https://skillicons.dev/icons?i=redis' },
 ];
 
 const dbAndTools = [
@@ -196,7 +195,6 @@ const allProjects = [
     overview: '위치를 기반으로 주변 학우들과 소통하고 정보를 공유하는 소셜 네트워킹 서비스입니다.',
     role: [
       '팀 리더로서 9개월간 프로젝트 기획, 일정 관리, 이슈 트래킹 및 기술적 의사결정 주도',
-      '안전한 커뮤니티 생태계 구축: 사용자/게시글 신고 로직 및 중복 방지, 제재 시스템 구현',
       '인증/인가 시스템: Spring Security와 JWT를 도입하여 Stateless 환경에서 안전한 로그인 및 API 접근 권한 제어',
       'ERD 설계 및 API 개발: 데이터 모델링과 기능 명세 작성부터 API 설계 전반 담당',
       '인프라 구축: AWS EC2에 서버 배포 및 RDS(MySQL) 연동으로 실제 서비스 가능한 클라우드 환경 구축',
@@ -209,48 +207,8 @@ const allProjects = [
       'AWS 클라우드 환경에서 실제 서비스 운영 경험 및 협업 커뮤니케이션 역량 강화'
     ],
     technologies: ['Spring Boot', 'JPA', 'Java', 'Spring Security', 'GitHub', 'Postman', 'Git', 'Notion', 'MySQL', 'JWT', 'AWS', 'AWS EC2', 'AWS RDS']
-  },
-  {
-    id: 4,
-    name: '계좌 관리 시스템 – 금융 서비스 백엔드',
-    period: '2024.07 ~ 2024.08',
-    thumbnailUrl: '',
-    galleryImageUrls: [],
-    overview: '다중 사용자 환경에서 동시 거래의 안전성을 보장하는 계좌 생성·거래 관리 시스템',
-    role: [
-      'Redis 분산 락 구현: 여러 사용자의 동시 거래 요청에서도 데이터 일관성 보장',
-      '트랜잭션 관리: 계좌 생성 및 거래 처리 시 데이터 무결성 보장 로직 구현',
-      'Spring Boot + JPA 기반 REST API 개발',
-      '금융 서비스 환경을 고려한 예외 처리 및 검증 로직 설계'
-    ],
-    learnings: [
-      'Redis 기반 분산 락 패턴 적용으로 동시성 문제 해결 경험',
-      '트랜잭션 격리 수준과 락 메커니즘을 통한 데이터 무결성 보장',
-      '실제 금융 서비스 환경을 고려한 안전한 API 설계 역량 강화'
-    ],
-    technologies: ['Spring Boot', 'JPA', 'Redis', 'Git', 'GitHub','REST API', 'Java']
-  },
-  {
-    id: 5,
-    name: '매장 예약 관리 시스템 – REST API 서비스',
-    period: '2024.08 ~ 2024.09',
-    thumbnailUrl: '',
-    galleryImageUrls: [],
-    overview: '예약 기능과 사용자 인증을 포함한 매장 예약 관리 REST API 서비스',
-    role: [
-      'Spring Security + JWT 기반 인증/인가 시스템 구축',
-      '예약 기능 동시성 처리: 동일 시간대 예약 충돌 방지 로직 구현',
-      'Swagger API 문서화: 체계적인 API 명세서 작성으로 협업 효율 증대',
-      'RESTful API 설계: 리소스 중심의 직관적인 엔드포인트 구조 설계'
-    ],
-    learnings: [
-      'Spring Security와 JWT를 활용한 Stateless 인증 시스템 구축',
-      '예약 기능의 동시성 문제 해결 및 최적화 경험',
-      'Swagger를 활용한 체계적인 API 문서화 역량 강화',
-      '테스트 코드 작성으로 안정적인 API 개발 프로세스 경험'
-    ],
-    technologies: ['Spring Boot', 'JWT', 'Swagger', 'Git','GitHub', 'REST API', 'Java']
   }
+
 ];
 
 function PortfolioContent() {

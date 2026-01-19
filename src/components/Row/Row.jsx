@@ -30,7 +30,7 @@ function Row({ title, items = [], onItemClick, rowType = 'default', projects = [
   // 숙련도에 따른 색상 클래스 결정
   const getProficiencyClass = (count) => {
     if (count >= 4) return 'proficiency-high'; // 4개 이상 프로젝트
-    if (count >= 2) return 'proficiency-medium'; // 2-3개 프로젝트
+    if (count >= 3) return 'proficiency-medium'; // 3개 이상 프로젝트
     return 'proficiency-low'; // 0-1개 프로젝트
   };
 
