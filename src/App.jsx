@@ -7,7 +7,6 @@ import Footer from './components/Footer/Footer';
 import ProjectModal from './components/ProjectModal/ProjectModal';
 import StackModal from './components/StackModal/StackModal';
 import ContactModal from './components/ContactModal/ContactModal';
-import Lanyard from './components/Lanyard/Lanyard';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import ProjectDetailPage from './pages/ProjectDetailPage';
@@ -19,7 +18,6 @@ const languagesAndWeb = [
   { id: 'js', name: 'JavaScript', imageUrl: 'https://techstack-generator.vercel.app/js-icon.svg' },
   { id: 'html', name: 'HTML', imageUrl: 'https://skillicons.dev/icons?i=html' },
   { id: 'css', name: 'CSS', imageUrl: 'https://skillicons.dev/icons?i=css' },
-  { id: 'reactnative', name: 'React Native', imageUrl: 'https://techstack-generator.vercel.app/react-icon.svg' },
 ];
 
 const backendAndInfra = [
@@ -42,7 +40,6 @@ const collaborationAndDesign = [
   { id: 'slack', name: 'Slack', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/slack.svg' },
   { id: 'notion', name: 'Notion', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg' },
   { id: 'figma', name: 'Figma', imageUrl: 'https://skillicons.dev/icons?i=figma' },
-  { id: 'chartjs', name: 'Chart.js', imageUrl: 'https://www.chartjs.org/media/logo-title.svg' },
 ];
 
 const awards = [
@@ -103,6 +100,34 @@ const certifications = [
 
 const allProjects = [
   {
+    id: 4,
+    name: 'RAIM 방문자 입장 등록 시스템',
+    period: '2026.01 ~ 2026.02',
+    thumbnailUrl: '/images/projects/raim/entry.png',
+    galleryImageUrls: [
+      '/images/projects/raim/entry.png'
+    ],
+    galleryVideoUrls: [],
+    overview: '서울시 청년 시정 서포터즈 활동 중 서울로봇인공지능과학관 현장 운영을 위해 개발한 웹 기반 방문자 입장 등록·통계·자동 백업 시스템입니다. 무료 티어 기반으로 비용 최소화를 목표로 설계했습니다.',
+    role: [
+      '1인 개발로 요구사항 분석·명세서 작성부터 배포·운영까지 전 과정 진행',
+      '데이터 파이프라인 설계: 입력 데이터를 localStorage(일일 통계)와 Firestore(임시 저장)에 동시 저장 후, Apps Script로 Sheets 백업 및 Firestore 자동 정리',
+      '자동 백업/삭제 엔진 구현: Firestore 페이지네이션 + Batch Delete로 실행 시간 제약을 고려한 처리 흐름 설계',
+      'React 프론트엔드 바이브 코딩',
+      '관리자 대시보드 및 접근 제어: PIN 기반 잠금 화면과 통계·설정·수동 백업 기능 제공',
+      '오류 대응 자동화: 이메일 알림 및 재시도 전략으로 백업 실패 리스크 최소화'
+    ],
+    learnings: [
+      '서버리스 기반 백엔드 파이프라인과 운영 자동화를 통한 안정적 데이터 흐름 구축 경험',
+      '시간 제한/쿼터 제약 환경에서의 대량 데이터 처리 및 비용 최적화 설계 역량 강화',
+      '현장 운영 관점의 유지보수 체크리스트와 장애 대응 프로세스 구축 경험'
+    ],
+    technologies: ['React', 'Vite', 'Firebase Firestore', 'Google Apps Script', 'Google Sheets', 'face-api.js', 'Vercel'],
+    githubUrls: {
+      repository: 'https://github.com/PanicAthe/raim-visitor-checkin'
+    }
+  },
+  {
     id: 1,
     name: '🐧 Penglobe - 친환경 가치 소비 플랫폼',
     period: '2025.08 ~ 2025.09',
@@ -126,20 +151,18 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Demo.mp4',
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Interview.mp4'
     ],
-    overview: '일상 속 친환경 활동을 기록하여 탄소 절감량을 시각화하고, 이를 포인트로 전환하여 기부 및 상품과 연계하는 플랫폼입니다.',
+    overview: 'GPS 기반 이동 데이터를 탄소 절감량으로 환산해 시각화하고, 포인트로 전환해 기부/금융 상품과 연동하는 ESG 플랫폼입니다.',
     role: [
-      'GPS 정밀 보정 알고리즘 구현: React Native에서 좌표 튐 현상 제거로 이동 거리 측정 정확도 향상',
-      '펭걸음 기능 풀스택 개발: 보정 데이터 수신 및 탄소 절감량 계산 서버 로직 설계',
-      'Docker 기반 인프라 구축: Spring Boot와 MariaDB 컨테이너 구성 및 배포 파이프라인 주도',
-      'Expo 의존성 이슈 해결: SDK 업그레이드 호환성 문제 해결 및 Android 빌드/배포 전담',
-      'AI 브랜딩 적용: 생성형 AI(Gemini)를 활용한 캐릭터와 일러스트 제작 및 앱 전반 적용',
-      '로딩 스크린 최적화: 앱 초기 진입 시 체감 대기 시간 단축'
+      '이동거리 보정 알고리즘 구현: React Native에서 좌표 튐(Drift) 제거 및 이동 수단별 속도 제한 로직 적용',
+      '펭걸음 기능 풀스택 개발: 보정 데이터 수신 → 탄소 절감량 계산 → DB 적재 서버 파이프라인 설계',
+      'Docker 기반 배포: Spring Boot + MariaDB 컨테이너 구성 및 배포 파이프라인 주도',
+      'Expo SDK 호환성 이슈 대응: 안정 버전 롤백 및 Android 빌드/배포 전담',
+      '로딩 스크린 최적화로 초기 진입 체감 대기 시간 단축'
     ],
     learnings: [
-      '시범 운영 결과 사용자 94.4%가 "친환경 습관 형성에 도움"이라고 긍정 응답',
-      '신한금융 SW 아카데미 최우수상 수상 - 기술 완성도와 서비스 구현력에서 높은 평가',
-      'React Native 앱과 Spring Boot 서버를 연동한 엔드투엔드 서비스 개발 경험',
-      'Android 빌드 이슈 해결을 통해 프로젝트 완성도 제고 및 팀 내 기술적 병목 해소'
+      '시범 운영 사용자 94.4%가 친환경 습관 형성에 도움을 느꼈다고 응답',
+      '신한금융 SW 아카데미 최우수상 수상 (서비스 구현력·기술 완성도 인정)',
+      '모바일-서버 연동 전 구간 설계 및 운영 경험 확보'
     ],
     technologies: ['Java', 'Spring Boot', 'JPA', 'Swagger', 'React Native', 'Expo', 'Postman', 'TailwindCSS', 'MariaDB', 'Groq AI', 'FoodLens SDK', 'Ubuntu', 'Docker', 'GitHub', 'Figma', 'Notion', 'Slack', 'Git', 'REST API', 'JavaScript'],
     githubUrls: {
@@ -160,21 +183,19 @@ const allProjects = [
     galleryVideoUrls: [
       'https://panicathe.github.io/images/projects/takku/Takku_Demo.mp4'
     ],
-    overview: '소상공인의 자금 확보를 돕는 크라우드 펀딩 기능과, 생성형 AI(LLM)를 활용한 자동 홍보글 생성 및 고객 리뷰 분석을 제공하는 올인원 마케팅 플랫폼입니다.',
+    overview: '펀딩 기능에 더해 LLM 기반 홍보글 생성, 리뷰 요약/추천을 제공하는 소상공인 올인원 마케팅 플랫폼입니다.',
     role: [
-      'FastAPI 기반 AI 모듈 분리: Java(Spring)와 Python(FastAPI) 서버를 별도 구축하여 MSA 아키텍처로 분리',
-      '하이브리드 추천 시스템: TF-IDF + 코사인 유사도를 결합한 상품 추천 알고리즘 구현',
-      '리뷰 요약 기능: TextRank 알고리즘으로 방대한 리뷰 데이터를 긍정/부정 키워드로 자동 요약',
-      'LLM 파이프라인 최적화: Context Injection 및 Output Formatting으로 응답 성공률 개선 및 고품질 홍보글 자동 생성',
-      'Spring Legacy + Oracle API 개발: 펀딩 생성, 추천, 리뷰 요약 핵심 비즈니스 로직 구현 및 Swagger 문서화',
-      '통계 대시보드 풀스택 구현: MyBatis 동적 쿼리로 데이터 추출 후 JSP + Chart.js로 시각화 인터페이스 완성',
-      '인프라 구축: AWS EC2에 Server 및 Oracle DB 직접 설치·운영하여 RDS 비용 절감'
+      'FastAPI 기반 AI 모듈 분리 후 Spring 서버와 MSA 구조로 연동',
+      '추천 시스템 구현: TF-IDF + 코사인 유사도 결합한 하이브리드 알고리즘 적용',
+      '리뷰 요약(TextRank) 및 긍·부정 키워드 추출로 대시보드 데이터 제공',
+      'LLM 파이프라인 개선: Context Injection + Output Formatting, Regex/Retry로 파싱 안정화',
+      'Spring Legacy + Oracle 핵심 API 개발 및 Swagger 문서화로 협업 효율 향상',
+      'JSP + Chart.js 대시보드 구현, AWS EC2 직접 운영으로 비용 절감'
     ],
     learnings: [
-      '마이크로서비스 구조 설계 및 FastAPI와 Spring 서버 연동 경험',
-      'LLM 파이프라인 최적화를 통한 응답 품질 향상 및 후처리 로직 적용 경험',
-      '코사인 유사도, TextRank 등 AI 모델을 활용한 실용 기능 개발',
-      '비용 최적화를 위한 인프라 직접 운영 경험 및 대시보드 풀스택 구현 능력 강화'
+      'FastAPI·Spring 간 서비스 분리/연동 경험으로 확장 가능한 구조 설계 역량 강화',
+      'LLM 응답 품질과 안정성을 높이는 프롬프트·후처리 설계 경험',
+      '데이터 시각화까지 포함한 엔드투엔드 백엔드 기능 제공 경험'
     ],
     technologies: ['Spring Legacy', 'Servlet', 'MyBatis', 'OracleDB', 'Tomcat', 'Postman', 'AWS', 'JSP', 'HTML', 'CSS', 'JavaScript', 'jQuery', 'Groq AI', 'Iamport', 'SOLAPI', 'GitHub', 'Notion','Figma',  'Slack', 'Swagger', 'Python', 'Java', 'Git', 'Oracle', 'Docker', 'Chart.js'],
     githubUrls: {
@@ -192,19 +213,18 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
       '/images/projects/comminuty/1.PNG',
     ],
-    overview: '위치를 기반으로 주변 학우들과 소통하고 정보를 공유하는 소셜 네트워킹 서비스입니다.',
+    overview: 'GPS 기반 커뮤니티 서비스로 주변 사용자 간 소통과 정보 공유를 지원하는 위치 기반 SNS입니다.',
     role: [
-      '팀 리더로서 9개월간 프로젝트 기획, 일정 관리, 이슈 트래킹 및 기술적 의사결정 주도',
-      '인증/인가 시스템: Spring Security와 JWT를 도입하여 Stateless 환경에서 안전한 로그인 및 API 접근 권한 제어',
-      'ERD 설계 및 API 개발: 데이터 모델링과 기능 명세 작성부터 API 설계 전반 담당',
-      '인프라 구축: AWS EC2에 서버 배포 및 RDS(MySQL) 연동으로 실제 서비스 가능한 클라우드 환경 구축',
-      '프로필 및 인증 관리: 이메일 인증 회원가입 절차 및 프로필 이미지 변경 API 구현'
+      '9개월 팀 리딩: 일정/이슈 관리 및 핵심 기술 의사결정 주도',
+      'Spring Security + JWT 기반 인증/인가 설계로 Stateless 보안 체계 구축',
+      'ERD 설계 및 핵심 API 전담, 기능 명세·데이터 모델링 주도',
+      '신고 프로세스 구축으로 악성 사용자 제재 및 커뮤니티 안정성 강화',
+      'AWS EC2 + RDS(MySQL) 배포로 실제 서비스 운영 환경 구성'
     ],
     learnings: [
       '인천대학교 졸업작품 경진대회 장려상 수상',
-      '장기 프로젝트(9개월) 완주 및 팀 리더십 경험',
-      'Spring Boot, JPA, Spring Security, JWT 기반 전체 인증/인가 시스템 구축',
-      'AWS 클라우드 환경에서 실제 서비스 운영 경험 및 협업 커뮤니케이션 역량 강화'
+      '장기 프로젝트 완주와 리더십·커뮤니케이션 역량 강화',
+      '보안·인프라까지 포함한 백엔드 전반 설계 경험 확보'
     ],
     technologies: ['Spring Boot', 'JPA', 'Java', 'Spring Security', 'GitHub', 'Postman', 'Git', 'Notion', 'MySQL', 'JWT', 'AWS', 'AWS EC2', 'AWS RDS']
   }

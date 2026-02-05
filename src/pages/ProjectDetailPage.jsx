@@ -161,6 +161,11 @@ function ProjectDetailPage({ projects }) {
                   <span>AI API Repository</span>
                 </a>
               )}
+              {project.githubUrls.repository && (
+                <a href={project.githubUrls.repository} target="_blank" rel="noopener noreferrer" className="repo-link">
+                  <span>Repository</span>
+                </a>
+              )}
             </div>
           </div>
         )}
