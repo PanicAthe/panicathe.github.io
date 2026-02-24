@@ -26,11 +26,7 @@ function Banner() {
             인천대학교 컴퓨터공학부 졸업 · 신한DS 금융 SW 아카데미 수료
           </p>
           <p className="banner__details">
-            탄탄한 CS 지식과 실무 중심 백엔드 역량을 바탕으로,<br />
             <strong>확장성 있는 설계</strong>와 <strong>AI·백엔드 융합</strong>에 관심이 많습니다.
-          </p>
-          <p className="banner__learning">
-            현재 <span className="banner__tech">Spring Boot</span>, <span className="banner__tech">Spring AI</span>, <span className="banner__tech">RAG</span>를 학습 중입니다.
           </p>
         </div>
         <div className="banner__buttons">
