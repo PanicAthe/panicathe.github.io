@@ -105,7 +105,8 @@ const allProjects = [
     period: '2026.01 ~ 2026.02',
     thumbnailUrl: '/images/projects/raim/entry.png',
     galleryImageUrls: [
-      '/images/projects/raim/entry.png'
+      '/images/projects/raim/entry.png',
+      '/images/projects/raim/checkin.png',
     ],
     galleryVideoUrls: [],
     overview: '서울시 청년 시정 서포터즈 활동 중 서울로봇인공지능과학관 현장 운영을 위해 개발한 웹 기반 방문자 입장 등록·통계·자동 백업 시스템입니다. 무료 티어 기반으로 비용 최소화를 목표로 설계했습니다.',
