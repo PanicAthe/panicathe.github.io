@@ -269,7 +269,6 @@
   transform: scale(1.1);
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
-}
 
 .row--projects .row__poster img,
 .row--projects .row__poster video {
