@@ -1,47 +1,36 @@
-import React, { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import './Row.css';
+
+// 스택별 숙련도 계산 (프로젝트에서 사용된 횟수)
+function getStackProficiency(projects, stackName) {
+  if (!projects || projects.length === 0) return 0;
+  return projects.filter(p =>
+    p.technologies?.map(t => t.toLowerCase()).includes(stackName.toLowerCase())
+  ).length;
+}
+
+// 숙련도에 따른 색상 클래스 결정
+function getProficiencyClass(count) {
+  if (count >= 4) return 'proficiency-high';
+  if (count >= 3) return 'proficiency-medium';
+  return 'proficiency-low';
+}
 
 function Row({ title, items = [], onItemClick, rowType = 'default', projects = [] }) {
   const postersRef = useRef(null);
+
+  // 스택 정렬 (숙련도 높은 순) — early return 전에 호출해야 Hooks 규칙 준수
+  const sortedStacks = useMemo(() => {
+    if (rowType !== 'stacks') return items;
+    return [...items].sort((a, b) =>
+      getStackProficiency(projects, b.name) - getStackProficiency(projects, a.name)
+    );
+  }, [rowType, items, projects]);
 
   if (!items || items.length === 0) {
     return null;
   }
   const isClickable = !!onItemClick;
-
-  // 스택별 숙련도 계산 (프로젝트에서 사용된 횟수)
-  const getStackProficiency = (stackId, stackName) => {
-    if (!projects || projects.length === 0) return 0;
-    let count = 0;
-    projects.forEach(project => {
-      if (project.technologies) {
-        // 기술 이름 정확 매칭 (대소문자 구분 없이)
-        const techLower = project.technologies.map(t => t.toLowerCase());
-        const stackNameLower = stackName.toLowerCase();
-        
-        if (techLower.includes(stackNameLower)) {
-          count++;
-        }
-      }
-    });
-    return count;
-  };
-
-  // 숙련도에 따른 색상 클래스 결정
-  const getProficiencyClass = (count) => {
-    if (count >= 4) return 'proficiency-high'; // 4개 이상 프로젝트
-    if (count >= 3) return 'proficiency-medium'; // 3개 이상 프로젝트
-    return 'proficiency-low'; // 0-1개 프로젝트
-  };
-
-  // 스택 정렬 (숙련도 높은 순)
-  const sortedStacks = rowType === 'stacks' 
-    ? [...items].sort((a, b) => {
-        const aCount = getStackProficiency(a.id, a.name);
-        const bCount = getStackProficiency(b.id, b.name);
-        return bCount - aCount;
-      })
-    : items;
 
   const scroll = (direction) => {
     if (postersRef.current) {
@@ -122,7 +111,7 @@ function Row({ title, items = [], onItemClick, rowType = 'default', projects = [
           {sortedStacks.map(item => {
             const url = item.thumbnailUrl || item.imageUrl;
             const hasMedia = !!url;
-            const proficiencyCount = rowType === 'stacks' ? getStackProficiency(item.id, item.name) : 0;
+            const proficiencyCount = rowType === 'stacks' ? getStackProficiency(projects, item.name) : 0;
             const proficiencyClass = rowType === 'stacks' ? getProficiencyClass(proficiencyCount) : '';
 
             return (
@@ -144,7 +133,7 @@ function Row({ title, items = [], onItemClick, rowType = 'default', projects = [
                 )}
                 {hasMedia && (
                   <div className="row__poster-info">
-                    {title !== 'Certifications' && <h3>{item.name}</h3>}
+                    <h3>{item.name}</h3>
                   </div>
                 )}
               </div>

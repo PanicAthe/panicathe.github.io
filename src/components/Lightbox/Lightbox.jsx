@@ -1,7 +1,13 @@
-import React from 'react';
+import { useEffect } from 'react';
 import './Lightbox.css';
 
 function Lightbox({ media, onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!media) {
     return null;
   }

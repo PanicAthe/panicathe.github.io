@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProjectModal.css';
+
+const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
 
 function ProjectModal({ project, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -9,6 +11,17 @@ function ProjectModal({ project, onClose }) {
   useEffect(() => {
     setCurrentIndex(0);
   }, [project]);
+
+  useEffect(() => {
+    if (!project) return;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [project, onClose]);
 
   if (!project) {
     return null;
@@ -84,24 +97,22 @@ function ProjectModal({ project, onClose }) {
           <div className="modal-section">
             <h3>주요 성과</h3>
             <ul>
-              {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
+              {project.learnings.map((l) => <li key={l}>{l}</li>)}
             </ul>
           </div>
 
           <div className="modal-section">
             <h3>나의 역할 및 기여</h3>
             <ul>
-              {project.role.map((r, index) => <li key={index}>{r}</li>)}
+              {project.role.map((r) => <li key={r}>{r}</li>)}
             </ul>
           </div>
 
           <div className="modal-section">
             <h3>기술 스택</h3>
             {(() => {
-              const coreTechs = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
-              const coreTechnologies = project.technologies.filter(tech => coreTechs.includes(tech));
-              const otherTechnologies = project.technologies.filter(tech => !coreTechs.includes(tech));
-              
+              const coreTechnologies = project.technologies.filter(tech => CORE_TECHS.includes(tech));
+              const otherTechnologies = project.technologies.filter(tech => !CORE_TECHS.includes(tech));
               return (
                 <>
                   {coreTechnologies.length > 0 && (

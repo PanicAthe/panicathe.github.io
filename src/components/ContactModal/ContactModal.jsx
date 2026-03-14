@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './ContactModal.css';
 
 function ContactModal({ isOpen, onClose }) {
   const [isCopied, setIsCopied] = useState(false);
   const email = 'panicathe@naver.com';
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.body.style.overflow = 'hidden';
+    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleKeyDown);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [isOpen, onClose]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email).then(() => {
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setIsCopied(false), 2000);
     });
   };
 

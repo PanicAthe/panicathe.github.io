@@ -16,11 +16,6 @@
   animation: fadeInOverlay 0.25s ease-out !important;
 }
 
-@keyframes fadeInOverlay {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 .stack-modal-content {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
   color: #0f172a !important;

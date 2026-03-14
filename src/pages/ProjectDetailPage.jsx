@@ -1,38 +1,32 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProjectDetailPage.css';
 import Lightbox from '../components/Lightbox/Lightbox';
 
+const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
+
 function ProjectDetailPage({ projects }) {
   const { projectId } = useParams();
   const navigate = useNavigate();
-  
+
   const project = projects.find(p => p.id === parseInt(projectId));
 
-  const [selectedMedia, setSelectedMedia] = useState(null);
+  const displayMedia = useMemo(() => [
+    project?.thumbnailUrl,
+    ...(project?.galleryImageUrls || []),
+    ...(project?.galleryVideoUrls || [])
+  ].filter((url, index, self) => url && self.indexOf(url) === index), [project]);
+
+  const [selectedMedia, setSelectedMedia] = useState(() => displayMedia[0] ?? null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  // Set initial selected media once project is loaded
-  React.useEffect(() => {
-    if (project) {
-      const displayMedia = [
-        project.thumbnailUrl,
-        ...(project.galleryImageUrls || []),
-        ...(project.galleryVideoUrls || [])
-      ].filter((url, index, self) => url && self.indexOf(url) === index);
-      setSelectedMedia(displayMedia[0]);
-    }
-  }, [project]);
+  useEffect(() => {
+    setSelectedMedia(displayMedia[0] ?? null);
+  }, [displayMedia]);
 
   if (!project) {
     return <div>Project not found.</div>;
   }
-
-  const displayMedia = [
-    project.thumbnailUrl,
-    ...(project.galleryImageUrls || []),
-    ...(project.galleryVideoUrls || [])
-  ].filter((url, index, self) => url && self.indexOf(url) === index);
 
   const openLightbox = (media) => {
     if (!media) return;
@@ -80,9 +74,9 @@ function ProjectDetailPage({ projects }) {
         </div>
         {displayMedia.length > 1 && (
           <div className="gallery-thumbnails">
-            {displayMedia.map((media, index) => (
-              <div 
-                key={index} 
+            {displayMedia.map((media) => (
+              <div
+                key={media}
                 className={`thumbnail-item ${media === selectedMedia ? 'active' : ''}`}
                 onClick={() => setSelectedMedia(media)}
               >
@@ -102,24 +96,22 @@ function ProjectDetailPage({ projects }) {
         <div className="project-detail-section">
           <h2>주요 성과</h2>
           <ul>
-            {project.learnings.map((l, index) => <li key={index}>{l}</li>)}
+            {project.learnings.map((l) => <li key={l}>{l}</li>)}
           </ul>
         </div>
 
         <div className="project-detail-section">
           <h2>나의 역할 및 기여</h2>
           <ul>
-            {project.role.map((r, index) => <li key={index}>{r}</li>)}
+            {project.role.map((r) => <li key={r}>{r}</li>)}
           </ul>
         </div>
 
         <div className="project-detail-section">
           <h2>기술 스택</h2>
           {(() => {
-            const coreTechs = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript'];
-            const coreTechnologies = project.technologies.filter(tech => coreTechs.includes(tech));
-            const otherTechnologies = project.technologies.filter(tech => !coreTechs.includes(tech));
-            
+            const coreTechnologies = project.technologies.filter(tech => CORE_TECHS.includes(tech));
+            const otherTechnologies = project.technologies.filter(tech => !CORE_TECHS.includes(tech));
             return (
               <>
                 {coreTechnologies.length > 0 && (
