@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext } from 'react';
 
 const ThemeContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {

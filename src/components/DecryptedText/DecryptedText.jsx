@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'motion/react'; // eslint-disable-line no-unused-vars
 
 const styles = {
   wrapper: {

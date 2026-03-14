@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 import './Row.css';
 
 function Row({ title, items = [], onItemClick, rowType = 'default', projects = [] }) {
+  const postersRef = useRef(null);
+
   if (!items || items.length === 0) {
     return null;
   }
-
-  const postersRef = useRef(null);
   const isClickable = !!onItemClick;
 
   // 스택별 숙련도 계산 (프로젝트에서 사용된 횟수)

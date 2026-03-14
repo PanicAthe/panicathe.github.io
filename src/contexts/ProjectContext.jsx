@@ -1,7 +1,8 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 const ProjectContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useProjects = () => useContext(ProjectContext);
 
 export const ProjectProvider = ({ children, projects }) => {

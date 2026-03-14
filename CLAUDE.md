@@ -44,16 +44,16 @@ src/
 
 | 타입 | 이모지 | 예시 |
 |------|--------|------|
-| 새 기능 | ✨ | `✨ add ProjectModal animation` |
-| 버그 수정 | 🐛 | `🐛 fix header scroll bug` |
-| 스타일/UI | 💄 | `💄 update banner layout` |
-| 리팩토링 | ♻️ | `♻️ refactor Row component` |
-| 콘텐츠 수정 | 📝 | `📝 update project descriptions` |
-| 이미지/에셋 | 🖼️ | `🖼️ update project thumbnail` |
-| 삭제 | 🔥 | `🔥 remove unused components` |
-| 청소/잡일 | 🧹 | `🧹 clean up unused imports` |
+| 새 기능 | ✨ | `✨ 프로젝트 모달 애니메이션 추가` |
+| 버그 수정 | 🐛 | `🐛 헤더 스크롤 버그 수정` |
+| 스타일/UI | 💄 | `💄 배너 레이아웃 개선` |
+| 리팩토링 | ♻️ | `♻️ Row 컴포넌트 리팩토링` |
+| 콘텐츠 수정 | 📝 | `📝 프로젝트 설명 수정` |
+| 이미지/에셋 | 🖼️ | `🖼️ 프로젝트 썸네일 교체` |
+| 삭제 | 🔥 | `🔥 미사용 컴포넌트 삭제` |
+| 청소/잡일 | 🧹 | `🧹 미사용 import 정리` |
 
-- 본문은 한국어 또는 영어 모두 허용
+- 커밋 메시지는 반드시 한국어로 작성
 - 커밋 전 사용자에게 메시지 확인 요청
 
 ## 코딩 규칙
