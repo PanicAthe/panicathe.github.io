@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(git clean *)",
+      "Bash(git reset --hard *)",
+      "Bash(git rm *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm run lint",
+            "timeout": 30,
+            "statusMessage": "ESLint 실행 중..."
+          }
+        ]
+      }
+    ]
+  }
+}
