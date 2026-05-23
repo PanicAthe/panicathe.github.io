@@ -20,11 +20,9 @@ function Banner() {
         <div className="banner__description">
           <div className="banner__badges">
             <span className="banner__badge banner__badge--primary">AWS SAA</span>
+            <span className="banner__badge banner__badge--maestro">AI·SW마에스트로 부산 17기</span>
             <span className="banner__badge banner__badge--award">신한DS 금융 아카데미 🥇 최우수상</span>
           </div>
-          <p className="banner__intro">
-            인천대학교 컴퓨터공학부 졸업 · 신한DS 금융 SW 아카데미 수료
-          </p>
           <p className="banner__details">
             <strong>확장성 있는 설계</strong>와 <strong>AI·백엔드 융합</strong>에 관심이 많습니다.
           </p>

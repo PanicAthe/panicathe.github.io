@@ -274,7 +274,7 @@
 .row--projects .row__poster video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--radius-lg);
   transition: transform var(--transition-slow) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -282,6 +282,9 @@
 .row--projects .row__poster {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-light);
 }
@@ -322,7 +325,7 @@
 
 .row--projects .row__poster--clickable:hover img,
 .row--projects .row__poster--clickable:hover video {
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 .row--projects .row__poster--clickable:hover .row__poster-info {

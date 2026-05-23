@@ -97,15 +97,21 @@
 }
 
 .banner__badge--primary {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0.08) 100%);
+  color: var(--accent-amber);
+  border: 2px solid rgba(245, 158, 11, 0.32);
+}
+
+.banner__badge--maestro {
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(37, 99, 235, 0.08) 100%);
   color: var(--primary);
   border: 2px solid rgba(37, 99, 235, 0.3);
 }
 
 .banner__badge--award {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
-  color: var(--accent-amber);
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.14) 0%, rgba(124, 58, 237, 0.07) 100%);
+  color: var(--accent-purple);
+  border: 2px solid rgba(124, 58, 237, 0.28);
 }
 
 .banner__badge:hover {

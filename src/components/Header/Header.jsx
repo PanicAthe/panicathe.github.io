@@ -16,6 +16,7 @@ function Header() {
         <div className="header__right">
           <nav className="header__nav">
             <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
             <a href="#awards">Awards</a>
             <a href="#certifications">Certifications</a>
             <a href="#skills">Skills</a>
@@ -32,6 +33,7 @@ function Header() {
           {isMenuOpen && (
             <nav className="header__mobile-nav">
               <a href="#projects" onClick={handleNavClick}>Projects</a>
+              <a href="#education" onClick={handleNavClick}>Education</a>
               <a href="#awards" onClick={handleNavClick}>Awards</a>
               <a href="#certifications" onClick={handleNavClick}>Certifications</a>
               <a href="#skills" onClick={handleNavClick}>Skills</a>

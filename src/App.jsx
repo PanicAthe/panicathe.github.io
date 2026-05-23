@@ -62,6 +62,31 @@ const awards = [
   },
 ];
 
+const education = [
+  {
+    id: 'ai-sw-maestro-busan-17',
+    name: 'AI·SW마에스트로 부산 17기',
+    label: '참여 중',
+    date: '2026.05 ~ 현재',
+    linkUrl: 'https://www.swmaestro.ai/busan/sw/main/main.do',
+    description: 'AI·SW 전문가 멘토링과 팀 프로젝트 개발 중심의 부산 17기 실전 연수 과정에 참여 중'
+  },
+  {
+    id: 'shinhan-ds-finance-sw-academy',
+    name: '신한DS 금융 SW 아카데미',
+    label: '수료 · 총 976시간',
+    date: '2025.04 ~ 2025.10',
+    description: '금융 도메인 기반 SW 개발 교육 과정을 수료하며 풀스택 경험 축적'
+  },
+  {
+    id: 'inu-computer-science',
+    name: '인천대학교 컴퓨터공학부',
+    label: '학사 졸업',
+    date: '2021.03 ~ 2025.02',
+    description: '컴퓨터공학 전공 학사 과정 졸업'
+  },
+];
+
 const certifications = [
   {
     id: 'aws-saa',
@@ -108,19 +133,19 @@ const allProjects = [
       '/images/projects/raim/checkin.png',
     ],
     galleryVideoUrls: [],
-    overview: '서울로봇인공지능과학관 현장 방문자 데이터를 빠르고 정확하게 수집하기 위해 만든 웹 기반 솔루션입니다. AI 얼굴 인식으로 성별·연령대를 자동 감지하고 수동 입력도 함께 제공하며, 데이터는 Google Sheets에 자동 백업됩니다. 입력 속도 개선·데이터 손실 방지·운영 자동화를 모두 무료 티어 안에서 구현했습니다.',
+    overview: '서울로봇인공지능과학관 현장 방문자 입장 데이터를 수집·백업하는 운영용 웹 시스템입니다. AI 얼굴 인식 기반 성별·연령대 감지와 수동 입력을 함께 제공하고, Firestore 데이터를 Google Sheets로 자동 백업하도록 구성했습니다.',
     role: [
       '1인 개발로 요구사항 분석·명세서 작성부터 배포·운영까지 전 과정 진행',
-      '운영 편의성 개선: localStorage 기반 일일 통계를 적용해 관람실별 현황을 즉시 확인할 수 있도록 구성하고, 수동 백업 버튼으로 운영자가 직접 처리할 수 있는 범위 확장',
-      '무료 한도 내 안정 운영: 페이지네이션 조회·500건 단위 배치 삭제·재시도 로직을 적용해 트래픽 증가 시에도 Firestore 쿼터 초과 없이 처리되는 구조 설계',
-      '관리자 대시보드: PIN 기반 잠금 화면과 통계·설정·수동 백업 기능 제공',
-      '오류 대응 자동화: 이메일 알림 및 재시도 전략으로 백업 실패 리스크 최소화',
+      'localStorage 기반 일일 통계와 관람실별 현황 화면을 구성해 현장 운영자가 입장 현황을 즉시 확인할 수 있도록 개선',
+      '페이지네이션 조회, 500건 단위 배치 삭제, 재시도 로직을 적용해 Firestore 무료 한도 내에서 안정적으로 운영 가능한 구조 설계',
+      'PIN 기반 관리자 대시보드와 수동 백업 기능을 제공해 운영자가 장애 상황에 직접 대응할 수 있는 범위 확장',
+      '백업 실패 이메일 알림과 재시도 전략을 적용해 데이터 누락 리스크 완화',
       'GitHub 연동 Vercel 자동 배포로 코드 push 시 즉시 반영되는 배포 파이프라인 구성'
     ],
     learnings: [
-      '서버리스 기반 백엔드 파이프라인과 운영 자동화를 통한 안정적 데이터 흐름 구축 경험',
-      '무료 한도·실행 시간 제약 환경에서 대량 데이터를 안정적으로 처리하는 비용 최적화 설계 역량 강화',
-      '현장 운영 관점의 유지보수 체크리스트와 장애 대응 프로세스 구축 경험'
+      '현장 운영자가 사용하는 실제 입장 등록·통계·백업 워크플로우 구축',
+      '서버리스 환경에서 수집부터 백업까지 이어지는 데이터 파이프라인 자동화',
+      '무료 한도와 실행 시간 제약을 고려한 배치 처리·재시도·장애 대응 구조 설계'
     ],
     technologies: ['React', 'Vite', 'Firebase Firestore', 'Google Apps Script', 'Google Sheets', 'face-api.js', 'Vercel'],
     githubUrls: {
@@ -151,14 +176,14 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Demo.mp4',
       'https://panicathe.github.io/images/projects/penglobe/Penglobe_Interview.mp4'
     ],
-    overview: '걷기·식습관 데이터를 탄소 절감량으로 환산하고, 모은 리워드(얼음)로 친환경 소비와 기부까지 연결하는 친환경 가치 소비 플랫폼입니다. 내가 실천할수록 홈 화면의 빙하가 회복되고 펭귄 이파와 토리가 가까워지는 감성적인 피드백을 통해, 일상의 작은 행동이 지구에 미치는 긍정적 변화를 직관적으로 체감할 수 있도록 설계했습니다.',
+    overview: '걷기·식습관 데이터를 탄소 절감량으로 환산하고, 리워드를 친환경 소비와 기부로 연결하는 모바일 플랫폼입니다. 사용자의 실천 데이터를 시각적 피드백과 보상 구조로 연결해 친환경 행동을 지속하도록 설계했습니다.',
     role: [
       '펭걸음 기능 풀스택 개발: 앱에서 수집한 이동 데이터를 탄소 절감량으로 계산해 서버에 저장하는 전체 흐름 설계 및 구현',
       '허위 이동 입력 방지: 이동 중 비정상적으로 빠른 속도가 감지되면 데이터 수집을 자동 중단해 보상 시스템의 신뢰도 확보',
       '배터리 최적화: 목적지에 충분히 가까워지면 위치 추적을 자동 종료해 불필요한 배터리 소모 최소화',
       'Docker 기반 배포: Spring Boot + MariaDB 컨테이너 구성 및 배포 파이프라인 주도',
-      'Expo SDK 호환성 이슈 대응: 안정 버전 롤백 및 Android 빌드/배포 전담',
-      '랭킹·마이페이지 등 데이터 로딩이 필요한 화면에 로딩 스크린을 적용해 사용자가 느끼는 대기 시간 단축'
+      'Expo SDK 호환성 이슈를 해결하고 Android 빌드·배포 과정 전담',
+      '랭킹·마이페이지 등 데이터 로딩 화면의 상태 처리를 개선해 사용자 대기 경험 보완'
     ],
     learnings: [
       '시범 운영 결과, 사용자 94.4%가 친환경 습관 형성에 도움이 됐다고 응답',
@@ -184,19 +209,19 @@ const allProjects = [
     galleryVideoUrls: [
       'https://panicathe.github.io/images/projects/takku/Takku_Demo.mp4'
     ],
-    overview: '펀딩 기능에 더해 LLM 기반 홍보글 생성, 리뷰 요약/추천을 제공하는 소상공인 올인원 마케팅 플랫폼입니다.',
+    overview: '소상공인이 펀딩 상품을 등록하고, LLM 기반 홍보글 생성·리뷰 요약·추천 기능을 활용할 수 있는 마케팅 플랫폼입니다.',
     role: [
       'FastAPI 기반 AI 모듈 분리 후 Spring 서버와 MSA 구조로 연동',
       '추천 시스템 구현: TF-IDF + 코사인 유사도 결합한 하이브리드 알고리즘 적용',
       '리뷰 요약(TextRank) 및 긍·부정 키워드 추출로 대시보드 데이터 제공',
-      'LLM 파이프라인 개선: Context Injection + Output Formatting, Regex/Retry로 파싱 안정화',
-      'Spring Legacy + Oracle 핵심 API 개발 및 Swagger 문서화로 협업 효율 향상',
-      'JSP + Chart.js 대시보드 구현, AWS EC2 직접 운영으로 비용 절감'
+      'Context Injection, Output Formatting, Regex 검증, Retry를 적용해 LLM 응답 파싱 안정화',
+      'Spring Legacy + Oracle 기반 핵심 API 개발 및 Swagger 문서화로 프론트엔드 협업 효율 개선',
+      'JSP + Chart.js 기반 대시보드를 구현하고 AWS EC2 환경에서 직접 배포·운영'
     ],
     learnings: [
-      'FastAPI·Spring 간 서비스 분리/연동 경험으로 확장 가능한 구조 설계 역량 강화',
-      'LLM 응답 품질과 안정성을 높이는 프롬프트·후처리 설계 경험',
-      '데이터 시각화까지 포함한 엔드투엔드 백엔드 기능 제공 경험'
+      'FastAPI와 Spring 서버를 분리해 AI 기능을 독립 모듈로 연동',
+      'LLM 응답 품질과 파싱 안정성을 높이는 프롬프트·후처리 구조 설계',
+      '추천·요약·키워드 분석 결과를 대시보드까지 연결하는 엔드투엔드 기능 구현'
     ],
     technologies: ['Spring Legacy', 'Servlet', 'MyBatis', 'OracleDB', 'Tomcat', 'Postman', 'AWS', 'JSP', 'HTML', 'CSS', 'JavaScript', 'jQuery', 'Groq AI', 'Iamport', 'SOLAPI', 'GitHub', 'Notion','Figma',  'Slack', 'Swagger', 'Python', 'Java', 'Git', 'Oracle', 'Docker', 'Chart.js'],
     githubUrls: {
@@ -214,20 +239,24 @@ const allProjects = [
       'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
       '/images/projects/comminuty/1.PNG',
     ],
-    overview: 'GPS 기반 커뮤니티 서비스로 주변 사용자 간 소통과 정보 공유를 지원하는 위치 기반 SNS입니다.',
+    overview: 'GPS 기반 위치 인증을 통해 주변 사용자 간 소통과 정보 공유를 지원하는 모바일 커뮤니티 서비스입니다.',
     role: [
-      '9개월 팀 리딩: 일정/이슈 관리 및 핵심 기술 의사결정 주도',
+      '팀장으로 일정/이슈 관리 및 핵심 기술 의사결정 주도',
       'Spring Security + JWT 기반 인증/인가 설계로 Stateless 보안 체계 구축',
       'ERD 설계 및 핵심 API 전담, 기능 명세·데이터 모델링 주도',
+      'EXPLAIN 기반 실행계획 분석 후 댓글 목록·마커 조회·알림 조회 등 조건 조회/정렬 쿼리에 인덱스를 설계해 Full Scan 위험 완화',
+      'Redis 기반 인증번호 TTL 저장, 인기 게시글 캐시, refresh token 저장 구조를 적용해 반복 DB 접근을 줄이고 다중 인스턴스 확장성을 고려',
       '신고 프로세스 구축으로 악성 사용자 제재 및 커뮤니티 안정성 강화',
       'AWS EC2 + RDS(MySQL) 배포로 실제 서비스 운영 환경 구성'
     ],
     learnings: [
       '인천대학교 졸업작품 경진대회 장려상 수상',
-      '장기 프로젝트 완주와 리더십·커뮤니케이션 역량 강화',
-      '보안·인프라까지 포함한 백엔드 전반 설계 경험 확보'
+      '댓글 목록 API 기준 응답시간 0.271s → 0.033s로 단축해 DB 조회 성능 개선',
+      '인덱스 설계와 Redis 캐시 적용으로 데이터 증가 상황에서의 조회 병목 완화',
+      '팀장으로 프로젝트를 리딩하며 요구사항 관리, 일정 조율, 기술 의사결정 경험 축적',
+      '인증·인가, 데이터 모델링, 성능 개선, 배포까지 포함한 백엔드 전반 설계'
     ],
-    technologies: ['Spring Boot', 'JPA', 'Java', 'Spring Security', 'GitHub', 'Postman', 'Git', 'Notion', 'MySQL', 'JWT', 'AWS', 'AWS EC2', 'AWS RDS']
+    technologies: ['Spring Boot', 'JPA', 'Java', 'Spring Security', 'GitHub', 'Postman', 'Git', 'Notion', 'MySQL', 'Redis', 'JWT', 'AWS', 'AWS EC2', 'AWS RDS']
   }
 
 ];
@@ -257,6 +286,10 @@ function PortfolioContent() {
             onItemClick={selectProject} 
             rowType="projects"
           />
+        </section>
+
+        <section id="education" className="section">
+          <Row title="Education" items={education} rowType="certifications" />
         </section>
 
         <section id="awards" className="section">
