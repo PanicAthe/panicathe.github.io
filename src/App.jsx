@@ -69,7 +69,7 @@ const education = [
     label: '참여 중',
     date: '2026.05 ~ 현재',
     linkUrl: 'https://www.swmaestro.ai/busan/sw/main/main.do',
-    description: 'AI·SW 전문가 멘토링과 팀 프로젝트 개발 중심의 부산 17기 실전 연수 과정에 참여 중'
+    description: '팀 프로젝트 진행 중'
   },
   {
     id: 'shinhan-ds-finance-sw-academy',
