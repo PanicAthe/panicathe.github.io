@@ -1,33 +1,43 @@
 (() => {
   const english = document.documentElement.lang === 'en';
   const say = (ko, en) => english ? en : ko;
-  const showcase = document.querySelector('.hero-showcase');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero: the onomatopoeia types itself, one word at a time.
+  const typed = document.querySelector('[data-type-words]');
+  if (typed && !reduceMotion) {
+    const words = typed.dataset.typeWords.split('|');
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    let index = 0;
+    (async () => {
+      for (;;) {
+        await sleep(2600);
+        if (document.hidden) continue;
+        const current = [...words[index]];
+        for (let i = current.length; i >= 0; i--) { typed.textContent = current.slice(0, i).join(''); await sleep(70); }
+        index = (index + 1) % words.length;
+        const next = [...words[index]];
+        for (let i = 1; i <= next.length; i++) { typed.textContent = next.slice(0, i).join(''); await sleep(140); }
+      }
+    })();
+  }
+
+  // Hero: tap Aqua Cat for a squish and a hello.
+  const pet = document.querySelector('.hero-pet');
   let reactionTimeout;
   function react() {
-    if (!showcase) return;
+    if (!pet) return;
     clearTimeout(reactionTimeout);
-    showcase.classList.remove('is-reacting');
-    // Restart the finite animation for each deliberate button press.
-    void showcase.offsetWidth;
-    showcase.classList.add('is-reacting');
-    showcase.querySelector('[data-reaction-message]').textContent = say('반가워요! ♡', 'Hello there! ♡');
+    pet.classList.remove('is-reacting');
+    // Restart the finite animation for each deliberate press.
+    void pet.offsetWidth;
+    pet.classList.add('is-reacting');
+    pet.querySelector('[data-reaction-message]').textContent = say('반가워요! ♡', 'Hello there! ♡');
     reactionTimeout = setTimeout(() => {
-      showcase.classList.remove('is-reacting');
-      showcase.querySelector('[data-reaction-message]').textContent = '';
+      pet.classList.remove('is-reacting');
+      pet.querySelector('[data-reaction-message]').textContent = '';
     }, 1300);
   }
-  document.querySelectorAll('[data-friend]').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('[data-friend]').forEach(choice => choice.setAttribute('aria-pressed', String(choice === button)));
-      const image = document.querySelector('#hero-pet-image');
-      image.src = button.dataset.src;
-      image.alt = button.dataset.name;
-      showcase.dataset.kind = button.dataset.friend;
-      showcase.querySelector('[data-friend-name]').textContent = button.dataset.name;
-      showcase.querySelector('[data-friend-note]').textContent = button.dataset.note;
-      react();
-    });
-  });
   document.querySelectorAll('[data-pet-tap]').forEach(button => button.addEventListener('click', react));
 
   let player;
@@ -83,7 +93,7 @@
     clearInterval(timer);
     timer = null;
     toggle.removeAttribute('aria-label');
-    toggle.textContent = remaining === 0 ? say('다시 시작 ↗', 'Start again ↗') : say('시작 ↗', 'Start ↗');
+    toggle.textContent = remaining === 0 ? say('다시 시작', 'Start again') : say('시작', 'Start');
   }
   if (toggle) {
     toggle.addEventListener('click', () => {
@@ -95,7 +105,7 @@
       }
       if (remaining === 0) remaining = 25 * 60;
       deadline = Date.now() + remaining * 1000;
-      toggle.textContent = say('일시정지 Ⅱ', 'Pause Ⅱ');
+      toggle.textContent = say('일시정지', 'Pause');
       toggle.setAttribute('aria-label', say('미리보기 타이머 일시정지', 'Pause preview timer'));
       timer = setInterval(() => {
         remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
@@ -152,16 +162,16 @@
   function stopReaction(button) {
     clearTimeout(reactionTimers.get(button));
     reactionTimers.delete(button);
-    const image = button.closest('.reaction-card').querySelector('[data-reaction-image]');
+    const image = button.closest('[data-reaction]').querySelector('[data-reaction-image]');
     image.src = image.dataset.poster;
     button.setAttribute('aria-pressed', 'false');
-    button.innerHTML = `<span aria-hidden="true">↻</span> ${say('반응 보기', 'Play reaction')}`;
+    button.innerHTML = `<span aria-hidden="true">▶</span> ${say('반응 보기', 'Play reaction')}`;
   }
   document.querySelectorAll('[data-play-reaction]').forEach(button => {
     button.setAttribute('aria-pressed', 'false');
     button.addEventListener('click', () => {
       if (reactionTimers.has(button)) { stopReaction(button); return; }
-      const image = button.closest('.reaction-card').querySelector('[data-reaction-image]');
+      const image = button.closest('[data-reaction]').querySelector('[data-reaction-image]');
       image.src = image.dataset.gif + `?play=${Date.now()}`;
       button.setAttribute('aria-pressed', 'true');
       button.innerHTML = `<span aria-hidden="true">Ⅱ</span> ${say('멈추기', 'Stop')}`;

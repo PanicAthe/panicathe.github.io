@@ -1,68 +1,77 @@
 from html import escape
 
 
-def build_home(en, base, path, paw, companions):
+def build_home(en, base, path, companions, media):
     def t(ko, english):
         return english if en else ko
 
-    thumbs = ''
-    cards = ''
-    for index, (kind, name, note) in enumerate(companions):
-        src = f'{base}/assets/companions/{kind}.png'
-        hero_src = f'{base}/assets/aqua.png' if kind == 'aqua-cat' else src
-        thumbs += f'''<button class="friend-choice" type="button" data-friend="{kind}" data-name="{escape(name)}" data-note="{escape(note)}" data-src="{hero_src}" aria-pressed="{'true' if index == 0 else 'false'}" aria-label="{escape(name)} {t('미리보기', 'preview')}"><img src="{src}" width="512" height="512" alt=""><span>{name}</span></button>'''
-        cards += f'''<article class="friend-profile friend-{kind}"><div class="friend-picture"><span class="profile-number">0{index + 1}</span><img src="{src}" width="512" height="512" alt="{name}" loading="lazy"></div><div class="profile-copy"><h3>{name}</h3><p>{note}</p></div></article>'''
+    # 히어로: 거대한 의성어가 스스로 타이핑되고, 아쿠아 고양이가 글자 뒤에서 반응한다.
+    words = t('타닥타닥|톡톡톡톡|또각또각', 'Tap tap|Clack|Pop pop')
+    first_word = words.split('|')[0]
+
+    # 친구 밴드: 컬러 밴드 하나에 친구 한 명. 앱 속 반응 GIF를 같은 밴드에서 바로 재생한다.
+    bands = ''
+    for kind, name, note, reaction in companions:
+        bands += f'''<article class="band band-{kind}" data-reaction>
+  <div class="band-copy"><h3>{name}</h3><p>{note}</p></div>
+  <figure class="band-reaction"><img src="{base}/assets/reactions/{kind}-poster.png" data-reaction-image data-poster="{base}/assets/reactions/{kind}-poster.png" data-gif="{base}/assets/reactions/{kind}-reaction.gif" width="320" height="320" loading="lazy" alt="{escape(name)} {t('앱 속 반응', 'in-app reaction')}"><figcaption><button type="button" data-play-reaction aria-label="{escape(name)} {t('반응 보기', 'play reaction')}"><span aria-hidden="true">▶</span> {t('반응 보기', 'Play reaction')}</button><span>{reaction}</span></figcaption></figure>
+  <img class="band-pet" src="{base}/assets/companions/{kind}.png" width="512" height="512" alt="" loading="lazy">
+</article>'''
+
+    sound_names = [t('기계식', 'Mechanical'), t('도각도각', 'Soft Thock'), t('윤활 갈축', 'Lubed Brown'), t('청축', 'Blue Switch'), t('버블', 'Bubble'), t('뮤직박스', 'Music box')]
+    ticker = ''.join(f'<span>{name}</span><i>✳</i>' for name in sound_names)
 
     samples = [
-        ('mechanical', t('기계식', 'Mechanical'), t('또렷한 키보드의 리듬', 'A crisp keyboard rhythm'), '01'),
-        ('bubble', t('버블', 'Bubble'), t('톡톡 터지는 작은 즐거움', 'A tiny pop of joy'), '02'),
-        ('musicbox', t('뮤직박스', 'Music box'), t('가벼운 멜로디 한 조각', 'A little note of melody'), '03'),
+        ('mechanical', t('기계식', 'Mechanical'), t('또렷한 키보드의 리듬', 'A crisp keyboard rhythm')),
+        ('bubble', t('버블', 'Bubble'), t('톡톡 터지는 작은 즐거움', 'A tiny pop of joy')),
+        ('musicbox', t('뮤직박스', 'Music box'), t('가벼운 멜로디 한 조각', 'A little note of melody')),
     ]
-    sound_rows = ''.join(f'''<button class="sound-row" type="button" data-sound="{base}/assets/sounds/{key}.wav" aria-label="{name} {t('소리 미리듣기', 'sound preview')}" aria-pressed="false"><span class="sample-index">{number}</span><span class="sample-copy"><strong>{name}</strong><small>{note}</small></span><span class="sound-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="play-symbol" aria-hidden="true">▶</span></button>''' for key, name, note, number in samples)
+    sound_rows = ''.join(f'''<button class="sound-row" type="button" data-sound="{base}/assets/sounds/{key}.wav" aria-label="{name} {t('소리 미리듣기', 'sound preview')}" aria-pressed="false"><span class="sample-copy"><strong>{name}</strong><small>{note}</small></span><span class="sound-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="play-symbol" aria-hidden="true">▶</span></button>''' for key, name, note in samples)
 
     steps = [
         (t('메뉴바에서 만나요', 'Meet in the menu bar'), t('TypeCat을 열고 작은 메뉴바 아이콘을 눌러주세요.', 'Open TypeCat, then click its small menu bar icon.')),
         (t('키보드 연결을 허용해요', 'Connect your keyboard'), t('시스템 설정의 입력 모니터링에서 TypeCat을 허용해주세요.', 'Allow TypeCat in System Settings → Privacy & Security → Input Monitoring.')),
         (t('다섯 번 톡톡, 준비 끝', 'Five taps. Ready to go.'), t('환경설정 → 키보드 연결 테스트에서 실제 키를 다섯 번 눌러 확인해요.', 'In Preferences → Test keyboard connection, press five physical keys to confirm delivery.')),
     ]
-    setup = ''.join(f'<li><span>0{i + 1}</span><div><h3>{title}</h3><p>{note}</p></div></li>' for i, (title, note) in enumerate(steps))
+    setup = ''.join(f'<li><span class="step-no">{i + 1}</span><h3>{title}</h3><p>{note}</p></li>' for i, (title, note) in enumerate(steps))
 
     return f'''
 <section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title" class="hero-type"><span class="sr-only">{t('타닥타닥, 조금 더 즐겁게.', 'A little joy in every keystroke.')}</span><span class="type-word" aria-hidden="true" data-type-words="{words}">{first_word}</span><span class="caret" aria-hidden="true"></span></h1>
+  <button type="button" class="hero-pet" data-pet-tap aria-label="{t('아쿠아 고양이에게 인사하기', 'Say hello to Aqua Cat')}"><img src="{base}/assets/aqua.png" width="1312" height="1199" alt="" fetchpriority="high"><span class="pet-bubble" data-reaction-message aria-live="polite"></span></button>
   <div class="hero-copy">
-    <p class="edition-label"><span></span> {t('MAC을 위한 작은 친구', 'A LITTLE COMPANION FOR YOUR MAC')}</p>
-    <h1 id="hero-title" class="hero-title">{t('타닥타닥,<br><em>조금 더 즐겁게.</em>', 'A little joy.<br><em>Every keystroke.</em>')}</h1>
-    <p class="hero-intro">{t('기분 좋은 소리, 곁에 있는 작은 친구.<br>매일의 타이핑에 나만의 리듬을 더해요.', 'Feel-good sounds. A little friend by your side.<br>Make your everyday typing a little more yours.')}</p>
-    <div class="hero-actions">{paw}<div class="action-note"><span class="platform-mark" aria-hidden="true">⌘</span><strong>{t('가볍게, 메뉴바에서', 'Right in your menu bar')}</strong><span>macOS 13+</span><a href="#app">{t('실제 앱 둘러보기', 'Take an app tour')} <span aria-hidden="true">↗</span></a></div></div>
-    <p class="release-note"><span></span>{t('Mac App Store 출시 준비 중', 'Mac App Store release in preparation')}</p>
-  </div>
-  <div class="hero-showcase" data-kind="aqua-cat">
-    <div class="showcase-top"><span>{t('오늘의 작은 친구', 'YOUR LITTLE COMPANION')}</span><span class="preview-tag">{t('미리보기', 'PREVIEW')}</span></div>
-    <div class="pet-stage"><div class="stage-orbit" aria-hidden="true"></div><span class="stage-spark spark-one" aria-hidden="true">✳</span><span class="stage-spark spark-two" aria-hidden="true">+</span><button type="button" class="pet-tap" data-pet-tap aria-label="{t('캐릭터 반응 미리보기', 'Preview companion reaction')}"><img id="hero-pet-image" src="{base}/assets/aqua.png" width="1312" height="1199" alt="{t('아쿠아 고양이', 'Aqua Cat')}" fetchpriority="high"></button><button class="enter-key" type="button" data-pet-tap aria-label="{t('눌러서 캐릭터와 인사하기', 'Tap to say hello to your companion')}"><span aria-hidden="true">↵</span><small>{t('눌러봐요', 'TAP ME')}</small></button></div>
-    <div class="showcase-caption"><strong data-friend-name>{t('아쿠아 고양이', 'Aqua Cat')}</strong><span data-friend-note>{t('몽글몽글, 오팔빛 작은 친구.', 'Soft, opal, and a little squishy.')}</span><span class="reaction-message" data-reaction-message aria-live="polite"></span></div>
-    <div class="friend-choices" role="group" aria-label="{t('캐릭터 미리보기 선택', 'Choose a companion preview')}">{thumbs}</div>
+    <p class="hero-lead">{t('키를 누를 때마다 기분 좋은 소리, 옆에서 같이 치는 작은 친구. Mac 메뉴바에서 바로 켜요.', 'A feel-good sound with every key, and a little friend typing along. It lives in your Mac menu bar.')}</p>
+    <div class="hero-actions"><a class="button lemon" href="#companions">{t('친구들 만나기', 'Meet the friends')}</a><a class="button ghost" href="#sound">{t('소리 들어보기', 'Hear the sounds')}</a></div>
+    <p class="release-note">{t('macOS 13 이상에서 동작해요. Mac App Store 출시를 준비하고 있어요.', 'Works on macOS 13 or later. Mac App Store release in preparation.')}</p>
   </div>
 </section>
+<div class="ticker" aria-hidden="true"><div class="ticker-track">{ticker}{ticker}</div></div>
 
-<div class="product-facts"><span><b>04</b> {t('함께할 친구', 'little companions')}</span><span><b>12</b> {t('기분 좋은 소리', 'feel-good sounds')}</span><span><b>100%</b> {t('Mac 안에서 처리', 'processed on your Mac')}</span><a href="#companions">{t('아래로, 조금 더', 'A little more below')} <span aria-hidden="true">↓</span></a></div>
-
-<section id="companions" class="section companions-section">
-  <div class="section-heading"><div><p class="kicker">01 / LITTLE COMPANY</p><h2>{t('누가 곁에<br>있으면 좋을까요?', 'Who would you like<br>by your side?')}</h2></div><p>{t('성격도, 반응도 다른 네 친구.<br>모두 무료 버전에서 만날 수 있어요.', 'Four little personalities. Four different reactions.<br>All included in the free release.')}</p></div>
-  <div class="friend-profiles">{cards}</div>
-  <div class="custom-note"><span class="plus-circle" aria-hidden="true">+</span><p><strong>{t('내 이미지로 만든 친구도 좋아요.', 'Your own little creation is welcome, too.')}</strong><span>{t('직접 고른 이미지로 커스텀 캐릭터 1개를 저장할 수 있어요.', 'Save one custom companion using an image you choose.')}</span></p><a href="{path('support', en)}#custom-files">{t('만드는 방법', 'How it works')} ↗</a></div>
+<section id="companions" class="friends-section">
+  <div class="section-intro"><h2>{t('같이 치는<br>친구 넷', 'Four friends<br>who type along')}</h2><p>{t('성격도 반응도 다른 네 친구예요. 모두 무료 버전에 들어 있어요. 반응 보기를 누르면 앱 속 모습을 3초 동안 보여줘요.', 'Four personalities, four reactions, all in the free release. Press play to see each one move in the app for three seconds.')}</p></div>
+  {bands}
+  <div class="custom-note"><p><strong>{t('내 이미지로 만든 친구도 좋아요.', 'Bring your own friend, too.')}</strong> {t('직접 고른 이미지로 커스텀 캐릭터 1개를 저장할 수 있어요.', 'Save one custom companion from an image you choose.')}</p><a href="{path('support', en)}#custom-files">{t('만드는 방법', 'How it works')}</a></div>
 </section>
 
-<section id="sound" class="section sound-section">
-  <div class="sound-story"><p class="kicker">02 / FIND YOUR RHYTHM</p><h2>{t('오늘은 어떤<br><em>소리로 쓸까요?</em>', 'What does your<br><em>day sound like?</em>')}</h2><p>{t('또각또각, 톡톡, 맑은 멜로디.<br>마음에 드는 소리를 골라 들어보세요.', 'Crisp clicks, tiny pops, a gentle melody.<br>Find a sound that feels like you.')}</p><div class="sound-tags"><span>{t('키보드', 'Keyboard')}</span><span>{t('효과음', 'Effects')}</span><span>{t('악기', 'Instruments')}</span></div><p class="sample-disclosure">{t('기본 12종 중 3종의 소리 미리듣기', 'Preview 3 of the 12 bundled themes')}<br>{t('소리는 재생 버튼을 눌렀을 때만 나와요.', 'Sound plays only when you press a preview button.')}</p></div>
-  <div class="sound-player"><div class="player-label"><span>TYPECAT SOUND LIBRARY</span><span class="tiny-dot"></span></div>{sound_rows}<p class="player-status" data-audio-status aria-live="polite">{t('재생 버튼을 눌러 들어보세요.', 'Press play to listen.')}</p><a class="credits-link" href="{base}/sound-credits.txt">{t('음원 출처와 라이선스', 'Sound credits & licenses')} ↗</a></div>
+<section id="sound" class="sound-section">
+  <div class="sound-story"><h2>{t('오늘은 어떤<br>소리로 쓸까요?', 'What does your<br>day sound like?')}</h2><p>{t('또각또각, 톡톡, 맑은 멜로디. 키보드·효과음·악기 세 갈래로 12종이 들어 있어요.', 'Crisp clicks, tiny pops, a gentle melody. Twelve themes across keyboards, effects, and instruments.')}</p><p class="sample-disclosure">{t('그중 3종을 들어볼 수 있어요. 소리는 재생 버튼을 눌렀을 때만 나와요.', 'Three of them are here to try. Sound plays only when you press a button.')}</p></div>
+  <div class="sound-player">{sound_rows}<p class="player-status" data-audio-status aria-live="polite">{t('재생 버튼을 눌러 들어보세요.', 'Press play to listen.')}</p><a class="credits-link" href="{base}/sound-credits.txt">{t('음원 출처와 라이선스', 'Sound credits and licenses')}</a></div>
 </section>
 
-<section id="focus" class="section focus-section">
-  <div class="timer-preview"><div class="window-bar"><span aria-hidden="true"><i></i><i></i><i></i></span><strong>TypeCat</strong><span class="preview-tag">{t('웹 미리보기', 'WEB PREVIEW')}</span></div><div class="timer-content"><span class="timer-mode">{t('집중할 시간', 'TIME TO FOCUS')}</span><p class="timer-readout" data-timer-readout>25:00</p><div class="timer-actions"><button class="button" type="button" data-timer-toggle>{t('시작', 'Start')} <span aria-hidden="true">↗</span></button><button class="reset-timer" type="button" data-timer-reset>{t('초기화', 'Reset')}</button></div><img src="{base}/assets/companions/cat.png" width="512" height="512" alt="" loading="lazy"></div></div>
-  <div class="focus-story"><p class="kicker">03 / A MOMENT FOR FOCUS</p><h2>{t('몰입할 때도,<br>쉬어갈 때도.', 'A little focus.<br>A little breathing room.')}</h2><p>{t('타이머와 뽀모도로를 메뉴바에서 가볍게.<br>친구 아래에 남은 시간이 표시돼요.', 'A countdown or Pomodoro, right in your menu bar.<br>Your companion keeps the remaining time close.')}</p><ul class="quiet-list"><li>{t('시작·일시정지·초기화를 간단하게', 'Start, pause, and reset with ease')}</li><li>{t('완료 알림음과 볼륨은 따로 조절', 'Separate sound and volume for timer alerts')}</li><li>{t('다시 열면 저장된 남은 시간부터', 'Resume your saved remaining time after relaunch')}</li></ul><a class="text-link" href="{path('support', en)}#timer-help">{t('타이머 사용 안내', 'Timer guide')} ↗</a></div>
+{media['tour']}
+
+<section id="focus" class="focus-section">
+  <div class="focus-story"><h2>{t('몰입할 때도,<br>쉬어갈 때도', 'A little focus,<br>a little rest')}</h2><p>{t('카운트다운과 뽀모도로를 메뉴바에서 가볍게. 남은 시간은 친구 바로 아래에 보여요.', 'Countdowns and Pomodoro, right from the menu bar. The time left sits just below your companion.')}</p><ul class="quiet-list"><li>{t('시작·일시정지·초기화를 한 번에', 'Start, pause, and reset in one place')}</li><li>{t('완료 알림음과 볼륨은 따로 조절', 'Separate sound and volume for timer alerts')}</li><li>{t('다시 열면 저장된 남은 시간부터', 'Pick up your saved time after relaunch')}</li></ul><a class="text-link" href="{path('support', en)}#timer-help">{t('타이머 사용 안내', 'Timer guide')}</a></div>
+  <div class="timer-preview"><div class="timer-content"><span class="timer-mode">{t('집중할 시간', 'Time to focus')}</span><p class="timer-readout" data-timer-readout>25:00</p><div class="timer-actions"><button class="button lemon" type="button" data-timer-toggle>{t('시작', 'Start')}</button><button class="reset-timer" type="button" data-timer-reset>{t('초기화', 'Reset')}</button></div><p class="timer-note">{t('웹에서 눌러보는 미리보기예요.', 'A preview you can try on the web.')}</p></div><img src="{base}/assets/companions/cat.png" width="512" height="512" alt="" loading="lazy"></div>
 </section>
 
-<section class="privacy-note"><span class="privacy-mark" aria-hidden="true">⌁</span><div><p class="kicker">JUST BETWEEN YOU & YOUR MAC</p><h2>{t('입력한 문장은,<br>당신의 것.', 'Your words<br>stay yours.')}</h2></div><div><p>{t('키의 종류와 타이밍만 일시적으로 처리해요.<br>입력한 문자나 문장은 추출·저장·전송하지 않아요.', 'Only key categories and timing are processed temporarily.<br>Typed characters and sentences are not extracted, stored, or transmitted.')}</p><a class="text-link" href="{path('privacy', en)}">{t('개인정보처리방침', 'Read the privacy policy')} ↗</a></div></section>
+<section class="privacy-note"><h2>{t('입력한 문장은,<br>당신의 것', 'Your words<br>stay yours')}</h2><div><p>{t('키의 종류와 타이밍만 Mac 안에서 잠깐 처리해요. 입력한 문자나 문장은 추출·저장·전송하지 않아요.', 'Only key categories and timing are processed, briefly, on your Mac. Typed characters and sentences are never extracted, stored, or transmitted.')}</p><a class="text-link" href="{path('privacy', en)}">{t('개인정보처리방침 읽기', 'Read the privacy policy')}</a></div></section>
 
-<section class="section start-section"><div class="section-heading"><div><p class="kicker">READY WHEN YOU ARE</p><h2>{t('세 단계면,<br>준비 끝.', 'Three little steps.<br>Ready to go.')}</h2></div><a class="button secondary" href="{path('support', en)}">{t('처음 사용하기', 'Getting started')} ↗</a></div><ol class="start-steps">{setup}</ol><p class="setup-note">{t('시스템의 권한 스위치와 실제 입력 전달은 달라요. 앱의 다섯 번 입력 테스트로 연결을 확인해주세요.', 'A permission toggle and actual input delivery are different. Confirm the connection with the app’s five-press test.')}</p></section>
+<section id="start" class="start-section">
+  <div class="section-intro"><h2>{t('세 단계면<br>준비 끝', 'Three steps<br>and you are set')}</h2><p>{t('권한 안내부터 실제 입력 확인까지, 첫 실행 화면이 차근차근 안내해요.', 'From the permission prompt to the five-key test, the first launch walks you through it.')}</p></div>
+  <ol class="start-steps">{setup}</ol>
+  <div class="onboarding-shots">{media['onboarding']}</div>
+  <p class="setup-note">{t('시스템의 권한 스위치와 실제 입력 전달은 달라요. 위 화면은 시작 안내 미리보기이고, 연결은 앱에서 실제 키를 다섯 번 눌러 확인해요.', 'A permission toggle is not the same as input actually arriving. These are first-launch previews; the real check is five physical key presses in the app.')}</p>
+  <a class="button ink" href="{path('support', en)}">{t('처음 사용하기 안내', 'Getting started guide')}</a>
+</section>
 '''
