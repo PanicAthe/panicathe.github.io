@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import cardFace from '../../assets/lanyard/card-face.png';
 import './Hero.css';
 
@@ -56,11 +57,13 @@ function Hero() {
         {useStaticCard ? (
           <StaticCard />
         ) : (
-          <Suspense fallback={<StaticCard />}>
-            <Lanyard />
-          </Suspense>
+          <ErrorBoundary fallback={<StaticCard />}>
+            <Suspense fallback={<StaticCard />}>
+              <Lanyard />
+              <p className="hero__hint" aria-hidden="true">드래그해서 카드를 흔들어 보세요</p>
+            </Suspense>
+          </ErrorBoundary>
         )}
-        {!useStaticCard && <p className="hero__hint" aria-hidden="true">드래그해서 카드를 흔들어 보세요</p>}
       </div>
     </section>
   );
