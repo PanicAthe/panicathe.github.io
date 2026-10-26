@@ -134,7 +134,10 @@
       const choice = choices.find(button => button.dataset.screen === screen);
       const lightOnly = ['menu-timer', 'timer-config'].includes(screen);
       const theme = lightOnly ? 'light' : appearance;
-      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.webp?v=copy-20261026`;
+      const isMenu = screen === "menu" || screen === "menu-timer";
+      const extension = isMenu ? "png" : "webp";
+      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.${extension}?v=retina-20261026`;
+      tour.querySelector("[data-screen-full]").dataset.screenKind = isMenu ? "menu" : "settings";
       const image = tour.querySelector('[data-screen-image]');
       image.src = src;
       image.alt = `TypeCat ${choice.dataset.title}`;
@@ -158,29 +161,28 @@
       updateScreen();
     }));
   }
-  const reactionTimers = new Map();
-  function stopReaction(button) {
-    clearTimeout(reactionTimers.get(button));
-    reactionTimers.delete(button);
-    const image = button.closest('[data-reaction]').querySelector('[data-reaction-image]');
-    image.src = image.dataset.poster;
-    button.setAttribute('aria-pressed', 'false');
-    button.innerHTML = `<span aria-hidden="true">▶</span> ${say('반응 보기', 'Play reaction')}`;
-  }
-  document.querySelectorAll('[data-play-reaction]').forEach(button => {
-    button.setAttribute('aria-pressed', 'false');
-    button.addEventListener('click', () => {
-      if (reactionTimers.has(button)) { stopReaction(button); return; }
-      const image = button.closest('[data-reaction]').querySelector('[data-reaction-image]');
-      image.src = image.dataset.gif + `?play=${Date.now()}`;
-      button.setAttribute('aria-pressed', 'true');
-      button.innerHTML = `<span aria-hidden="true">Ⅱ</span> ${say('멈추기', 'Stop')}`;
-      reactionTimers.set(button, setTimeout(() => stopReaction(button), 3000));
+  // The character itself moves in its band. Keep offscreen and reduced-motion
+  // companions still, without a second preview box or playback controls.
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const companions = [...document.querySelectorAll('[data-companion-gif]')];
+  const visibleCompanions = new Set();
+  function updateCompanions() {
+    companions.forEach(image => {
+      const source = !motionPreference.matches && !document.hidden && visibleCompanions.has(image)
+        ? image.dataset.companionGif : image.dataset.poster;
+      if (image.getAttribute('src') !== source) image.src = source;
     });
-  });
-  window.addEventListener('pagehide', () => {
-    [...reactionTimers.keys()].forEach(stopReaction);
-  });
+  }
+  const companionObserver = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) visibleCompanions.add(target);
+      else visibleCompanions.delete(target);
+    });
+    updateCompanions();
+  }, { threshold: 0.15 });
+  companions.forEach(image => companionObserver.observe(image));
+  motionPreference.addEventListener('change', updateCompanions);
+  document.addEventListener('visibilitychange', updateCompanions);
 
   function openLinkedHelp() {
     const id = decodeURIComponent(window.location.hash.slice(1));

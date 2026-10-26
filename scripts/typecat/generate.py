@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / 'public/typecat'
 ORIGIN = 'https://panicathe.github.io'
 BASE = '/typecat'
-ASSET_VERSION = 'bands-copy-20261026'
+ASSET_VERSION = 'bands-retina-20261026'
 config = json.loads((Path(__file__).resolve().parent / 'content.json').read_text())
 EMAIL = config.get('public_support_email')
 

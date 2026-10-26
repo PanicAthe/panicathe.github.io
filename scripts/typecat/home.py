@@ -11,11 +11,10 @@ def build_home(en, base, path, companions, media):
 
     # 친구 밴드: 컬러 밴드 하나에 친구 한 명. 앱 속 반응 GIF를 같은 밴드에서 바로 재생한다.
     bands = ''
-    for kind, name, note, reaction in companions:
-        bands += f'''<article class="band band-{kind}" data-reaction>
+    for kind, name, note, _reaction in companions:
+        bands += f'''<article class="band band-{kind}">
   <div class="band-copy"><h3>{name}</h3><p>{note}</p></div>
-  <figure class="band-reaction"><img src="{base}/assets/reactions/{kind}-poster.png" data-reaction-image data-poster="{base}/assets/reactions/{kind}-poster.png" data-gif="{base}/assets/reactions/{kind}-reaction.gif" width="320" height="320" loading="lazy" alt="{escape(name)} {t('앱 속 반응', 'in-app reaction')}"><figcaption><button type="button" data-play-reaction aria-label="{escape(name)} {t('반응 보기', 'play reaction')}"><span aria-hidden="true">▶</span> {t('반응 보기', 'Play reaction')}</button><span>{reaction}</span></figcaption></figure>
-  <img class="band-pet" src="{base}/assets/companions/{kind}.png" width="512" height="512" alt="" loading="lazy">
+  <img class="band-pet" src="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" data-companion-gif="{base}/assets/reactions/{kind}-reaction.gif?v=alpha-20261026" data-poster="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" width="640" height="640" alt="{escape(name)} {t('앱 속 반응', 'in-app reaction')}" loading="lazy">
 </article>'''
 
     sound_names = [t('기계식', 'Mechanical'), t('도각도각', 'Soft Thock'), t('윤활 갈축', 'Lubed Brown'), t('청축', 'Blue Switch'), t('버블', 'Bubble'), t('뮤직박스', 'Music box')]
@@ -48,7 +47,7 @@ def build_home(en, base, path, companions, media):
 <div class="ticker" aria-hidden="true"><div class="ticker-track">{ticker}{ticker}</div></div>
 
 <section id="companions" class="friends-section">
-  <div class="section-intro"><h2>{t('같이 치는<br>친구 넷', 'Four friends<br>who type along')}</h2><p>{t('성격도 반응도 다른 네 친구예요. 모두 무료 버전에 들어 있어요. 반응 보기를 누르면 앱 속 모습을 3초 동안 보여줘요.', 'Four personalities, four reactions, all in the free release. Press play to see each one move in the app for three seconds.')}</p></div>
+  <div class="section-intro"><h2>{t('같이 치는<br>친구 넷', 'Four friends<br>who type along')}</h2><p>{t('성격도 움직임도 다른 네 친구예요. 모두 무료 버전에 들어 있어요.', 'Four personalities, four little ways to move. All in the free release.')}</p></div>
   {bands}
   <div class="custom-note"><p><strong>{t('내 이미지로 만든 친구도 좋아요.', 'Bring your own friend, too.')}</strong> {t('직접 고른 이미지로 커스텀 캐릭터 1개를 저장할 수 있어요.', 'Save one custom companion from an image you choose.')}</p><a href="{path('support', en)}#custom-files">{t('만드는 방법', 'How it works')}</a></div>
 </section>

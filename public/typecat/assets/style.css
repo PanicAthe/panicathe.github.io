@@ -68,7 +68,9 @@ main.wrap{display:block}
 .hero-pet img{display:block;width:100%;filter:drop-shadow(0 40px 60px rgba(20,20,90,.35));transform-origin:50% 90%}
 .hero-pet.is-reacting img{animation:squish .7s cubic-bezier(.3,1.6,.5,1)}
 @keyframes squish{0%{transform:scale(1)}25%{transform:scale(1.08,.88)}55%{transform:scale(.95,1.06)}100%{transform:scale(1)}}
-.pet-bubble{position:absolute;left:4%;top:4%;padding:10px 18px;border-radius:22px 22px 22px 4px;background:var(--lemon);color:var(--ink);font-weight:800;font-size:17px}
+.hero-pet.is-reacting{z-index:4}
+.pet-bubble{position:absolute;left:50%;top:4%;transform:translate(-50%,-100%);padding:10px 18px;border-radius:22px;background:var(--lemon);color:var(--ink);font-weight:800;font-size:17px;white-space:nowrap;pointer-events:none}
+.pet-bubble::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:8px solid transparent;border-bottom:0;border-top-color:var(--lemon)}
 .pet-bubble:empty{display:none}
 .hero-copy{position:relative;z-index:3;max-width:560px;margin-top:64px}
 .hero-lead{font-size:clamp(19px,1.7vw,22px);line-height:1.55;font-weight:600}
@@ -98,13 +100,7 @@ main.wrap{display:block}
 .band-copy{position:relative;z-index:3;max-width:62%}
 .band h3{font:clamp(72px,10.5vw,170px)/.95 var(--display);font-weight:400;letter-spacing:-.02em}
 .band-copy p{margin-top:10px;font-weight:700;font-size:17px}
-.band-reaction{position:relative;z-index:3;display:flex;align-items:flex-end;gap:16px;margin-top:26px}
-.band-reaction img{width:132px;height:132px;border-radius:24px;box-shadow:0 18px 30px -18px rgba(0,0,0,.45);background:#f3f8ff}
-.band-reaction figcaption{display:grid;gap:6px;font-size:14px;font-weight:600}
-.band-reaction button{display:inline-flex;align-items:center;gap:8px;width:max-content;min-height:42px;padding:0 18px;border:0;border-radius:999px;background:var(--ink);color:#fff;font-weight:800;font-size:14px;cursor:pointer}
-.band-cat .band-reaction button{background:var(--lemon);color:var(--ink)}
-.band-reaction button[aria-pressed=true]{background:#fff;color:var(--ink)}
-.band-pet{position:absolute;z-index:2;right:6%;bottom:-28px;width:auto;height:min(25vw,360px);pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.18))}
+.band-pet{position:absolute;z-index:2;right:6%;bottom:-28px;width:auto;height:min(32vw,460px);pointer-events:none;filter:drop-shadow(0 24px 30px rgba(0,0,0,.18))}
 .custom-note{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:90px var(--gutter) 0;padding:26px 0;border-block:2px solid var(--ink)}
 .custom-note p{color:var(--ink-soft)}
 .custom-note strong{color:var(--ink);font-weight:800}
@@ -247,15 +243,14 @@ details > p{margin:0;padding-bottom:24px;color:var(--ink-soft)}
   .document h1{font-size:clamp(38px,11vw,64px)}
   .hero{min-height:0;padding-top:110px}
   .hero-type{font-size:23vw}
-  .hero-pet{position:relative;display:block;top:auto;right:auto;width:78vw;margin:8px -6vw 0 auto}
+  .hero-pet{position:relative;display:block;top:auto;right:auto;width:78vw;margin:36px -6vw 0 auto}
   .hero-copy{margin-top:8px}
   .section-intro{flex-direction:column;align-items:flex-start;gap:20px}
   .section-intro h2,.sound-story h2,.focus-story h2,.privacy-note h2{font-size:clamp(46px,13vw,72px)}
-  .band{min-height:0;padding-top:150px;padding-bottom:36px}
+  .band{min-height:0;padding-top:190px;padding-bottom:36px}
   .band-copy{max-width:none}
   .band h3{font-size:clamp(52px,15vw,96px)}
-  .band-pet{top:16px;bottom:auto;right:var(--gutter);height:150px}
-  .band-reaction img{width:104px;height:104px}
+  .band-pet{top:16px;bottom:auto;right:var(--gutter);height:200px}
   .custom-note{flex-direction:column;align-items:flex-start}
   .sound-section,.focus-section,.privacy-note{grid-template-columns:1fr}
   .gallery-toolbar{flex-direction:column}
@@ -283,3 +278,5 @@ details > p{margin:0;padding-bottom:24px;color:var(--ink-soft)}
 }
 
 .player-status:empty{min-height:0;margin-top:0}
+
+.gallery-stage[data-screen-kind=menu] img{max-width:440px;max-height:100%;width:100%;height:100%;object-fit:contain}

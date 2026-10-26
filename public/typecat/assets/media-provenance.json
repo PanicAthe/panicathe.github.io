@@ -178,76 +178,88 @@
       "sha256": "fed6fc663e3f9d6b22ad2b8cff6af2e9e3d9aad49954c0419b8268732b6d3a5f"
     },
     {
-      "file": "screens/menu-en-dark.webp",
+      "file": "screens/menu-en-dark.png",
       "size": [
-        400,
-        433
+        800,
+        866
       ],
       "source_size": [
-        400,
-        433
+        800,
+        866
       ],
-      "sha256": "dd86698b3b64f2da9ec6893025083f90aad86fca07db84bd7d9d028e3aef18ef"
+      "sha256": "07c43d5859463de377b0a91c078fe8ad5c5432bf0a21ccf0cb0360a102320155",
+      "transparent": true,
+      "scale": 2
     },
     {
-      "file": "screens/menu-en-light.webp",
+      "file": "screens/menu-en-light.png",
       "size": [
-        400,
-        433
+        800,
+        866
       ],
       "source_size": [
-        400,
-        433
+        800,
+        866
       ],
-      "sha256": "003bca78ab654cf55b07a1b1f41a51b9527af6e5fc4874c3ae583378ac107063"
+      "sha256": "972214b68e6fb7704fa63a9033941b194113a402466ccb759b09cd5eebc637ac",
+      "transparent": true,
+      "scale": 2
     },
     {
-      "file": "screens/menu-ko-dark.webp",
+      "file": "screens/menu-ko-dark.png",
       "size": [
-        400,
-        433
+        800,
+        866
       ],
       "source_size": [
-        400,
-        433
+        800,
+        866
       ],
-      "sha256": "5b8dd38fc7a5db49556b3844f87a38571fa940b99099c15fac5b8c3a3a540049"
+      "sha256": "49f19ec77e9a5f691a15e44a828bec520b03c78f23390a98d01c7e2ec6b91fb2",
+      "transparent": true,
+      "scale": 2
     },
     {
-      "file": "screens/menu-ko-light.webp",
+      "file": "screens/menu-ko-light.png",
       "size": [
-        400,
-        433
+        800,
+        866
       ],
       "source_size": [
-        400,
-        433
+        800,
+        866
       ],
-      "sha256": "c054775ad367974a618e9e7d61a20219015be28a96ee62b8614965fb1155ad5c"
+      "sha256": "a0eade048b9051980a1fa7ac41211c2c0dbe262e806f69d34321835abfcdb507",
+      "transparent": true,
+      "scale": 2
     },
     {
-      "file": "screens/menu-timer-en-light.webp",
+      "file": "screens/menu-timer-en-light.png",
       "size": [
-        400,
-        482
+        800,
+        964
       ],
       "source_size": [
-        400,
-        482
+        800,
+        964
       ],
-      "sha256": "326df69dab2249f16f13628653e0e9c65311bd9842879105a5e878b24e619bc8"
+      "sha256": "d654cc48aedb53cc6a0cb2198d635d39b2ff09feedd2dcc82f0ff4fef9465c86",
+      "transparent": true,
+      "scale": 2
     },
     {
-      "file": "screens/menu-timer-ko-light.webp",
+      "file": "screens/menu-timer-ko-light.png",
       "size": [
-        400,
-        482
+        800,
+        964
       ],
       "source_size": [
-        400,
-        482
+        800,
+        964
       ],
-      "sha256": "f416c1e20925f5e1380066520e274cb0097cf6b31ac2b1357db2af61932d2a7e"
+      "sha256": "6c6603fb0194814a5803e1a3d5ed6d130f2fe279aeb3a732e78ad91e6efda8d0",
+      "transparent": true,
+      "scale": 2
     },
     {
       "file": "screens/permission-en-light.webp",
@@ -495,33 +507,59 @@
       "file": "reactions/aqua-cat-reaction.gif",
       "frames": 60,
       "duration_ms": 3000,
-      "distinct_frames": 14,
-      "sha256": "ab2947a4fa0be4acbb6e4a80f3f649c5b9fc9ea8590e0fda0383fe2a88700d72"
+      "distinct_frames": 13,
+      "sha256": "81b072e3e64d7a2acce872725ecab9462357b0214fececeeaf0d1ff8141426b4",
+      "size": [
+        640,
+        640
+      ],
+      "transparent": true
     },
     {
       "file": "reactions/cat-reaction.gif",
       "frames": 60,
       "duration_ms": 3000,
       "distinct_frames": 5,
-      "sha256": "b43a68d511aa3f488a226104d7aca60b0523dc8c091f67a5563c590e26291c3a"
+      "sha256": "cf2be23373463cabb17d247e6f57fbb5c9742c5f1f78083d3d839fb582cb8f10",
+      "size": [
+        640,
+        640
+      ],
+      "transparent": true
     },
     {
       "file": "reactions/dog-reaction.gif",
       "frames": 60,
       "duration_ms": 3000,
-      "distinct_frames": 4,
-      "sha256": "e692355729579e9ce81504cfa7c288ee93d870c22612e905c8cc21881516fe5c"
+      "distinct_frames": 5,
+      "sha256": "feeda0fff1d79e15f03b0401f4306b4b36d4792c00f0f72cae4599e02c2d4699",
+      "size": [
+        640,
+        640
+      ],
+      "transparent": true
     },
     {
       "file": "reactions/hamster-reaction.gif",
       "frames": 60,
       "duration_ms": 3000,
-      "distinct_frames": 14,
-      "sha256": "513af47d37ca4981e462039f0100ad0c130d58d528042c0edc111c6f1205b02f"
+      "distinct_frames": 13,
+      "sha256": "e17a2076262d9622447c8721804c95adc56a2a349f19311cf848e98d30cb3ed5",
+      "size": [
+        640,
+        640
+      ],
+      "transparent": true
     }
   ],
   "reaction_capture_tool": "scripts/ExportWebsiteReactions.swift",
   "ui_frame_style": "cloud",
   "ui_copy_revision": "compact-controls-20261026",
-  "ui_source_version": "1.0 (2)"
+  "ui_source_version": "1.0 (2)",
+  "menu_capture_revision": "2x transparent PNG; original SwiftUI components, no backdrop flattening",
+  "reaction_capture_revision": "640px transparent GIF; actual production reaction handler",
+  "gallery_excluded_screens": [
+    "custom-character",
+    "custom-sound"
+  ]
 }
