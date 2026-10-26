@@ -88,8 +88,7 @@
   let timer;
   let deadline;
   function drawTimer() {
-    const elapsed = duration - remaining;
-    readout.textContent = `${String(Math.floor(elapsed / 60)).padStart(2, '0')}:${String(elapsed % 60).padStart(2, '0')}`;
+    readout.textContent = `${String(Math.floor(remaining / 60)).padStart(2, '0')}:${String(remaining % 60).padStart(2, '0')}`;
   }
   function pauseTimer() {
     clearInterval(timer);

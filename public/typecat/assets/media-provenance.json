@@ -251,11 +251,12 @@
         800,
         964
       ],
-      "sha256": "bbee5e2360d08424de643a02b15dc22c7f4c5b6cf66f3cda3bc3e1d366f79f01",
+      "sha256": "d654cc48aedb53cc6a0cb2198d635d39b2ff09feedd2dcc82f0ff4fef9465c86",
       "transparent": true,
       "scale": 2,
       "source_capture": "menu-timer-en-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/menu-timer-ko-light.png",
@@ -267,11 +268,12 @@
         800,
         964
       ],
-      "sha256": "f356f6865d5fd6e2014f97c5140e5c8bb3fd14e2c50efa7f3c6db0a30b81a153",
+      "sha256": "6c6603fb0194814a5803e1a3d5ed6d130f2fe279aeb3a732e78ad91e6efda8d0",
       "transparent": true,
       "scale": 2,
       "source_capture": "menu-timer-ko-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/permission-en-light.webp",
@@ -403,9 +405,10 @@
         2072,
         1704
       ],
-      "sha256": "2bf5ea62dd545aca57ac5f616941aec91bf9df1bb79615aa3645e06439a1aa28",
+      "sha256": "44a79f35ed2e276c17617a637695e317d212c5502063b89bbf6f2baf93f6da3f",
       "source_capture": "timer-config-en-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/timer-config-ko-light.webp",
@@ -417,9 +420,10 @@
         2072,
         1704
       ],
-      "sha256": "07c98bfa2c600701c61891005b22a1338437ee56e318f4cf3be186aa3cfeebb4",
+      "sha256": "9c56c3f99358064e0806650405a13102413391f08d6135556cb1e454b259d665",
       "source_capture": "timer-config-ko-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/timer-en-dark.webp",
@@ -431,9 +435,10 @@
         2072,
         1704
       ],
-      "sha256": "2a6c311c8b0c9d7ae003551e6c792496bb69d4d1ae80c328d7195b926e313ba0",
+      "sha256": "ba4c8e5e138de910042556c72d7a7fce2a57e4e49f8a1df00df643f116bb3d0a",
       "source_capture": "timer-en-dark.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/timer-en-light.webp",
@@ -445,9 +450,10 @@
         2072,
         1704
       ],
-      "sha256": "f3e116a46f7d239b27afb715cbdca01af7335b64a38f139da42f91abe79edd83",
+      "sha256": "2ec45574afea19a33dab4f676e5cc2b71d96385631c84caac019f7d4f25adbd5",
       "source_capture": "timer-en-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/timer-ko-dark.webp",
@@ -459,9 +465,10 @@
         2072,
         1704
       ],
-      "sha256": "bce03523d2f9c037641490139ebeec7f9e02da9dafb0b4de9ee6a12b1242a3eb",
+      "sha256": "01f44970645618fb97b21b568459f1411fcdc4ad436b52bc3f6f311ce562feae",
       "source_capture": "timer-ko-dark.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/timer-ko-light.webp",
@@ -473,9 +480,10 @@
         2072,
         1704
       ],
-      "sha256": "aa00716ff01f16ca2e5883d8b4f65746ec45c2e5102d799d357d353e006fefa8",
+      "sha256": "e114ee8622265fc5fa9c49a53f3a5dea7bee5427dac1b9760556381cbe0caddc",
       "source_capture": "timer-ko-light.png",
-      "updated_date": "2026-10-27"
+      "updated_date": "2026-10-27",
+      "source_build": "1.0 (4)"
     },
     {
       "file": "screens/waiting-en-light.webp",
@@ -593,5 +601,21 @@
     "scope": "Only companion and timer-related captures",
     "source_bundle": "build/AppStore/DerivedData/Build/Products/AppStore/TypeCat.app",
     "physical_input_delivery_verified": false
+  },
+  "pomodoro_countdown_correction": {
+    "build": "1.0 (4)",
+    "date": "2026-10-27",
+    "files": [
+      "screens/menu-timer-en-light.png",
+      "screens/menu-timer-ko-light.png",
+      "screens/timer-config-en-light.webp",
+      "screens/timer-config-ko-light.webp",
+      "screens/timer-en-dark.webp",
+      "screens/timer-en-light.webp",
+      "screens/timer-ko-dark.webp",
+      "screens/timer-ko-light.webp",
+      "screens/menu-timer-ko-light.webp",
+      "screens/menu-timer-en-light.webp"
+    ]
   }
 }
