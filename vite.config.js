@@ -35,6 +35,10 @@ export default defineConfig({
   base: '/',
   plugins: [react(), copyMP4()],
   assetsInclude: ['**/*.glb', '**/*.mp4'],
+  // Rapier의 정적/동적 import가 같은 WASM 모듈 인스턴스를 사용하도록 미리 번들한다.
+  optimizeDeps: {
+    include: ['@react-three/rapier', '@react-three/rapier > @dimforge/rapier3d-compat'],
+  },
   build: {
     rollupOptions: { input: 'index.html' },
     assetsInlineLimit: 0,

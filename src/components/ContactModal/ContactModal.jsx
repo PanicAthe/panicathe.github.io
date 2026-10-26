@@ -3,7 +3,7 @@ import './ContactModal.css';
 
 function ContactModal({ isOpen, onClose }) {
   const [isCopied, setIsCopied] = useState(false);
-  const email = 'panicathe@naver.com';
+  const email = 'panicatheworks@gmail.com';
   const timerRef = useRef(null);
 
   useEffect(() => {
