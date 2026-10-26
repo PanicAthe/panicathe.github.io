@@ -59,6 +59,10 @@
 }
 
 @media (max-width: 480px) {
+  .header__link--github {
+    display: none;
+  }
+
   .header__link {
     padding: 12px 8px;
     background-position: 8px calc(100% - 10px);

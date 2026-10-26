@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Marquee from './components/Marquee/Marquee';
 import WorkStack from './components/WorkStack/WorkStack';
+import About from './components/About/About';
 import Footer from './components/Footer/Footer';
 import ProjectModal from './components/ProjectModal/ProjectModal';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
@@ -33,7 +34,7 @@ const dbAndTools = [
   { id: 'github', name: 'GitHub', imageUrl: 'https://techstack-generator.vercel.app/github-icon.svg' },
 ];
 
-// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
+// Skills 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
 // eslint-disable-next-line no-unused-vars
 const collaborationAndDesign = [
   { id: 'slack', name: 'Slack', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/slack.svg' },
@@ -62,8 +63,6 @@ const awards = [
   },
 ];
 
-// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
-// eslint-disable-next-line no-unused-vars
 const education = [
   {
     id: 'ai-sw-maestro-busan-17',
@@ -89,8 +88,6 @@ const education = [
   },
 ];
 
-// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
-// eslint-disable-next-line no-unused-vars
 const certifications = [
   {
     id: 'aws-saa',
@@ -301,6 +298,13 @@ function PortfolioContent() {
         <Hero />
         <Marquee items={marqueeSkills} />
         <WorkStack projects={allProjects} awards={awards} onSelect={selectProject} />
+        <About
+          awards={awards}
+          education={education}
+          certifications={certifications}
+          projects={allProjects}
+          onSelectProject={selectProject}
+        />
       </main>
       <Footer />
       <ProjectModal project={selectedProject} onClose={closeProjectModal} />

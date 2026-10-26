@@ -8,9 +8,10 @@ function Header() {
       </a>
       <nav className="header__nav" aria-label="주요 메뉴">
         <a href="#work" className="header__link">WORK</a>
+        <a href="#about" className="header__link">ABOUT</a>
         <a
           href="https://github.com/PanicAthe"
-          className="header__link"
+          className="header__link header__link--github"
           target="_blank"
           rel="noopener noreferrer"
         >
