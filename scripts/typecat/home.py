@@ -53,8 +53,8 @@ def build_home(en, base, path, paw, companions):
 </section>
 
 <section id="sound" class="section sound-section">
-  <div class="sound-story"><p class="kicker">02 / FIND YOUR RHYTHM</p><h2>{t('오늘은 어떤<br><em>소리로 쓸까요?</em>', 'What does your<br><em>day sound like?</em>')}</h2><p>{t('또각또각, 톡톡, 맑은 멜로디.<br>마음에 드는 소리를 골라 들어보세요.', 'Crisp clicks, tiny pops, a gentle melody.<br>Find a sound that feels like you.')}</p><div class="sound-tags"><span>{t('키보드', 'Keyboard')}</span><span>{t('효과음', 'Effects')}</span><span>{t('악기', 'Instruments')}</span></div><p class="sample-disclosure">{t('기본 12종 중 3종의 소리 미리듣기', 'Preview 3 of the 12 bundled themes')}<br>{t('소리는 재생 버튼을 눌렀을 때만 나와요.', 'Sound plays only when you press a preview button.')}</p></div>
-  <div class="sound-player"><div class="player-label"><span>TYPECAT SOUND LIBRARY</span><span class="tiny-dot"></span></div>{sound_rows}<p class="player-status" data-audio-status aria-live="polite">{t('재생 버튼을 눌러 들어보세요.', 'Press play to listen.')}</p><a class="credits-link" href="{base}/sound-credits.txt">{t('음원 출처와 라이선스', 'Sound credits & licenses')} ↗</a></div>
+  <div class="sound-story"><p class="kicker">02 / FIND YOUR RHYTHM</p><h2>{t('오늘은 어떤<br><em>소리로 쓸까요?</em>', 'What does your<br><em>day sound like?</em>')}</h2><p>{t('또각또각, 톡톡, 맑은 멜로디.', 'Crisp clicks, tiny pops, a gentle melody.')}</p><div class="sound-tags"><span>{t('키보드', 'Keyboard')}</span><span>{t('효과음', 'Effects')}</span><span>{t('악기', 'Instruments')}</span></div><p class="sample-disclosure">{t('기본 12종 중 3종의 소리 미리듣기', 'Preview 3 of the 12 bundled themes')}</p></div>
+  <div class="sound-player"><div class="player-label"><span>TYPECAT SOUND LIBRARY</span><span class="tiny-dot"></span></div>{sound_rows}<p class="player-status" data-audio-status aria-live="polite"></p><a class="credits-link" href="{base}/sound-credits.txt">{t('음원 출처와 라이선스', 'Sound credits & licenses')} ↗</a></div>
 </section>
 
 <section id="focus" class="section focus-section">
