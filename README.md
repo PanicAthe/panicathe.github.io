@@ -115,3 +115,5 @@ panicathe.github.io/
 홈페이지의 캐릭터 전환·반응, 명시적으로 누른 음원 미리듣기, 브라우저용 타이머 체험은 `public/typecat/assets/site.js`에 있습니다. 앱의 기본 캐릭터 4종 이미지는 `assets/companions/`, 기본 음원 3종의 짧은 미리듣기는 `assets/sounds/`, 음원 출처는 `sound-credits.txt`에서 관리합니다. 타이머는 웹 체험용이며 설정을 저장하지 않습니다. 시스템의 동작 줄이기 설정을 따르고, 키보드 입력을 수집하는 이벤트는 등록하지 않습니다.
 
 앱 화면 갤러리와 첫 실행 안내는 `scripts/typecat/media.py`에서 구성합니다. `assets/screens/`는 무료 배포판의 실제 SwiftUI/AppKit 컴포넌트로 만든 한영·라이트/다크 캡처이며 개인 파일을 포함하지 않습니다. `assets/reactions/`의 GIF는 앱의 실제 반응 체험 컨트롤러로 만든 60프레임/3초 미리보기입니다. 재생 버튼으로만 불러오고 3초 뒤 포스터로 돌아갑니다. 원본 촬영 및 검증 정보는 `assets/media-provenance.json`을 참고하세요.
+
+앱 UI 촬영 프리셋은 구름 테두리(`frameStyle = .cloud`)입니다. 이미지 교체 시 `media-provenance.json`의 해시·크기를 갱신하고, HTML 및 갤러리 스크립트의 이미지 버전 쿼리도 함께 갱신하여 이전 스크린샷 캐시를 피합니다.
