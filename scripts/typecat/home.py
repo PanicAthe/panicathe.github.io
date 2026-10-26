@@ -54,7 +54,7 @@ def build_home(en, base, path, companions, media):
 
 <section id="sound" class="sound-section">
   <div class="sound-story"><h2>{t('오늘은 어떤<br>소리로 쓸까요?', 'What does your<br>day sound like?')}</h2><p>{t('또각또각, 톡톡, 맑은 멜로디. 키보드·효과음·악기 세 갈래로 12종이 들어 있어요.', 'Crisp clicks, tiny pops, a gentle melody. Twelve themes across keyboards, effects, and instruments.')}</p><p class="sample-disclosure">{t('그중 3종을 들어볼 수 있어요.', 'Three of them are here to try.')}</p></div>
-  <div class="sound-player">{sound_rows}<p class="player-status" data-audio-status aria-live="polite"></p><a class="credits-link" href="{base}/sound-credits.txt">{t('음원 출처와 라이선스', 'Sound credits and licenses')}</a></div>
+  <div class="sound-player">{sound_rows}<p class="player-status" data-audio-status aria-live="polite"></p></div>
 </section>
 
 {media['tour']}

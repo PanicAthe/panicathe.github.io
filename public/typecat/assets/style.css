@@ -123,7 +123,6 @@ main.wrap{display:block}
 .play-symbol{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--lemon);color:var(--ink);font-size:18px;transition:transform .15s}
 .sound-row:hover .play-symbol{transform:scale(1.08)}
 .player-status{margin-top:20px;font-size:14px;color:#b6b5cf}
-.credits-link{display:inline-block;margin-top:8px;font-size:14px;color:#b6b5cf}
 
 /* App tour */
 .app-section{padding-top:clamp(100px,10vw,150px)}
