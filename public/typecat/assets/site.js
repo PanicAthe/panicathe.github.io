@@ -163,19 +163,16 @@
   }
   // Characters rest until a deliberate hover, click, or keyboard activation.
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const stopCompanions = [];
   const companionStops = new Map();
   document.querySelectorAll('[data-companion-trigger]').forEach(button => {
     const image = button.querySelector('[data-companion-gif]');
     let hovered = false;
     let clicked = false;
     let timeout;
-    function refresh(restart = false) {
+    function refresh() {
       const playing = !document.hidden && (clicked || (hovered && !motionPreference.matches));
-      if (!playing) image.src = image.dataset.poster;
-      else if (restart || image.getAttribute('src') === image.dataset.poster) {
-        image.src = `${image.dataset.companionGif}&play=${Date.now()}`;
-      }
+      const src = playing ? image.dataset.companionGif : image.dataset.poster;
+      if (image.getAttribute('src') !== src) image.src = src;
     }
     function stop() {
       clearTimeout(timeout);
@@ -191,11 +188,10 @@
     button.addEventListener('click', () => {
       clicked = true;
       clearTimeout(timeout);
-      refresh(true);
+      refresh();
       timeout = setTimeout(() => { clicked = false; refresh(); }, 3000);
     });
     button.addEventListener('blur', stop);
-    stopCompanions.push(stop);
     companionStops.set(button, stop);
   });
   const companionObserver = new IntersectionObserver(entries => {
@@ -204,11 +200,11 @@
     });
   });
   companionStops.forEach((_stop, button) => companionObserver.observe(button));
-  motionPreference.addEventListener('change', () => stopCompanions.forEach(stop => stop()));
+  motionPreference.addEventListener('change', () => companionStops.forEach(stop => stop()));
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopCompanions.forEach(stop => stop());
+    if (document.hidden) companionStops.forEach(stop => stop());
   });
-  window.addEventListener('pagehide', () => stopCompanions.forEach(stop => stop()));
+  window.addEventListener('pagehide', () => companionStops.forEach(stop => stop()));
 
   function openLinkedHelp() {
     const id = decodeURIComponent(window.location.hash.slice(1));

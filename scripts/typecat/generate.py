@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / 'public/typecat'
 ORIGIN = 'https://panicathe.github.io'
 BASE = '/typecat'
-ASSET_VERSION = 'bands-hover-20261026'
+ASSET_VERSION = 'bands-cache-20261027'
 config = json.loads((Path(__file__).resolve().parent / 'content.json').read_text())
 EMAIL = config.get('public_support_email')
 
@@ -73,10 +73,10 @@ for en in [False, True]:
     title = 'A little joy in every keystroke' if en else '타이핑에 더하는 작은 즐거움'
     intro = 'Feel-good sounds, four little companions, and a timer for your Mac.' if en else '기분 좋은 타건음, 네 명의 작은 친구, 메뉴바 타이머. Mac을 위한 TypeCat.'
     companion_data = [
-        ('aqua-cat', 'Aqua Cat' if en else '아쿠아 고양이', 'Soft, opal, and a little squishy.' if en else '몽글몽글, 오팔빛 작은 친구.', 'A little click, a little squish' if en else '클릭하면 말랑하게'),
-        ('cat', 'Cat' if en else '고양이', 'A tuxedo kitten with tiny typing paws.' if en else '작은 앞발로 타닥타닥, 턱시도 키튼.', 'Tiny typing paws' if en else '작은 앞발로 타닥타닥'),
-        ('dog', 'Dog' if en else '강아지', 'A golden corgi to brighten your desk.' if en else '책상에 따뜻함을 더하는 골든 코기.', 'A cheerful typing buddy' if en else '신나게 함께 타이핑'),
-        ('hamster', 'Hamster' if en else '햄스터', 'Little paws. One lavender wheel.' if en else '라벤더 쳇바퀴 위의 조그만 러너.', 'A tiny wheel runner' if en else '쳇바퀴 위로 총총'),
+        ('aqua-cat', 'Aqua Cat' if en else '아쿠아 고양이', 'Soft, opal, and a little squishy.' if en else '몽글몽글, 오팔빛 작은 친구.'),
+        ('cat', 'Cat' if en else '고양이', 'A tuxedo kitten with tiny typing paws.' if en else '작은 앞발로 타닥타닥, 턱시도 키튼.'),
+        ('dog', 'Dog' if en else '강아지', 'A golden corgi to brighten your desk.' if en else '책상에 따뜻함을 더하는 골든 코기.'),
+        ('hamster', 'Hamster' if en else '햄스터', 'Little paws. One lavender wheel.' if en else '라벤더 쳇바퀴 위의 조그만 러너.'),
     ]
     home = build_home(en, BASE, path, companion_data, build_media(en, BASE))
     page(title, home, 'index', en, intro)

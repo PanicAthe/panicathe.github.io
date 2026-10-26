@@ -11,7 +11,7 @@ def build_home(en, base, path, companions, media):
 
     # 친구 밴드: 컬러 밴드 하나에 친구 한 명. 앱 속 반응 GIF를 같은 밴드에서 바로 재생한다.
     bands = ''
-    for kind, name, note, _reaction in companions:
+    for kind, name, note in companions:
         bands += f'''<article class="band band-{kind}">
   <div class="band-copy"><h3>{name}</h3><p>{note}</p></div>
   <button class="band-pet" type="button" data-companion-trigger aria-label="{escape(name)} {t('반응 보기', 'play reaction')}"><img src="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" data-companion-gif="{base}/assets/reactions/{kind}-reaction.gif?v=alpha-20261026" data-poster="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" width="640" height="640" alt="" loading="lazy"></button>

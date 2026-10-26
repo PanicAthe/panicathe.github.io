@@ -142,7 +142,6 @@ main.wrap{display:block}
 .gallery-count{font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink-soft);font-size:14px}
 .gallery-caption strong{font:28px/1.1 var(--display);font-weight:400}
 .gallery-caption p{color:var(--ink-soft)}
-.capture-note{max-width:72ch;margin:18px var(--gutter) 0;color:var(--ink-soft);font-size:13px}
 
 /* Focus */
 .focus-section{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(40px,6vw,96px);margin-top:clamp(100px,10vw,150px);padding:clamp(90px,9vw,130px) var(--gutter);background:var(--lemon)}
