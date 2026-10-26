@@ -1,18 +1,8 @@
+import { splitName, stripEmoji } from '../../utils/project';
 import './WorkStack.css';
 
 // Paper · Klein Blue 카드 색 순환
 const CARD_THEMES = ['klein', 'ink', 'white', 'stone', 'ink'];
-
-// "🐧 Penglobe - 친환경 ..." → { title: 'Penglobe', subtitle: '친환경 ...' }
-function splitName(name) {
-  const clean = name.replace(/^[^\p{L}\p{N}]+/u, '').trim();
-  const [title, ...rest] = clean.split(/\s[-–]\s/);
-  return { title: title.trim(), subtitle: rest.join(' - ').trim() };
-}
-
-function stripEmoji(text = '') {
-  return text.replace(/[^\p{L}\p{N}\s·()]/gu, '').trim();
-}
 
 function ProjectMedia({ url, title }) {
   if (!url) return <div className="work-card__media-empty">{title}</div>;

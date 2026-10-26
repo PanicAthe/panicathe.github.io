@@ -307,7 +307,7 @@ function PortfolioContent() {
         />
       </main>
       <Footer />
-      <ProjectModal project={selectedProject} onClose={closeProjectModal} />
+      <ProjectModal project={selectedProject} onClose={closeProjectModal} awards={awards} />
     </div>
   );
 }
