@@ -68,7 +68,7 @@
       audioStatus.textContent = say(`${label} 소리를 듣고 있어요.`, `Playing ${label}.`);
       player.addEventListener('ended', () => {
         resetSound();
-        audioStatus.textContent = say('다른 소리도 들어보세요.', 'Try another sound.');
+        audioStatus.textContent = say('재생 완료', 'Playback complete');
       }, { once: true });
       try {
         await player.play();
@@ -134,7 +134,7 @@
       const choice = choices.find(button => button.dataset.screen === screen);
       const lightOnly = ['menu-timer', 'timer-config'].includes(screen);
       const theme = lightOnly ? 'light' : appearance;
-      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.webp?v=cloud-20261026`;
+      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.webp?v=copy-20261026`;
       const image = tour.querySelector('[data-screen-image]');
       image.src = src;
       image.alt = `TypeCat ${choice.dataset.title}`;

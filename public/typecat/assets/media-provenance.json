@@ -12,482 +12,482 @@
     {
       "file": "screens/characters-en-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "ecd1a52ba05e322290dfb8714f39cfad0287a34c4701ae6c590c6d15da5bf877"
+      "sha256": "cf83c595647668c02231a8f5d4a363dc8eaedbf358103b21b2f93b4694751ccc"
     },
     {
       "file": "screens/characters-en-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "b831474ec862b8a748d13a7daa5f58e2e109eeeae6c6291711226874b70feddb"
+      "sha256": "013d09fc5fc571bc6e869b89c550154d6f72941ba6130655fae3c9a6fe080b9d"
     },
     {
       "file": "screens/characters-ko-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "4c26875e344e7f2d29623f1fd06cb8c6ce400db441883d6cb05082415cc4d4fe"
+      "sha256": "ad32b1aca7e3fb2626269b80855a32bd3f8ae93ee2dd815fc40d20c3bf1ffe0e"
     },
     {
       "file": "screens/characters-ko-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "5733d4b4eb5e8ccd28efc448418951530132e8ab330a41b9b0d719597e476566"
+      "sha256": "b5e4ca22fee63bb6e6e796f6b7e28c1670763ee0de00728e73c593e99fb4dd8b"
     },
     {
       "file": "screens/custom-character-en-dark.webp",
       "size": [
-        1060,
-        1266
+        530,
+        632
       ],
       "source_size": [
-        1060,
-        1266
+        530,
+        632
       ],
-      "sha256": "b4ebcb7c1568e2065ef6e1985491e77b66850c37fc8836b70ecf8eef1b96496a"
+      "sha256": "5f7e2ccec1e66658243478b21a79f11f222ee1da5ae3a61bf142e1a4aa5f8e34"
     },
     {
       "file": "screens/custom-character-en-light.webp",
       "size": [
-        1060,
-        1266
+        530,
+        632
       ],
       "source_size": [
-        1060,
-        1266
+        530,
+        632
       ],
-      "sha256": "a008da6efc1f7b5b4f7ba07421b54e96f9fc2d86abd099c27f57e647a009d33a"
+      "sha256": "d3e012b98c29af25b312642a6595a5c4e9f55f24043b81af318c3393e380a5b6"
     },
     {
       "file": "screens/custom-character-ko-dark.webp",
       "size": [
-        1060,
-        1266
+        530,
+        632
       ],
       "source_size": [
-        1060,
-        1266
+        530,
+        632
       ],
-      "sha256": "997be356821d4b6bf3c3cfb31beeda635c073fc25e1d1e632d79c2965cb1b9fb"
+      "sha256": "91e40ab05e1f6fb48d3fbeefed017ddc5eea6fd8a42ea215c1565007b722b099"
     },
     {
       "file": "screens/custom-character-ko-light.webp",
       "size": [
-        1060,
-        1266
+        530,
+        632
       ],
       "source_size": [
-        1060,
-        1266
+        530,
+        632
       ],
-      "sha256": "99331f3e1fae47519a9f3f48ba304327d43cba548212804978314572707d7681"
+      "sha256": "0ded86c654d53f0a0f3c1965da70cddd9baf12a38d3487431ba3108e3e1e6df0"
     },
     {
       "file": "screens/custom-sound-en-dark.webp",
       "size": [
-        1320,
-        1388
+        660,
+        674
       ],
       "source_size": [
-        1320,
-        1388
+        660,
+        674
       ],
-      "sha256": "361ba38f13a46210d340aed3fb255ad47414c8ab51be188dfe1f8dfcb0b5183b"
+      "sha256": "7653f742ac5029b2fe1d6edfd5c8edd74371d5a54b083d1cbff2a95cf20ad8c9"
     },
     {
       "file": "screens/custom-sound-en-light.webp",
       "size": [
-        1320,
-        1388
+        660,
+        674
       ],
       "source_size": [
-        1320,
-        1388
+        660,
+        674
       ],
-      "sha256": "16b4cff975134a57295a9561007fb1bd9276d5c5c749655daaae846911374b06"
+      "sha256": "ef8d1fd95250a68e0e823f15703edb7ca0b9321425e2a797c0d10d89009c021f"
     },
     {
       "file": "screens/custom-sound-ko-dark.webp",
       "size": [
-        1320,
-        1388
+        660,
+        674
       ],
       "source_size": [
-        1320,
-        1388
+        660,
+        674
       ],
-      "sha256": "53db416d81cb66e4ac8610f360983f903d06906fc164d384ae206e95ec403290"
+      "sha256": "ceefa1c165398a2e4af609f6d4b4cf2541b915844d7e974002d08cb68628344e"
     },
     {
       "file": "screens/custom-sound-ko-light.webp",
       "size": [
-        1320,
-        1388
+        660,
+        674
       ],
       "source_size": [
-        1320,
-        1388
+        660,
+        674
       ],
-      "sha256": "f076a07235d13cb045325886eda3361b624c257ee28325dcbe7ef53189c8f7a7"
+      "sha256": "a76162d23b9a37b194398d8cde54bae3a125fc4df37c7a9b1a02738aaed91057"
     },
     {
       "file": "screens/keyboard-test-en-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "034f9f249447dfc0b201f4500f3308c631d009f86f40df2c909261270269046e"
+      "sha256": "71bc09bbacdaa5fbac7015d142f343d78b14ce8b18b637047a94d5ba46fb2141"
     },
     {
       "file": "screens/keyboard-test-ko-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "72bddd681332213633ff7c3e64fc383cf22edc3402f3ec1fbdf0e4a6f9d1ce50"
+      "sha256": "fed6fc663e3f9d6b22ad2b8cff6af2e9e3d9aad49954c0419b8268732b6d3a5f"
     },
     {
       "file": "screens/menu-en-dark.webp",
       "size": [
-        800,
-        866
+        400,
+        433
       ],
       "source_size": [
-        800,
-        866
+        400,
+        433
       ],
-      "sha256": "943565270ebe2acbf5832f7e763c71045acb2815308f020fcaec92145d6bc5dd"
+      "sha256": "dd86698b3b64f2da9ec6893025083f90aad86fca07db84bd7d9d028e3aef18ef"
     },
     {
       "file": "screens/menu-en-light.webp",
       "size": [
-        800,
-        866
+        400,
+        433
       ],
       "source_size": [
-        800,
-        866
+        400,
+        433
       ],
-      "sha256": "1d7124aa0de04f32b8e53b371c875fca537c1ce6d4c71a6f360c98d26e3c50cc"
+      "sha256": "003bca78ab654cf55b07a1b1f41a51b9527af6e5fc4874c3ae583378ac107063"
     },
     {
       "file": "screens/menu-ko-dark.webp",
       "size": [
-        800,
-        866
+        400,
+        433
       ],
       "source_size": [
-        800,
-        866
+        400,
+        433
       ],
-      "sha256": "f37e02639ca90ba788eb76cb491dbf3e23c7bbd97fe23e3f3db726ea659a4a4f"
+      "sha256": "5b8dd38fc7a5db49556b3844f87a38571fa940b99099c15fac5b8c3a3a540049"
     },
     {
       "file": "screens/menu-ko-light.webp",
       "size": [
-        800,
-        866
+        400,
+        433
       ],
       "source_size": [
-        800,
-        866
+        400,
+        433
       ],
-      "sha256": "0c16f1a3c9af8e8c38a577da0e558f7c72f3cef601ff03c324ea5e7d019223d9"
+      "sha256": "c054775ad367974a618e9e7d61a20219015be28a96ee62b8614965fb1155ad5c"
     },
     {
       "file": "screens/menu-timer-en-light.webp",
       "size": [
-        800,
-        964
+        400,
+        482
       ],
       "source_size": [
-        800,
-        964
+        400,
+        482
       ],
-      "sha256": "65ccdc224eb0abb973d7f3cbadc0fefe7894e09889dca4566a1caf753cc70550"
+      "sha256": "326df69dab2249f16f13628653e0e9c65311bd9842879105a5e878b24e619bc8"
     },
     {
       "file": "screens/menu-timer-ko-light.webp",
       "size": [
-        800,
-        964
+        400,
+        482
       ],
       "source_size": [
-        800,
-        964
+        400,
+        482
       ],
-      "sha256": "826b219e782643b9246771ee148952657e1a1b8aea4aa7c08f9e17b9f7aa4fcc"
+      "sha256": "f416c1e20925f5e1380066520e274cb0097cf6b31ac2b1357db2af61932d2a7e"
     },
     {
       "file": "screens/permission-en-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "2c649d277acde6d09a92aa4a25b8981e4094482e688d054877fea91b910789ea"
+      "sha256": "8f3067e84ac81e53d78483b50cfc54b4f2fa282d4729d197ed07ff56b14fabf0"
     },
     {
       "file": "screens/permission-ko-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "1c78b8999d93cbd6fc6bee366eb58b8680a22a3731ccef4a1b9dabd02f831400"
+      "sha256": "5e3b8dc0acf49abc52fe8f83d4fbaa3820b471145a6675b0194084777368bc22"
     },
     {
       "file": "screens/preferences-en-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "baaf05703cf5ea779dfb4767068fac6ba9d3818a3f0f5fc9f89741c05f649093"
+      "sha256": "7053ed9e85ba6a3b936c5dbfd34b21e0323f665e11b8cac442c9aeab6ece915a"
     },
     {
       "file": "screens/preferences-en-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "3375126997b1eb7272958fe13fb75f911b001dd5ba1a999edb2f6fe6279bfe0f"
+      "sha256": "d87dbc184dca5421d577c052563f7af427d8079f4c07b350dc39e0b9b95e0604"
     },
     {
       "file": "screens/preferences-ko-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "7d615d024cdc0294aba05fba7f526013e62f04dfe872eae283b629e79e320ca7"
+      "sha256": "c91fcc0cf82b7d8442da910219f1d6b0d5583d44ab2a9a33f9136189d1393205"
     },
     {
       "file": "screens/preferences-ko-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "730c7336b524827892434ebddb2ff3cf2bda3bf161eea8b8f5588e92518e2aab"
+      "sha256": "5921ba223dd6a5b8f2fc093592e1ae19f15f218e19088b4dcdddab2914a90295"
     },
     {
       "file": "screens/sound-en-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "77ba0ec8773c6ad360ed4af79d7a921f6edcc5666f4605b83a5acbba2118cd6c"
+      "sha256": "076289b3819c74209e376fc3cb49d2b79d09e6f5ab301ccaa150bc2dda65b6e0"
     },
     {
       "file": "screens/sound-en-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "8d3e812ee76bef72902eec25af4dad5eecdb186ac6b2ab5b7c784d7c27f54387"
+      "sha256": "d858f9cf998d539d13e876bf30d4a369033959bf8f83da87becddf25e9331296"
     },
     {
       "file": "screens/sound-ko-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "9e252055fec4bd368457095e85c0efecd5064f4470df2ffaa80f444a20c36fc6"
+      "sha256": "4db66cbaeb721f97225d642438818a597d08029fe41d5253e76f8de51ef7c052"
     },
     {
       "file": "screens/sound-ko-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "e3bc901ea57b2c6487be41da4a6a99b5461924a2fb3ddf14fd27cbacdc4c976e"
+      "sha256": "573991a0c88fd71a6f0c0ec4c1ca0d6129ef85a4f6ff5027be7caf6771b0ccff"
     },
     {
       "file": "screens/timer-config-en-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "583168dbc668ae7ab3183d7bdc2e66c001cfe9e4ecf9f21a4b09bcd84efce60a"
+      "sha256": "7df592376c49a5e9da0772bc2b0a6ae3c1e33b6a04a623a4e9f15c9dc3a2d05e"
     },
     {
       "file": "screens/timer-config-ko-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "7849f15dfaa35a02f9ec094c00836c5438b9ac60158294fb1c10277728eee1c9"
+      "sha256": "e607653c82bf70d52ddd763a7e0290af4070f2a86a6cd1c8fe08e5b6d9fa2ead"
     },
     {
       "file": "screens/timer-en-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "1f2eee3dbc79e2015e282fe93f79f62c53307a4d6669e5aa5b1c36be950feec6"
+      "sha256": "d513ac32a3e970b80d15542fc38f863cca1093e5bf6af86990f01835786279c6"
     },
     {
       "file": "screens/timer-en-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "6d4d4e7fb35051f356efb9514513fc19ce6eb2b1f9fb0c610db64d45faae39d0"
+      "sha256": "ac71dccf8347c27d4a4c5da65145fe9e4ef9cfdc33c4c957ea53ae67d551de5d"
     },
     {
       "file": "screens/timer-ko-dark.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "d378242e183f79c669195eff4aa526976f4e5bb24b58ecc668ccde462c59f467"
+      "sha256": "327b8454f11f63bf26a7bd0cd80aeee279744bcfe81f4d1753279401a625db82"
     },
     {
       "file": "screens/timer-ko-light.webp",
       "size": [
-        1600,
-        1316
+        1036,
+        852
       ],
       "source_size": [
-        2072,
-        1704
+        1036,
+        852
       ],
-      "sha256": "8573cfad5771d751c0544053b78ae87c14832ea3d65849a135839000694396f0"
+      "sha256": "738d086f30e6e31527cf49d971d0fdf0a2951b678d563e50a5eb9d6abb84b9da"
     },
     {
       "file": "screens/waiting-en-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "55127dbfc5301fcc940e1e72881b98553987f380b4db500d8ac7d06c79e32a51"
+      "sha256": "7eddc4e75008edbb85ed19ad381f29072c29c7bd6c6934ca445223ecf68be977"
     },
     {
       "file": "screens/waiting-ko-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "6399b08bc3cf9cef5f532f1dd7b6547c5a280dd3ad2f4fb1e353606c9081a4b5"
+      "sha256": "411a8fb81ae2969058596599204f7626aa9363b27cecd4260018ca014fa8b4c8"
     },
     {
       "file": "screens/welcome-en-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "68b94137d3681839f4accabbde1b1e28735bed7caa11fc450df4885de7032feb"
+      "sha256": "70987370bf7503d8e41cdc7e4b9e7d65f8c884f53e7be4a47b66b9bdbd999d74"
     },
     {
       "file": "screens/welcome-ko-light.webp",
       "size": [
-        1040,
-        1120
+        520,
+        560
       ],
       "source_size": [
-        1040,
-        1120
+        520,
+        560
       ],
-      "sha256": "07a99665d5952b968e2c4673e08b14d52d9d10e39c0d79ef36d0c4841e332f37"
+      "sha256": "923e68ae35dc5e4203376755cf3f16b745805897e1cca50230aee329f49d0d5b"
     }
   ],
   "reactions": [
@@ -521,5 +521,7 @@
     }
   ],
   "reaction_capture_tool": "scripts/ExportWebsiteReactions.swift",
-  "ui_frame_style": "cloud"
+  "ui_frame_style": "cloud",
+  "ui_copy_revision": "compact-controls-20261026",
+  "ui_source_version": "1.0 (2)"
 }

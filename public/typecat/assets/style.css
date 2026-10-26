@@ -281,3 +281,5 @@ details > p{margin:0;padding-bottom:24px;color:var(--ink-soft)}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none !important;transition:none !important}
 }
+
+.player-status:empty{min-height:0;margin-top:0}

@@ -1,6 +1,6 @@
 from html import escape
 
-VERSION = 'cloud-20261026'
+VERSION = 'copy-20261026'
 
 
 def build_media(en, base):
@@ -10,7 +10,7 @@ def build_media(en, base):
     locale = 'en' if en else 'ko'
     screens = [
         ('menu', '메뉴바', 'Menu bar', '켜기·볼륨·친구 선택을 작은 패널 하나에서.', 'Quick access to sound, volume, and your companion.'),
-        ('sound', '소리', 'Sounds', '분류와 검색으로 고르고, 선택을 바꾸지 않고 미리 들어요.', 'Browse, search, and audition a sound before selecting it.'),
+        ('sound', '소리', 'Sounds', '소리와 키별 설정을 한곳에서.', 'Sound themes and per-key settings in one place.'),
         ('characters', '캐릭터', 'Companions', '네 친구와 타이핑 반응, 표시 크기를 한곳에서.', 'Four friends, reaction controls, and companion size in one place.'),
         ('timer', '타이머', 'Timer', '집중 시간과 쉬는 시간, 알림을 내 리듬에 맞춰요.', 'Set focus time, breaks, and alerts for your rhythm.'),
         ('preferences', '환경설정', 'Preferences', '테두리·색상·언어와 키보드 연결을 관리해요.', 'Manage appearance, language, and your keyboard connection.'),
@@ -23,12 +23,11 @@ def build_media(en, base):
     setup = [('welcome', '처음 인사', 'Welcome'), ('permission', '권한 안내', 'Permission guide'), ('waiting', '연결 준비', 'Connection setup'), ('keyboard-test', '다섯 번 입력 테스트', 'Five-press test')]
     onboarding = ''.join(f'<figure><a href="{base}/assets/screens/{key}-{locale}-light.webp?v={VERSION}" target="_blank" rel="noopener" aria-label="{escape(t(ko,eng))} — {t("큰 화면으로 보기, 새 탭", "open full image in a new tab")}"><img src="{base}/assets/screens/{key}-{locale}-light.webp?v={VERSION}" width="1040" height="1120" loading="lazy" alt="TypeCat {escape(t(ko,eng))}"></a><figcaption>{t(ko,eng)}</figcaption></figure>' for key, ko, eng in setup)
     tour = f'''<section id="app" class="app-section" data-media-locale="{locale}">
-  <div class="section-intro"><h2>{t('앱 안에서는<br>이렇게 만나요', 'A look inside<br>the real app')}</h2><p>{t('메뉴바부터 나만의 편집기까지, 실제 앱 화면을 한 장씩 넘겨보세요.', 'From the menu bar to your own editors, flip through the actual app screens.')}</p></div>
+  <div class="section-intro"><h2>{t('앱 안에서는<br>이렇게 만나요', 'A look inside<br>the real app')}</h2><p>{t('메뉴바부터 나만의 편집기까지.', 'From the menu bar to your own editors.')}</p></div>
   <div class="app-gallery">
     <div class="gallery-toolbar"><div class="screen-choices" role="group" aria-label="{t('앱 화면 선택', 'Choose an app screen')}">{choices}</div><div class="screen-appearance" role="group" aria-label="{t('화면 미리보기 테마', 'Screenshot appearance')}"><button type="button" data-screen-theme="light" aria-pressed="true">{t('라이트', 'Light')}</button><button type="button" data-screen-theme="dark" aria-pressed="false">{t('다크', 'Dark')}</button></div></div>
     <a class="gallery-stage" data-screen-full href="{base}/assets/screens/sound-{locale}-light.webp?v={VERSION}" target="_blank" rel="noopener" aria-label="{t('현재 앱 화면 크게 보기, 새 탭', 'Open the current app screen in a new tab')}"><img data-screen-image src="{base}/assets/screens/sound-{locale}-light.webp?v={VERSION}" width="2072" height="1744" alt="TypeCat {t('소리 설정', 'sound preferences')}" loading="lazy"><span class="expand-hint">{t('크게 보기', 'Full image')} ↗</span></a>
-    <div class="gallery-caption" aria-live="polite"><span class="gallery-count" data-screen-count>02 / 09</span><strong data-screen-title>{t('소리', 'Sounds')}</strong><p data-screen-caption>{t('분류와 검색으로 고르고, 선택을 바꾸지 않고 미리 들어요.', 'Browse, search, and audition a sound before selecting it.')}</p></div>
+    <div class="gallery-caption" aria-live="polite"><span class="gallery-count" data-screen-count>02 / 09</span><strong data-screen-title>{t('소리', 'Sounds')}</strong><p data-screen-caption>{t('소리와 키별 설정을 한곳에서.', 'Sound themes and per-key settings in one place.')}</p></div>
   </div>
-  <p class="capture-note">{t('현재 무료 버전의 실제 앱 컴포넌트를 한국어·영어, 라이트·다크로 렌더링한 화면이에요. 구름 테두리와 촬영용 기본 설정을 썼고 개인 파일은 넣지 않았어요.', 'Rendered from the current free app’s actual components in Korean and English, light and dark. Screens use the Cloud frame and capture settings, with no personal files.')}</p>
 </section>'''
     return {'tour': tour, 'onboarding': onboarding}
