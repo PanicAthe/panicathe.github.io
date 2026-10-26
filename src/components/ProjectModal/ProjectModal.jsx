@@ -136,6 +136,17 @@ function ProjectModal({ project, onClose }) {
             })()}
           </div>
 
+          {project.websiteUrl && (
+            <div className="modal-section">
+              <h3>서비스 홈페이지</h3>
+              <div className="modal-repo-list">
+                <a href={project.websiteUrl} className="repo-link">
+                  홈페이지 · 사용 안내 · 개인정보처리방침 ↗
+                </a>
+              </div>
+            </div>
+          )}
+
           {project.githubUrls && (
             <div className="modal-section modal-section--github">
               <h3>GitHub Repository</h3>

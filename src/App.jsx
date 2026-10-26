@@ -124,6 +124,28 @@ const certifications = [
 
 const allProjects = [
   {
+    id: 5,
+    name: 'TypeCat - 타건음과 작은 데스크톱 친구',
+    period: '2026.10 ~ 현재',
+    thumbnailUrl: '/typecat/assets/preview.png',
+    galleryImageUrls: [],
+    galleryVideoUrls: [],
+    websiteUrl: '/typecat/',
+    overview: '키보드 입력에 맞춰 타건음과 데스크톱 캐릭터가 반응하는 네이티브 macOS 메뉴바 앱입니다. 기본 소리 12종과 캐릭터 4종, 직접 가져온 이미지·음원, 타이머와 뽀모도로를 제공하며 Mac App Store 출시를 준비하고 있습니다.',
+    role: [
+      'Swift·SwiftUI 기반 메뉴바 UI와 데스크톱 캐릭터, 타이머 및 커스텀 라이브러리 구현',
+      '수신 전용 글로벌 이벤트 탭으로 키 종류와 이벤트 간 시간만 일시 처리하고 입력 문장은 추출·저장·전송하지 않도록 구성',
+      '샌드박스 Store 아카이브와 Intel·Apple Silicon 빌드, 서명·공개 리소스 검증 흐름 구성',
+      '한국어·영어 제품 소개, 사용 안내, 개인정보처리방침을 GitHub Pages로 제공'
+    ],
+    learnings: [
+      '시스템 권한 스위치와 실제 글로벌 입력 전달을 구분하는 다섯 번 키 누름 검증 흐름 구현',
+      '커스텀 파일과 설정을 로컬에 보관하고, 배포 패키지에서 개발용·개인 리소스를 제외하는 구조 구성',
+      '코어 테스트 83개와 배포 정책 테스트 10개 통과, Mac App Store 제출 준비 중'
+    ],
+    technologies: ['Swift', 'SwiftUI', 'AppKit', 'Core Graphics', 'AVFoundation', 'Xcode', 'GitHub Pages']
+  },
+  {
     id: 4,
     name: 'RAIM 방문자 입장 등록 시스템',
     period: '2026.01 ~ 2026.02',

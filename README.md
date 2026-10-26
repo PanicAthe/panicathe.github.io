@@ -44,6 +44,22 @@
 
 ## 🚀 시작하기
 
+### TypeCat 제품 홈페이지
+
+- 소개: <https://panicathe.github.io/typecat/>
+- 고객지원: <https://panicathe.github.io/typecat/support/>
+- 개인정보처리방침: <https://panicathe.github.io/typecat/privacy/>
+- 영어 페이지: <https://panicathe.github.io/typecat/en/>
+
+TypeCat은 `public/typecat/`의 독립된 정적 페이지로 배포됩니다. React 포트폴리오의 프로젝트 목록·모달·상세 페이지에서 홈페이지로 연결합니다. 번역과 본문은 `scripts/typecat/generate.py`, 공개 문의처는 같은 폴더의 `content.json`, 스타일과 이미지는 `public/typecat/assets/`에서 관리합니다.
+
+```sh
+python3 scripts/typecat/generate.py
+npm run build
+```
+
+생성된 HTML의 이미지·탐색·언어 전환·canonical URL은 모두 `/typecat/` 경로를 사용합니다. 홈페이지 본문을 수정하면 생성 스크립트를 실행한 뒤 함께 커밋하세요. `dist/`는 직접 수정하지 않습니다.
+
 ### 선수 조건
 
 - Node.js (v18 이상 권장)

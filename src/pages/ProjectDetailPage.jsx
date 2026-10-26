@@ -129,6 +129,17 @@ function ProjectDetailPage({ projects }) {
           })()}
         </div>
 
+        {project.websiteUrl && (
+          <div className="project-detail-section">
+            <h2>서비스 홈페이지</h2>
+            <div className="repo-list">
+              <a href={project.websiteUrl} className="repo-link">
+                홈페이지 · 사용 안내 · 개인정보처리방침 ↗
+              </a>
+            </div>
+          </div>
+        )}
+
         {project.githubUrls && (
           <div className="project-detail-section">
             <h2>GitHub Repository</h2>
