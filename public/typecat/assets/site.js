@@ -83,11 +83,13 @@
 
   const toggle = document.querySelector('[data-timer-toggle]');
   const readout = document.querySelector('[data-timer-readout]');
-  let remaining = 25 * 60;
+  const duration = 25 * 60;
+  let remaining = duration;
   let timer;
   let deadline;
   function drawTimer() {
-    readout.textContent = `${String(Math.floor(remaining / 60)).padStart(2, '0')}:${String(remaining % 60).padStart(2, '0')}`;
+    const elapsed = duration - remaining;
+    readout.textContent = `${String(Math.floor(elapsed / 60)).padStart(2, '0')}:${String(elapsed % 60).padStart(2, '0')}`;
   }
   function pauseTimer() {
     clearInterval(timer);
@@ -103,7 +105,7 @@
         drawTimer();
         return;
       }
-      if (remaining === 0) remaining = 25 * 60;
+      if (remaining === 0) remaining = duration;
       deadline = Date.now() + remaining * 1000;
       toggle.textContent = say('일시정지', 'Pause');
       toggle.setAttribute('aria-label', say('미리보기 타이머 일시정지', 'Pause preview timer'));
@@ -114,8 +116,8 @@
       }, 250);
     });
     document.querySelector('[data-timer-reset]').addEventListener('click', () => {
+      remaining = duration;
       pauseTimer();
-      remaining = 25 * 60;
       drawTimer();
     });
   }
@@ -136,7 +138,7 @@
       const theme = lightOnly ? 'light' : appearance;
       const isMenu = screen === "menu" || screen === "menu-timer";
       const extension = isMenu ? "png" : "webp";
-      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.${extension}?v=retina-20261026`;
+      const src = `/typecat/assets/screens/${screen}-${tour.dataset.mediaLocale}-${theme}.${extension}?v=release-1.0-3`;
       tour.querySelector("[data-screen-full]").dataset.screenKind = isMenu ? "menu" : "settings";
       const image = tour.querySelector('[data-screen-image]');
       image.src = src;

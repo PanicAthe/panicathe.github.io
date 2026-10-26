@@ -1,6 +1,6 @@
 from html import escape
 
-VERSION = 'retina-20261026'
+VERSION = 'release-1.0-3'
 
 
 def build_media(en, base):
@@ -15,7 +15,7 @@ def build_media(en, base):
         ('timer', '타이머', 'Timer', '집중 시간과 쉬는 시간, 알림을 내 리듬에 맞춰요.', 'Set focus time, breaks, and alerts for your rhythm.'),
         ('preferences', '환경설정', 'Preferences', '테두리·색상·언어와 키보드 연결을 관리해요.', 'Manage appearance, language, and your keyboard connection.'),
         ('timer-config', '뽀모도로 설정', 'Pomodoro setup', '집중·휴식 시간과 알림을 설정해요.', 'Set focus time, breaks, and alerts.'),
-        ('menu-timer', '집중 중 메뉴바', 'Focus controls', '남은 시간과 시작·정지를 메뉴바에서 간단하게.', 'Keep the remaining time and timer controls close.'),
+        ('menu-timer', '집중 중 메뉴바', 'Focus controls', '경과 시간과 시작·정지를 메뉴바에서 간단하게.', 'Keep elapsed time and timer controls close.'),
     ]
     choices = ''.join(f'<button class="screen-choice" type="button" data-screen="{key}" data-title="{escape(t(ko,eng))}" data-caption="{escape(t(note,en_note))}" aria-pressed="{str(i == 1).lower()}">{t(ko,eng)}</button>' for i, (key, ko, eng, note, en_note) in enumerate(screens))
     setup = [('welcome', '처음 인사', 'Welcome'), ('permission', '권한 안내', 'Permission guide'), ('waiting', '연결 준비', 'Connection setup'), ('keyboard-test', '다섯 번 입력 테스트', 'Five-press test')]

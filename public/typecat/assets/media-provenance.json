@@ -12,50 +12,58 @@
     {
       "file": "screens/characters-en-dark.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "cf83c595647668c02231a8f5d4a363dc8eaedbf358103b21b2f93b4694751ccc"
+      "sha256": "ec00d2cc1362aa7c9f7a71586738a39918b944982c108ac2421d748b2127a187",
+      "source_capture": "characters-en-dark.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/characters-en-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "013d09fc5fc571bc6e869b89c550154d6f72941ba6130655fae3c9a6fe080b9d"
+      "sha256": "b532baba30dc7f50ab1a21998ff6e30f8456b3a79b1edca4af09f226e4f545e1",
+      "source_capture": "characters-en-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/characters-ko-dark.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "ad32b1aca7e3fb2626269b80855a32bd3f8ae93ee2dd815fc40d20c3bf1ffe0e"
+      "sha256": "3c567e8bc526c30596de33445b12e711d48382ef33ab6205c9290af79fc1f0f8",
+      "source_capture": "characters-ko-dark.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/characters-ko-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "b5e4ca22fee63bb6e6e796f6b7e28c1670763ee0de00728e73c593e99fb4dd8b"
+      "sha256": "62c2d5a198ae89be5211bb059b4f2a33d74bc36b94b77e05c0b47acf8012a5cc",
+      "source_capture": "characters-ko-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/custom-character-en-dark.webp",
@@ -243,9 +251,11 @@
         800,
         964
       ],
-      "sha256": "d654cc48aedb53cc6a0cb2198d635d39b2ff09feedd2dcc82f0ff4fef9465c86",
+      "sha256": "bbee5e2360d08424de643a02b15dc22c7f4c5b6cf66f3cda3bc3e1d366f79f01",
       "transparent": true,
-      "scale": 2
+      "scale": 2,
+      "source_capture": "menu-timer-en-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/menu-timer-ko-light.png",
@@ -257,9 +267,11 @@
         800,
         964
       ],
-      "sha256": "6c6603fb0194814a5803e1a3d5ed6d130f2fe279aeb3a732e78ad91e6efda8d0",
+      "sha256": "f356f6865d5fd6e2014f97c5140e5c8bb3fd14e2c50efa7f3c6db0a30b81a153",
       "transparent": true,
-      "scale": 2
+      "scale": 2,
+      "source_capture": "menu-timer-ko-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/permission-en-light.webp",
@@ -384,74 +396,86 @@
     {
       "file": "screens/timer-config-en-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "7df592376c49a5e9da0772bc2b0a6ae3c1e33b6a04a623a4e9f15c9dc3a2d05e"
+      "sha256": "2bf5ea62dd545aca57ac5f616941aec91bf9df1bb79615aa3645e06439a1aa28",
+      "source_capture": "timer-config-en-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/timer-config-ko-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "e607653c82bf70d52ddd763a7e0290af4070f2a86a6cd1c8fe08e5b6d9fa2ead"
+      "sha256": "07c98bfa2c600701c61891005b22a1338437ee56e318f4cf3be186aa3cfeebb4",
+      "source_capture": "timer-config-ko-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/timer-en-dark.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "d513ac32a3e970b80d15542fc38f863cca1093e5bf6af86990f01835786279c6"
+      "sha256": "2a6c311c8b0c9d7ae003551e6c792496bb69d4d1ae80c328d7195b926e313ba0",
+      "source_capture": "timer-en-dark.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/timer-en-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "ac71dccf8347c27d4a4c5da65145fe9e4ef9cfdc33c4c957ea53ae67d551de5d"
+      "sha256": "f3e116a46f7d239b27afb715cbdca01af7335b64a38f139da42f91abe79edd83",
+      "source_capture": "timer-en-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/timer-ko-dark.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "327b8454f11f63bf26a7bd0cd80aeee279744bcfe81f4d1753279401a625db82"
+      "sha256": "bce03523d2f9c037641490139ebeec7f9e02da9dafb0b4de9ee6a12b1242a3eb",
+      "source_capture": "timer-ko-dark.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/timer-ko-light.webp",
       "size": [
-        1036,
-        852
+        2072,
+        1704
       ],
       "source_size": [
-        1036,
-        852
+        2072,
+        1704
       ],
-      "sha256": "738d086f30e6e31527cf49d971d0fdf0a2951b678d563e50a5eb9d6abb84b9da"
+      "sha256": "aa00716ff01f16ca2e5883d8b4f65746ec45c2e5102d799d357d353e006fefa8",
+      "source_capture": "timer-ko-light.png",
+      "updated_date": "2026-10-27"
     },
     {
       "file": "screens/waiting-en-light.webp",
@@ -561,5 +585,13 @@
   "gallery_excluded_screens": [
     "custom-character",
     "custom-sound"
-  ]
+  ],
+  "release_refresh": {
+    "date": "2026-10-27",
+    "version": "1.0 (3)",
+    "source_commit": "1012a60",
+    "scope": "Only companion and timer-related captures",
+    "source_bundle": "build/AppStore/DerivedData/Build/Products/AppStore/TypeCat.app",
+    "physical_input_delivery_verified": false
+  }
 }
