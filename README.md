@@ -51,7 +51,7 @@
 - 개인정보처리방침: <https://panicathe.github.io/typecat/privacy/>
 - 영어 페이지: <https://panicathe.github.io/typecat/en/>
 
-TypeCat은 `public/typecat/`의 독립된 정적 페이지로 배포됩니다. React 포트폴리오의 프로젝트 목록·모달·상세 페이지에서 홈페이지로 연결합니다. 번역과 본문은 `scripts/typecat/generate.py`, 공개 문의처는 같은 폴더의 `content.json`, 스타일과 이미지는 `public/typecat/assets/`에서 관리합니다.
+TypeCat은 `public/typecat/`의 독립된 정적 페이지로 배포됩니다. React 포트폴리오의 프로젝트 목록·모달·상세 페이지에서 홈페이지로 연결합니다. 홈페이지 구성은 `scripts/typecat/home.py`, 번역·도움말·개인정보 본문은 `scripts/typecat/generate.py`, 공개 문의처는 같은 폴더의 `content.json`, 스타일과 이미지는 `public/typecat/assets/`에서 관리합니다.
 
 ```sh
 python3 scripts/typecat/generate.py
@@ -111,3 +111,7 @@ panicathe.github.io/
 ├── AGENTS.md            # Codex 에이전트 가이드
 └── vite.config.js       # Vite 설정 파일
 ```
+
+홈페이지의 캐릭터 전환·반응, 명시적으로 누른 음원 미리듣기, 브라우저용 타이머 체험은 `public/typecat/assets/site.js`에 있습니다. 앱의 기본 캐릭터 4종 이미지는 `assets/companions/`, 기본 음원 3종의 짧은 미리듣기는 `assets/sounds/`, 음원 출처는 `sound-credits.txt`에서 관리합니다. 타이머는 웹 체험용이며 설정을 저장하지 않습니다. 시스템의 동작 줄이기 설정을 따르고, 키보드 입력을 수집하는 이벤트는 등록하지 않습니다.
+
+앱 화면 갤러리와 첫 실행 안내는 `scripts/typecat/media.py`에서 구성합니다. `assets/screens/`는 무료 배포판의 실제 SwiftUI/AppKit 컴포넌트로 만든 한영·라이트/다크 캡처이며 개인 파일을 포함하지 않습니다. `assets/reactions/`의 GIF는 앱의 실제 반응 체험 컨트롤러로 만든 60프레임/3초 미리보기입니다. 재생 버튼으로만 불러오고 3초 뒤 포스터로 돌아갑니다. 원본 촬영 및 검증 정보는 `assets/media-provenance.json`을 참고하세요.

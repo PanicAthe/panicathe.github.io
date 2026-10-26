@@ -1,0 +1,21 @@
+TypeCat website — sound preview credits
+
+These are short previews from the app's bundled sound themes.
+Recordings were trimmed, filtered, faded, and level-matched for the app.
+
+Mechanical / 기계식
+Author: D.S.G.
+Source: https://freesound.org/people/D.S.G./sounds/423648/
+License: CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Bubble / 버블
+Author: EZduzziteh
+Source: https://opengameart.org/content/pop-sounds-0
+License: CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Music box / 뮤직박스
+Original TypeCat synthesis.
+Generator: scripts/generate_material_candidates.py in the TypeCat project.
+No third-party source recording.

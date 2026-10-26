@@ -141,7 +141,7 @@ const allProjects = [
     learnings: [
       '시스템 권한 스위치와 실제 글로벌 입력 전달을 구분하는 다섯 번 키 누름 검증 흐름 구현',
       '커스텀 파일과 설정을 로컬에 보관하고, 배포 패키지에서 개발용·개인 리소스를 제외하는 구조 구성',
-      '코어 테스트 83개와 배포 정책 테스트 10개 통과, Mac App Store 제출 준비 중'
+      '무료 캐릭터 구성과 커스텀 라이브러리, 배포 정책을 테스트하며 Mac App Store 제출 준비 중'
     ],
     technologies: ['Swift', 'SwiftUI', 'AppKit', 'Core Graphics', 'AVFoundation', 'Xcode', 'GitHub Pages']
   },

@@ -1,6 +1,9 @@
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 import json
+import re
+from home import build_home
+from media import build_media
 
 ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / 'public/typecat'
@@ -22,6 +25,31 @@ def contact(en=False):
 def path(page, en=False):
     return BASE + ('/en/' if en else '/') + ('' if page == 'index' else page + '/')
 
+def document_layout(body, name, en):
+    if name == 'support':
+        anchors = iter(['keyboard-help', 'custom-files', 'timer-help', 'sounds-help', 'data-help', 'privacy-help'])
+        body = re.sub(r'<details( open)?>', lambda m: f'<details id="{next(anchors)}" name="help-faq"{m.group(1) or ""}>', body)
+        topics = [('keyboard-help', 'Keyboard' if en else '키보드 연결'), ('custom-files', 'Your files' if en else '이미지·음원'), ('timer-help', 'Timer' if en else '타이머'), ('data-help', 'Reset & data' if en else '파일 관리')]
+        quick = '<nav class="help-topics" aria-label="' + ('Help topics' if en else '도움말 주제') + '">' + ''.join(f'<a href="#{anchor}">{label} <span aria-hidden="true">↗</span></a>' for anchor, label in topics) + '</nav>'
+        body = re.sub(r'(<p class="intro">.*?</p>)', lambda m: m.group(1) + quick, body, count=1)
+    entries = []
+    def heading(match):
+        index = len(entries) + 1
+        anchor = f'document-section-{index}'
+        label = unescape(re.sub('<[^>]+>', '', match.group(2)))
+        entries.append((anchor, label))
+        return f'<h2{match.group(1)} id="{anchor}">{match.group(2)}</h2>'
+    body = re.sub(r'<h2([^>]*)>(.*?)</h2>', heading, body)
+    links = ''.join(f'<a href="#{anchor}">{escape(label)}</a>' for anchor, label in entries)
+    mobile = '<details class="mobile-contents"><summary>' + ('On this page' if en else '이 페이지에서 빠르게 찾기') + '</summary><nav>' + links + '</nav></details>'
+    body = body.replace('<h2', mobile + '<h2', 1)
+    label = ('Support' if en else '사용 안내') if name == 'support' else ('Privacy' if en else '개인정보처리방침')
+    crumb = f'<div class="breadcrumb"><a href="{path("index", en)}">TypeCat</a><span>/</span><span>{label}</span></div>'
+    body = body.replace('<article class="document">', '<article class="document">' + crumb, 1)
+    aside = '<aside class="document-index"><p>' + ('ON THIS PAGE' if en else '이 페이지에서') + '</p><nav aria-label="' + ('Page contents' if en else '페이지 목차') + '">' + links + '</nav><a class="index-help" href="' + path('support', en) + '">' + ('Need a little help? ↗' if en else '도움이 필요하신가요? ↗') + '</a></aside>'
+    return '<div class="document-layout">' + body + aside + '</div>'
+
+
 def page(title, body, name, en=False, description=''):
     lang = 'en' if en else 'ko'
     nav_support = 'Support' if en else '사용 안내'
@@ -29,41 +57,33 @@ def page(title, body, name, en=False, description=''):
     nav_features = 'Features' if en else '기능 소개'
     other = '한국어' if en else 'English'
     skip = 'Skip to content' if en else '본문으로 바로가기'
+    if name != 'index':
+        body = document_layout(body, name, en)
     out = DIST / ('en' if en else '') / ('' if name == 'index' else name)
     out.mkdir(parents=True, exist_ok=True)
     html = f'''<!doctype html>
-<html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)} · TypeCat</title><meta name="description" content="{escape(description)}"><meta name="theme-color" content="#fafaf4"><meta property="og:title" content="{escape(title)} · TypeCat"><meta property="og:description" content="{escape(description)}"><meta property="og:type" content="website"><meta property="og:image" content="{ORIGIN}{BASE}/assets/icon.png"><link rel="canonical" href="{ORIGIN}{path(name,en)}"><link rel="alternate" hreflang="ko" href="{ORIGIN}{path(name)}"><link rel="alternate" hreflang="en" href="{ORIGIN}{path(name,True)}"><link rel="icon" type="image/png" href="{BASE}/assets/icon.png"><link rel="stylesheet" href="{BASE}/assets/style.css"></head>
-<body><a class="skip" href="#main">{skip}</a><header><nav class="wrap" aria-label="{'Main navigation' if en else '주 메뉴'}"><a class="brand" href="{path('index',en)}"><img src="{BASE}/assets/icon.png" width="45" height="45" alt="">TypeCat</a><div class="navlinks"><a class="desktop" href="{path('index',en)}#features">{nav_features}</a><a href="{path('support',en)}">{nav_support}</a><a class="lang" href="{path(name,not en)}" lang="{'ko' if en else 'en'}">{other}</a></div></nav></header>
-<main id="main" class="wrap">{body}</main><footer><div class="wrap foot"><span>© 2026 TypeCat. Made for your everyday typing.</span><div class="footlinks"><a href="{path('support',en)}">{nav_support}</a><a href="{path('privacy',en)}">{nav_privacy}</a></div></div></footer></body></html>'''
+<html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{escape(title)} · TypeCat</title><meta name="description" content="{escape(description)}"><meta name="theme-color" content="#f3f8ff"><meta property="og:title" content="{escape(title)} · TypeCat"><meta property="og:description" content="{escape(description)}"><meta property="og:type" content="website"><meta property="og:image" content="{ORIGIN}{BASE}/assets/icon.png"><link rel="canonical" href="{ORIGIN}{path(name,en)}"><link rel="alternate" hreflang="ko" href="{ORIGIN}{path(name)}"><link rel="alternate" hreflang="en" href="{ORIGIN}{path(name,True)}"><link rel="icon" type="image/png" href="{BASE}/assets/icon.png"><link rel="stylesheet" href="{BASE}/assets/style.css"></head>
+<body data-page="{name}"><a class="skip" href="#main">{skip}</a><header class="site-header"><nav class="site-nav" aria-label="{'Main navigation' if en else '주 메뉴'}"><a class="brand" href="{path('index',en)}"><img src="{BASE}/assets/icon.png" width="40" height="40" alt="">TypeCat<span class="brand-dot">.</span></a><div class="navlinks"><a href="{path('index',en)}#companions">{'Friends' if en else '친구들'}</a><a class="desktop-nav" href="{path('index',en)}#app">{'App tour' if en else '앱 둘러보기'}</a><a class="desktop-nav" href="{path('index',en)}#sound">{'Sounds' if en else '소리'}</a><a class="desktop-nav" href="{path('index',en)}#focus">{'Focus' if en else '타이머'}</a><a href="{path('support',en)}" {'aria-current="page"' if name == 'support' else ''}>{nav_support}</a><a class="lang" href="{path(name,not en)}" lang="{'ko' if en else 'en'}">{'한국어' if en else 'EN'}</a></div></nav></header>
+<main id="main" class="wrap">{body}</main><footer class="site-footer"><div class="wrap footer-top"><div><p class="kicker">A LITTLE JOY, EVERY KEYSTROKE.</p><a class="footer-wordmark" href="{path('index',en)}">TypeCat<span>.</span></a><p>{'Your desk, a little more alive.' if en else '매일의 책상에, 작은 기분 전환.'}</p></div><div class="footer-links"><a href="{path('index',en)}#companions">{'Meet the friends' if en else '친구들 만나기'} ↗</a><a href="{path('support',en)}">{nav_support} ↗</a><a href="{path('privacy',en)}">{nav_privacy} ↗</a><a href="/">Portfolio ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 TypeCat</span><span>macOS 13+ · {'Release in preparation' if en else 'Mac App Store 출시 준비 중'}</span><a href="mailto:{EMAIL}">{EMAIL}</a></div></footer><script src="{BASE}/assets/site.js" defer></script></body></html>'''
     (out / 'index.html').write_text(html)
 
 for en in [False, True]:
-    if en:
-        title, intro = 'A little joy in every keystroke', 'Keyboard sounds, a little desktop companion, and a timer to keep you company. Make everyday typing a little more yours.'
-        h1 = 'A little joy.<br>Every keystroke.'
-        items = [('01 / SOUND', 'Find your sound.', 'Explore 12 bundled sound themes, from mechanical keys and typewriter clicks to gentle instruments. Preview, save favorites, or import your own audio.'), ('02 / COMPANION', 'A small friend, nearby.', 'Choose Aqua Cat, Cat, Dog, or Rabbit. Your companion responds to typing, can look in different directions, and can be moved and resized. You can also use your own image.'), ('03 / FOCUS', 'Make room for focus.', 'Use the countdown or Pomodoro timer from your menu bar. Your companion displays the remaining time. Pause, reset, and choose a separate alert sound and volume.')]
-        kicker, feature_title, feature_note = 'SMALL THINGS, GOOD COMPANY', 'A softer rhythm<br>for your everyday.', 'Lives in your menu bar. A few thoughtful touches, ready when you are.'
-        cta1, cta2, status = 'Explore TypeCat', 'Getting started', 'Mac App Store release in preparation · macOS 13 or later'
-        strip = ['12 sound themes', '4 companions', 'Processed on your Mac']
-        sound_title, sound_note = 'From crisp clicks to softer notes.', 'Mechanical, typewriter, bubble, arcade, tropical, music box, lo-fi piano, soft thock, brown switch, blue switch, office, and tiny buttons.'
-        pill = ['Keyboard', 'Effects', 'Instruments', 'Your own sounds']
-        privacy_title, privacy_note, privacy_link = 'Your words stay yours.', 'TypeCat processes key categories and timing locally to create sounds and reactions. It does not extract, store, or transmit the characters or sentences you type.', 'Read our privacy policy ↗'
-        faq_title, faq_note, faq_link = 'A little help getting started?', 'Find setup instructions, keyboard permission help, and answers about your files.', 'Visit TypeCat support →'
-    else:
-        title, intro = '키보드 위의 작은 기분 전환', '기분 좋은 타건음, 곁에서 반응하는 작은 친구, 집중을 도와주는 타이머. 매일의 타이핑에 나만의 리듬을 더해보세요.'
-        h1 = '키보드 위의<br>작은 기분 전환.'
-        items = [('01 / SOUND', '오늘의 소리를 골라요.', '또각또각 기계식부터 부드러운 악기 소리까지. 12가지 기본 테마를 미리 듣고 즐겨찾기에 담아보세요. 내 음원을 직접 가져올 수도 있어요.'), ('02 / COMPANION', '작은 친구와 함께해요.', '아쿠아 고양이, 고양이, 강아지, 토끼가 타이핑에 반응해요. 시선과 위치, 크기를 취향대로 조절하고, 내 이미지로 친구를 만들 수도 있어요.'), ('03 / FOCUS', '집중할 시간도 챙겨요.', '메뉴바에서 타이머와 뽀모도로를 시작해보세요. 친구 아래에 남은 시간이 표시돼요. 완료 알림음과 볼륨은 따로 고를 수 있어요.')]
-        kicker, feature_title, feature_note = 'SMALL THINGS, GOOD COMPANY', '익숙한 하루에,<br>기분 좋은 리듬.', '메뉴바에 가볍게 머물며, 타이핑하는 순간에 작은 재미를 더해요.'
-        cta1, cta2, status = '어떤 앱인가요?', '처음 사용하기', 'Mac App Store 출시 준비 중 · macOS 13 이상'
-        strip = ['12가지 기본 소리', '4종의 작은 친구', 'Mac 안에서 처리']
-        sound_title, sound_note = '또각또각부터 말랑한 소리까지.', '기계식, 타자기, 버블, 아케이드, 트로피컬, 뮤직박스, 로파이 피아노, 도각도각, 윤활 갈축, 청축, 사무용 키보드, 작은 버튼.'
-        pill = ['키보드', '효과음', '악기', '직접 가져온 소리']
-        privacy_title, privacy_note, privacy_link = '입력한 문장은, 당신의 것.', 'TypeCat은 키의 종류와 이벤트 간 시간을 Mac 안에서 일시적으로 처리해요. 입력한 문자나 문장을 추출하거나 저장·전송하지 않아요.', '개인정보처리방침 읽기 ↗'
-        faq_title, faq_note, faq_link = '처음 만나는 TypeCat, 어렵지 않게.', '시작 방법부터 키보드 권한, 직접 가져온 파일까지 안내해드려요.', '사용 안내와 고객지원 →'
-    feature_html = ''.join(f'<article class="feature"><span class="num">{n}</span><h3>{h}</h3><p>{p}</p></article>' for n,h,p in items)
-    hero = f'''<section class="hero"><div><p class="eyebrow">A LITTLE COMPANION FOR YOUR MAC</p><h1>{h1}</h1><p class="lead">{intro}</p><div class="actions"><a class="button" href="#features">{cta1} ↘</a><a class="button secondary" href="{path('support',en)}">{cta2}</a></div><p class="release">{status}</p></div><div class="art"><img src="{BASE}/assets/aqua.png" width="1312" height="1199" alt="{'Aqua Cat, TypeCat’s blue-eyed desktop companion' if en else '파란 눈의 작은 데스크톱 친구, 아쿠아 고양이'}" fetchpriority="high"><span class="key" aria-hidden="true">↵</span><span class="tag"><b>●</b>{'Your little typing companion.' if en else '타닥타닥, 곁에 있어요.'}</span></div></section>
-<div class="strip">{''.join(f'<span><i>✓</i>{s}</span>' for s in strip)}</div><section id="features" class="section"><div class="sectionhead"><div><p class="eyebrow">{kicker}</p><h2>{feature_title}</h2></div><p>{feature_note}</p></div><div class="features">{feature_html}</div><div class="sounds"><div><h3>{sound_title}</h3><p>{sound_note}</p></div><div class="pills">{''.join(f'<span class="pill">{p}</span>' for p in pill)}</div></div></section><section class="privacycall"><div><h2>{privacy_title}</h2><p>{privacy_note}</p></div><a href="{path('privacy',en)}">{privacy_link}</a></section><section class="faqhome"><h2>{faq_title}</h2><p>{faq_note}</p><a href="{path('support',en)}">{faq_link}</a></section>'''
-    page(title,hero,'index',en,intro)
+    lang = 'en' if en else 'ko'
+    title = 'A little joy in every keystroke' if en else '타이핑에 더하는 작은 즐거움'
+    intro = 'Feel-good sounds, four little companions, and a timer for your Mac.' if en else '기분 좋은 타건음, 네 명의 작은 친구, 메뉴바 타이머. Mac을 위한 TypeCat.'
+    cta1 = 'Meet the friends' if en else '친구들 만나기'
+    companion_data = [
+        ('aqua-cat', 'Aqua Cat' if en else '아쿠아 고양이', 'Soft, opal, and a little squishy.' if en else '몽글몽글, 오팔빛 작은 친구.'),
+        ('cat', 'Cat' if en else '고양이', 'A tuxedo kitten with tiny typing paws.' if en else '작은 앞발로 타닥타닥, 턱시도 키튼.'),
+        ('dog', 'Dog' if en else '강아지', 'A golden corgi to brighten your desk.' if en else '책상에 따뜻함을 더하는 골든 코기.'),
+        ('hamster', 'Hamster' if en else '햄스터', 'Little paws. One lavender wheel.' if en else '라벤더 쳇바퀴 위의 조그만 러너.'),
+    ]
+    paw = f'''<a class="paw-cta" href="#companions"><svg viewBox="0 0 48.839 48.839" aria-hidden="true" focusable="false"><defs><radialGradient id="paw-hero-{lang}" cx="38%" cy="26%" r="78%"><stop offset="0%" stop-color="#f1ded2"/><stop offset="58%" stop-color="#e98773"/><stop offset="100%" stop-color="color-mix(in oklch, #e98773 82%, #264653)"/></radialGradient></defs><path d="M39.041,36.843c2.054,3.234,3.022,4.951,3.022,6.742c0,3.537-2.627,5.252-6.166,5.252 c-1.56,0-2.567-0.002-5.112-1.326c0,0-1.649-1.509-5.508-1.354c-3.895-0.154-5.545,1.373-5.545,1.373 c-2.545,1.323-3.516,1.309-5.074,1.309c-3.539,0-6.168-1.713-6.168-5.252c0-1.791,0.971-3.506,3.024-6.742 c0,0,3.881-6.445,7.244-9.477c2.43-2.188,5.973-2.18,5.973-2.18h1.093v-0.001c0,0,3.698-0.009,5.976,2.181 C35.059,30.51,39.041,36.844,39.041,36.843z" fill="url(#paw-hero-{lang})"/><g transform="translate(16.631 10.439) scale(0.84) translate(-16.631 -10.439)"><path class="paw-toe paw-toe-1" d="M16.631,20.878c3.7,0,6.699-4.674,6.699-10.439S20.331,0,16.631,0S9.932,4.674,9.932,10.439S12.931,20.878,16.631,20.878z" fill="url(#paw-hero-{lang})"/></g><g transform="translate(6.661 23.295) scale(0.84) translate(-6.661 -23.295)"><path class="paw-toe paw-toe-2" d="M10.211,30.988c2.727-1.259,3.349-5.723,1.388-9.971s-5.761-6.672-8.488-5.414s-3.348,5.723-1.388,9.971C3.684,29.822,7.484,32.245,10.211,30.988z" fill="url(#paw-hero-{lang})"/></g><g transform="translate(32.206 10.439) scale(0.84) translate(-32.206 -10.439)"><path class="paw-toe paw-toe-3" d="M32.206,20.878c3.7,0,6.7-4.674,6.7-10.439S35.906,0,32.206,0s-6.699,4.674-6.699,10.439C25.507,16.204,28.506,20.878,32.206,20.878z" fill="url(#paw-hero-{lang})"/></g><g transform="translate(42.178 23.295) scale(0.84) translate(-42.178 -23.295)"><path class="paw-toe paw-toe-4" d="M45.727,15.602c-2.728-1.259-6.527,1.165-8.488,5.414s-1.339,8.713,1.389,9.972c2.728,1.258,6.527-1.166,8.488-5.414S48.455,16.861,45.727,15.602z" fill="url(#paw-hero-{lang})"/></g></svg><span class="paw-highlight" aria-hidden="true"></span><span class="paw-label">{cta1}</span></a>'''
+    tour, marker, first_run = build_media(en, BASE).partition('<section id="first-run"')
+    home = build_home(en, BASE, path, paw, companion_data)
+    home = home.replace('<section id="sound"', tour + '<section id="sound"', 1)
+    home = home.replace('<section class="section start-section">', marker + first_run + '<section class="section start-section">', 1)
+    page(title, home, 'index', en, intro)
 
     if en:
         policy = '''<p class="eyebrow">PRIVACY, SIMPLY</p><h1>Privacy policy</h1><p class="intro">Your typing stays on your Mac.</p><p class="updated">Effective and last updated: October 26, 2026</p>
