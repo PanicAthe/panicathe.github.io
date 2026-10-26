@@ -1,0 +1,234 @@
+.work {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 120px var(--page-gutter) 80px;
+}
+
+.work__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.work__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 88px);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+}
+
+.work__count {
+  color: var(--klein);
+}
+
+.work__note {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.work__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card */
+.work-card {
+  --card-bg: var(--white);
+  --card-fg: var(--ink);
+  --card-line: rgba(17, 17, 17, 0.35);
+  position: sticky;
+  top: calc(24px + var(--stack-index) * 28px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  min-height: 460px;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: var(--radius-2xl);
+  background: var(--card-bg);
+  color: var(--card-fg);
+  box-shadow: 0 -16px 40px rgba(17, 17, 17, 0.1);
+  cursor: pointer;
+  transition: transform 400ms var(--ease-out);
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+}
+
+.work-card--klein {
+  --card-bg: var(--klein);
+  --card-fg: var(--white);
+  --card-line: rgba(255, 255, 255, 0.55);
+}
+
+.work-card--ink {
+  --card-bg: var(--ink);
+  --card-fg: var(--paper);
+  --card-line: rgba(244, 243, 239, 0.45);
+}
+
+.work-card--white {
+  --card-bg: var(--white);
+}
+
+.work-card--stone {
+  --card-bg: var(--line);
+}
+
+.work-card__body {
+  flex: 1 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.work-card__meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.work-card__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 4vw, 60px);
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+  word-break: keep-all;
+}
+
+.work-card__title--long {
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.1;
+}
+
+.work-card__subtitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.work-card__award {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--card-fg);
+  color: var(--card-bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.work-card__overview {
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 0.88;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.work-card__footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.work-card__tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.work-card__tags li {
+  padding: 8px 12px;
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.work-card__cta {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--card-fg);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--card-fg);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.work-card__cta:hover,
+.work-card:hover .work-card__cta {
+  background: var(--card-fg);
+  color: var(--card-bg);
+}
+
+.work-card__cta:focus-visible {
+  outline-color: var(--card-fg);
+}
+
+.work-card__media {
+  flex: 1.3 1 380px;
+  min-width: 0;
+  min-height: 300px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(17, 17, 17, 0.08);
+}
+
+.work-card__media img,
+.work-card__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.work-card__media-empty {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .work {
+    padding-top: 80px;
+  }
+
+  /* 카드가 화면보다 길어지므로 모바일에서는 겹쳐 쌓지 않는다 */
+  .work-card {
+    position: relative;
+    top: auto;
+    min-height: 0;
+    gap: 24px;
+  }
+
+  .work-card__media {
+    order: -1;
+    flex-basis: 100%;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+}

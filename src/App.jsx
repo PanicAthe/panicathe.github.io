@@ -1,12 +1,10 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Banner from './components/Banner/Banner';
-import Row from './components/Row/Row';
+import Hero from './components/Hero/Hero';
+import Marquee from './components/Marquee/Marquee';
+import WorkStack from './components/WorkStack/WorkStack';
 import Footer from './components/Footer/Footer';
 import ProjectModal from './components/ProjectModal/ProjectModal';
-import StackModal from './components/StackModal/StackModal';
-import ContactModal from './components/ContactModal/ContactModal';
 import { ProjectProvider, useProjects } from './contexts/ProjectContext';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 
@@ -35,6 +33,8 @@ const dbAndTools = [
   { id: 'github', name: 'GitHub', imageUrl: 'https://techstack-generator.vercel.app/github-icon.svg' },
 ];
 
+// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
+// eslint-disable-next-line no-unused-vars
 const collaborationAndDesign = [
   { id: 'slack', name: 'Slack', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/slack.svg' },
   { id: 'notion', name: 'Notion', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg' },
@@ -62,6 +62,8 @@ const awards = [
   },
 ];
 
+// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
+// eslint-disable-next-line no-unused-vars
 const education = [
   {
     id: 'ai-sw-maestro-busan-17',
@@ -87,6 +89,8 @@ const education = [
   },
 ];
 
+// About 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
+// eslint-disable-next-line no-unused-vars
 const certifications = [
   {
     id: 'aws-saa',
@@ -127,7 +131,7 @@ const allProjects = [
     id: 5,
     name: 'TypeCat - 타건음과 작은 데스크톱 친구',
     period: '2026.10 ~ 현재',
-    thumbnailUrl: '/typecat/assets/preview.png',
+    thumbnailUrl: '/typecat/assets/preview.png?v=2026-10',
     galleryImageUrls: [],
     galleryVideoUrls: [],
     websiteUrl: '/typecat/',
@@ -283,71 +287,23 @@ const allProjects = [
 
 ];
 
+const marqueeSkills = [...backendAndInfra, ...languagesAndWeb, ...dbAndTools]
+  .map((stack) => stack.name)
+  .filter((name) => !['HTML', 'CSS', 'GitHub', 'Postman'].includes(name));
+
 function PortfolioContent() {
-  const { 
-    selectedProject, 
-    closeProjectModal, 
-    selectProject, 
-    selectStack,
-    isContactModalOpen,
-    closeContactModal
-  } = useProjects();
+  const { selectedProject, closeProjectModal, selectProject } = useProjects();
 
   return (
     <div className="App">
       <Header />
       <main className="app-main">
-        <section id="hero" className="section">
-          <Banner />
-        </section>
-
-        <section id="projects" className="section">
-          <Row 
-            title="Projects" 
-            items={allProjects} 
-            onItemClick={selectProject} 
-            rowType="projects"
-          />
-        </section>
-
-        <section id="education" className="section">
-          <Row title="Education" items={education} rowType="certifications" />
-        </section>
-
-        <section id="awards" className="section">
-          <Row 
-            title="Awards" 
-            items={awards} 
-            rowType="certifications"
-            onItemClick={(award) => {
-              const project = allProjects.find(p => p.id === award.projectId);
-              if (project) {
-                selectProject(project);
-              }
-            }}
-          />
-        </section>
-
-        <section id="certifications" className="section">
-          <Row title="Certifications" items={certifications} rowType="certifications" />
-        </section>
-
-        <section id="skills" className="section section--skills">
-          <h2 className="section-title">Skills</h2>
-          <div className="skills-categories">
-            <Row title="Languages & Web" items={languagesAndWeb} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-            <Row title="Backend & Infra" items={backendAndInfra} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-            <Row title="Databases & Dev Tools" items={dbAndTools} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-            <Row title="Collaboration & Design" items={collaborationAndDesign} onItemClick={selectStack} rowType="stacks" projects={allProjects} />
-          </div>
-        </section>
+        <Hero />
+        <Marquee items={marqueeSkills} />
+        <WorkStack projects={allProjects} awards={awards} onSelect={selectProject} />
       </main>
-
       <Footer />
-
       <ProjectModal project={selectedProject} onClose={closeProjectModal} />
-      <StackModal />
-      <ContactModal isOpen={isContactModalOpen} onClose={closeContactModal} />
     </div>
   );
 }
