@@ -161,28 +161,54 @@
       updateScreen();
     }));
   }
-  // The character itself moves in its band. Keep offscreen and reduced-motion
-  // companions still, without a second preview box or playback controls.
+  // Characters rest until a deliberate hover, click, or keyboard activation.
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const companions = [...document.querySelectorAll('[data-companion-gif]')];
-  const visibleCompanions = new Set();
-  function updateCompanions() {
-    companions.forEach(image => {
-      const source = !motionPreference.matches && !document.hidden && visibleCompanions.has(image)
-        ? image.dataset.companionGif : image.dataset.poster;
-      if (image.getAttribute('src') !== source) image.src = source;
+  const stopCompanions = [];
+  const companionStops = new Map();
+  document.querySelectorAll('[data-companion-trigger]').forEach(button => {
+    const image = button.querySelector('[data-companion-gif]');
+    let hovered = false;
+    let clicked = false;
+    let timeout;
+    function refresh(restart = false) {
+      const playing = !document.hidden && (clicked || (hovered && !motionPreference.matches));
+      if (!playing) image.src = image.dataset.poster;
+      else if (restart || image.getAttribute('src') === image.dataset.poster) {
+        image.src = `${image.dataset.companionGif}&play=${Date.now()}`;
+      }
+    }
+    function stop() {
+      clearTimeout(timeout);
+      hovered = clicked = false;
+      refresh();
+    }
+    button.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'touch') return;
+      hovered = true;
+      refresh();
     });
-  }
+    button.addEventListener('pointerleave', () => { hovered = false; refresh(); });
+    button.addEventListener('click', () => {
+      clicked = true;
+      clearTimeout(timeout);
+      refresh(true);
+      timeout = setTimeout(() => { clicked = false; refresh(); }, 3000);
+    });
+    button.addEventListener('blur', stop);
+    stopCompanions.push(stop);
+    companionStops.set(button, stop);
+  });
   const companionObserver = new IntersectionObserver(entries => {
     entries.forEach(({ target, isIntersecting }) => {
-      if (isIntersecting) visibleCompanions.add(target);
-      else visibleCompanions.delete(target);
+      if (!isIntersecting) companionStops.get(target)();
     });
-    updateCompanions();
-  }, { threshold: 0.15 });
-  companions.forEach(image => companionObserver.observe(image));
-  motionPreference.addEventListener('change', updateCompanions);
-  document.addEventListener('visibilitychange', updateCompanions);
+  });
+  companionStops.forEach((_stop, button) => companionObserver.observe(button));
+  motionPreference.addEventListener('change', () => stopCompanions.forEach(stop => stop()));
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopCompanions.forEach(stop => stop());
+  });
+  window.addEventListener('pagehide', () => stopCompanions.forEach(stop => stop()));
 
   function openLinkedHelp() {
     const id = decodeURIComponent(window.location.hash.slice(1));

@@ -14,7 +14,7 @@ def build_home(en, base, path, companions, media):
     for kind, name, note, _reaction in companions:
         bands += f'''<article class="band band-{kind}">
   <div class="band-copy"><h3>{name}</h3><p>{note}</p></div>
-  <img class="band-pet" src="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" data-companion-gif="{base}/assets/reactions/{kind}-reaction.gif?v=alpha-20261026" data-poster="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" width="640" height="640" alt="{escape(name)} {t('앱 속 반응', 'in-app reaction')}" loading="lazy">
+  <button class="band-pet" type="button" data-companion-trigger aria-label="{escape(name)} {t('반응 보기', 'play reaction')}"><img src="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" data-companion-gif="{base}/assets/reactions/{kind}-reaction.gif?v=alpha-20261026" data-poster="{base}/assets/reactions/{kind}-poster.png?v=alpha-20261026" width="640" height="640" alt="" loading="lazy"></button>
 </article>'''
 
     sound_names = [t('기계식', 'Mechanical'), t('도각도각', 'Soft Thock'), t('윤활 갈축', 'Lubed Brown'), t('청축', 'Blue Switch'), t('버블', 'Bubble'), t('뮤직박스', 'Music box')]
