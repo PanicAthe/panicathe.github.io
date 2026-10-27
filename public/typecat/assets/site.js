@@ -162,30 +162,61 @@
       updateScreen();
     }));
   }
-  // Characters rest until a deliberate hover, click, or keyboard activation.
+  // Desktop gaze uses the app's authored poses; activation keeps the typing demo.
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const gazePointer = window.matchMedia('(min-width: 861px) and (hover: hover) and (pointer: fine)');
   const companionStops = new Map();
   document.querySelectorAll('[data-companion-trigger]').forEach(button => {
     const image = button.querySelector('[data-companion-gif]');
     let hovered = false;
     let clicked = false;
+    let direction = 'neutral';
+    let gazeImages;
     let timeout;
+    function canFollowPointer() {
+      return Boolean(button.dataset.companionGaze) && gazePointer.matches && !motionPreference.matches;
+    }
+    function prepareGaze() {
+      if (gazeImages) return;
+      gazeImages = ['left', 'right', 'up', 'down'].map(pose => {
+        const preload = new Image();
+        preload.src = `${button.dataset.companionGaze}-${pose}.png`;
+        return preload;
+      });
+    }
     function refresh() {
-      const playing = !document.hidden && (clicked || (hovered && !motionPreference.matches));
-      const src = playing ? image.dataset.companionGif : image.dataset.poster;
+      const following = hovered && canFollowPointer();
+      const playing = !document.hidden && (clicked || (hovered && !following && !motionPreference.matches));
+      const src = playing ? image.dataset.companionGif
+        : !document.hidden && following && direction !== 'neutral'
+          ? `${button.dataset.companionGaze}-${direction}.png` : image.dataset.poster;
       if (image.getAttribute('src') !== src) image.src = src;
     }
     function stop() {
       clearTimeout(timeout);
       hovered = clicked = false;
+      direction = 'neutral';
+      refresh();
+    }
+    function followPointer(event) {
+      if (event.pointerType !== 'mouse' || !canFollowPointer()) return;
+      prepareGaze();
+      const bounds = button.getBoundingClientRect();
+      const x = (event.clientX - bounds.left - bounds.width / 2) / (bounds.width / 2);
+      const y = (event.clientY - bounds.top - bounds.height / 2) / (bounds.height / 2);
+      direction = Math.hypot(x, y) <= 0.18 ? 'neutral'
+        : Math.abs(x) >= Math.abs(y) ? (x < 0 ? 'left' : 'right')
+          : y < 0 ? 'up' : 'down';
       refresh();
     }
     button.addEventListener('pointerenter', event => {
       if (event.pointerType === 'touch') return;
       hovered = true;
+      followPointer(event);
       refresh();
     });
-    button.addEventListener('pointerleave', () => { hovered = false; refresh(); });
+    button.addEventListener('pointermove', followPointer);
+    button.addEventListener('pointerleave', () => { hovered = false; direction = 'neutral'; refresh(); });
     button.addEventListener('click', () => {
       clicked = true;
       clearTimeout(timeout);
@@ -202,6 +233,7 @@
   });
   companionStops.forEach((_stop, button) => companionObserver.observe(button));
   motionPreference.addEventListener('change', () => companionStops.forEach(stop => stop()));
+  gazePointer.addEventListener('change', () => companionStops.forEach(stop => stop()));
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) companionStops.forEach(stop => stop());
   });

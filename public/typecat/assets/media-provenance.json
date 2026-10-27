@@ -617,5 +617,125 @@
       "screens/menu-timer-ko-light.webp",
       "screens/menu-timer-en-light.webp"
     ]
+  },
+  "gaze_preview": {
+    "generated_date": "2026-10-27",
+    "source_build": "1.0 (4)",
+    "source_bundle": "build/AppStore/TypeCat.xcarchive/Products/Applications/TypeCat.app",
+    "capture_tool": "scripts/ExportWebsiteGaze.swift",
+    "renderer": "CompanionArtwork.draw with production dragPose; identical canvas, scale and baseline to existing reaction posters",
+    "neutral_pixels_match_existing_posters": true,
+    "global_keyboard_monitor_enabled": false,
+    "hamster": "Existing reaction retained; production hamster rig has no directional gaze poses",
+    "images": [
+      {
+        "file": "gaze/aqua-cat-down.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "bba0e5bf5215099ded9f66891de92f2d26a16b814e8fd48b34651a08d06f22ef",
+        "transparent": true
+      },
+      {
+        "file": "gaze/aqua-cat-left.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "ed54f81c7ab8b33fb6e7138114608e05f9184a3db9797be389479cc9aa9d7518",
+        "transparent": true
+      },
+      {
+        "file": "gaze/aqua-cat-right.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "2331c8d75953c2edb60640bac6b3a94f913ddf09c62517112c9d867d6ad626ee",
+        "transparent": true
+      },
+      {
+        "file": "gaze/aqua-cat-up.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "a772ece6f338414742a5491ff0b0a007ba4dd9f915afd2da81e65d55e4742ec7",
+        "transparent": true
+      },
+      {
+        "file": "gaze/cat-down.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "da3e6ee90ee2de308f53582ef167892a6ad1bcd3cfa10548b854a64700518629",
+        "transparent": true
+      },
+      {
+        "file": "gaze/cat-left.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "3d89e830b4b01dd4404f35d74206c626d2a262f9c456de84d7256f034c2481c3",
+        "transparent": true
+      },
+      {
+        "file": "gaze/cat-right.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "c8ae44b2b0c3bcca2b5a506963ed99e526d3d8b3dd821ab41b21e80f6d9eadd0",
+        "transparent": true
+      },
+      {
+        "file": "gaze/cat-up.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "d5360c50ec96c5bc6742e65651480dd6176c2ecdf8631d3531f63042099c1167",
+        "transparent": true
+      },
+      {
+        "file": "gaze/dog-down.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "8d54b5ed8224fd792993422a0bc6012874673a285d22a90c9b23eaf8dd36074c",
+        "transparent": true
+      },
+      {
+        "file": "gaze/dog-left.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "fcf003b27d26194293164a5a9f31d1a7afcc67d3017cf8cec4c8f37374837e9f",
+        "transparent": true
+      },
+      {
+        "file": "gaze/dog-right.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "9775e7e66b208341864bd5bada3227491b1a90017880afedb00a732755e1cbaa",
+        "transparent": true
+      },
+      {
+        "file": "gaze/dog-up.png",
+        "size": [
+          640,
+          640
+        ],
+        "sha256": "72f91daa6a0f7d2cd2edeab5307816a6f8bebba6d14df88c878f97a8a750cad5",
+        "transparent": true
+      }
+    ]
   }
 }
