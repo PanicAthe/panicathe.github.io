@@ -14,9 +14,12 @@ const REPO_LABELS = {
   organization: 'GitHub Organization',
 };
 
-function MediaView({ url, title }) {
+// 영상은 자동 재생하지 않고(최대 수십 MB) 썸네일을 포스터로 보여준다
+function MediaView({ url, title, poster }) {
   if (isVideo(url)) {
-    return <video key={url} src={url} controls autoPlay muted loop playsInline aria-label={`${title} 데모 영상`} />;
+    return (
+      <video key={url} src={url} poster={poster} controls muted playsInline preload="metadata" aria-label={`${title} 데모 영상`} />
+    );
   }
   return <img src={url} alt={`${title} 화면`} />;
 }
@@ -77,6 +80,16 @@ function ProjectModal({ project, onClose, awards = [] }) {
   const repos = Object.entries(project.githubUrls || {});
   const primaryRepo = repos.find(([key]) => key === 'repository' || key === 'backend') || repos[0];
 
+  // 썸네일 줄에서는 무거운 GIF·영상 원본 대신 경량 이미지나 표시만 보여준다
+  const renderThumb = (url) => {
+    if (url === project.thumbnailUrl && project.cardImageUrl) {
+      return <img src={project.cardImageUrl} alt="" loading="lazy" />;
+    }
+    if (isVideo(url)) return <span className="sheet__thumb-video">▶</span>;
+    if (url.split('?')[0].endsWith('.gif')) return <span className="sheet__thumb-video">GIF</span>;
+    return <img src={url} alt="" loading="lazy" />;
+  };
+
   const goTo = (offset) => {
     if (position < 0) return;
     selectProject(projects[(position + offset + projects.length) % projects.length]);
@@ -126,7 +139,11 @@ function ProjectModal({ project, onClose, awards = [] }) {
           {media.length > 0 && (
             <div className="sheet__media">
               <div className="sheet__viewer">
-                <MediaView url={media[mediaIndex]} title={title} />
+                <MediaView
+                  url={media[mediaIndex]}
+                  title={title}
+                  poster={media[mediaIndex] === project.thumbnailUrl ? project.cardImageUrl : undefined}
+                />
               </div>
               {media.length > 1 && (
                 <div className="sheet__thumbs" role="list" aria-label="프로젝트 미디어">
@@ -140,7 +157,7 @@ function ProjectModal({ project, onClose, awards = [] }) {
                       aria-label={`${isVideo(url) ? '영상' : '이미지'} ${index + 1} 보기`}
                       aria-current={index === mediaIndex}
                     >
-                      {isVideo(url) ? <span className="sheet__thumb-video">▶</span> : <img src={url} alt="" loading="lazy" />}
+                      {renderThumb(url)}
                     </button>
                   ))}
                 </div>

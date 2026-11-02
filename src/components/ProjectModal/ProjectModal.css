@@ -185,7 +185,8 @@
   height: 100%;
   background: var(--ink);
   color: var(--white);
-  font-size: 18px;
+  font-family: var(--font-mono);
+  font-size: 14px;
 }
 
 .sheet__overview {

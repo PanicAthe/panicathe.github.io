@@ -4,13 +4,15 @@
 
 ## 현재 구조 핵심
 - 메인 포트폴리오 데이터는 `src/App.jsx`에 직접 들어 있다
-- 프로젝트 목록, 수상, 자격증, 스택 렌더링에 `Row` 컴포넌트를 공용 사용한다
+- 메인은 `Hero`(3D 사원증) → `Marquee`(기술 띠) → `WorkStack`(프로젝트 카드) → `About`(수상·교육·자격증) → `Footer`(연락) 순서다
+- 카드·모달·상세 페이지가 공통으로 쓰는 표시 헬퍼는 `src/utils/project.js`에 있다
 - 프로젝트 상세는 모달과 별도 페이지(`/project/:projectId`)가 함께 존재한다
 - 스타일링은 CSS Modules가 아니라 각 컴포넌트 옆 일반 `.css` 파일 import 방식이다
 
 ## 수정할 때 자주 놓치는 점
 - 프로젝트 데이터만 바꿔도 상세 페이지 표현이 같이 깨지지 않는지 확인 필요
-- 수상/자격증은 `rowType="certifications"` 흐름을 탄다
+- 수상은 `awards[].projectId`로 프로젝트와 연결되어 카드 배지·모달·상세 페이지·About에 함께 쓰인다
+- 메인 카드는 `cardImageUrl`(경량 WebP)을, 모달·상세 페이지는 `thumbnailUrl`과 갤러리 원본을 쓴다
 - 기술 스택 표시는 프로젝트의 `technologies` 배열과 연결된다
 - 썸네일/갤러리 영상은 `.mp4` 여부에 따라 렌더링 방식이 달라진다
 

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import cardFace from '../../assets/lanyard/card-face.png';
 import './Hero.css';
@@ -21,6 +21,42 @@ function useMediaQuery(query) {
   return matches;
 }
 
+// 3D 청크(약 1MB)는 첫 화면 렌더가 끝나고, 사원증 영역이 보이며, 브라우저가 한가할 때 불러온다
+function useDeferredLoad(targetRef, enabled) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const node = targetRef.current;
+    if (!enabled || ready || !node) return undefined;
+
+    let idleId;
+    let timeoutId;
+    const schedule = () => {
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(() => setReady(true), { timeout: 2000 });
+      } else {
+        timeoutId = window.setTimeout(() => setReady(true), 600);
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        schedule();
+      }
+    });
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      if (idleId && 'cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
+  }, [targetRef, enabled, ready]);
+
+  return ready;
+}
+
 function StaticCard() {
   return (
     <div className="hero__static-card" aria-hidden="true">
@@ -33,6 +69,8 @@ function StaticCard() {
 
 function Hero() {
   const useStaticCard = useMediaQuery(STATIC_CARD_QUERY);
+  const stageRef = useRef(null);
+  const load3D = useDeferredLoad(stageRef, !useStaticCard);
 
   return (
     <section id="top" className="hero">
@@ -53,8 +91,8 @@ function Hero() {
         </p>
       </div>
 
-      <div className="hero__stage" role="img" aria-label="최은진 사원증 카드 — Backend Developer, panicatheworks@gmail.com">
-        {useStaticCard ? (
+      <div className="hero__stage" ref={stageRef} role="img" aria-label="최은진 사원증 카드 — Backend Developer, panicatheworks@gmail.com">
+        {useStaticCard || !load3D ? (
           <StaticCard />
         ) : (
           <ErrorBoundary fallback={<StaticCard />}>

@@ -1,15 +1,17 @@
-import { splitName, stripEmoji } from '../../utils/project';
+import { isVideo, splitName, stripEmoji } from '../../utils/project';
 import './WorkStack.css';
 
 // Paper · Klein Blue 카드 색 순환
 const CARD_THEMES = ['klein', 'ink', 'white', 'stone', 'ink'];
 
-function ProjectMedia({ url, title }) {
+// 카드는 경량 썸네일(cardImageUrl)을 쓰고, 원본 영상·GIF는 모달에서만 불러온다
+function ProjectMedia({ project, title }) {
+  const url = project.cardImageUrl || project.thumbnailUrl;
   if (!url) return <div className="work-card__media-empty">{title}</div>;
-  if (url.endsWith('.mp4')) {
-    return <video src={url} autoPlay muted loop playsInline aria-label={`${title} 데모 영상`} />;
+  if (isVideo(url)) {
+    return <video src={url} muted playsInline preload="metadata" aria-label={`${title} 데모 영상`} />;
   }
-  return <img src={url} alt={`${title} 화면`} loading="lazy" />;
+  return <img src={url} alt={`${title} 화면`} loading="lazy" decoding="async" width="1200" height="675" />;
 }
 
 function WorkStack({ projects = [], awards = [], onSelect }) {
@@ -72,7 +74,7 @@ function WorkStack({ projects = [], awards = [], onSelect }) {
                 </div>
               </div>
               <div className="work-card__media">
-                <ProjectMedia url={project.thumbnailUrl} title={title} />
+                <ProjectMedia project={project} title={title} />
               </div>
             </li>
           );
