@@ -129,6 +129,7 @@ const allProjects = [
     name: 'TypeCat - 타건음과 작은 데스크톱 친구',
     period: '2026.10 ~ 현재',
     thumbnailUrl: '/typecat/assets/preview.png?v=2026-10',
+    cardImageUrl: '/images/projects/cards/typecat.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [],
     galleryVideoUrls: [],
     websiteUrl: '/typecat/',
@@ -151,6 +152,7 @@ const allProjects = [
     name: 'RAIM 방문자 입장 등록 시스템',
     period: '2026.01 ~ 2026.02',
     thumbnailUrl: '/images/projects/raim/entry.png',
+    cardImageUrl: '/images/projects/cards/raim.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [
       '/images/projects/raim/entry.png',
       '/images/projects/raim/checkin.png',
@@ -180,6 +182,7 @@ const allProjects = [
     name: '🐧 Penglobe - 친환경 가치 소비 플랫폼',
     period: '2025.08 ~ 2025.09',
     thumbnailUrl: '/images/projects/penglobe/8.jpg',
+    cardImageUrl: '/images/projects/cards/penglobe.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [
       '/images/projects/penglobe/10.jpg',
       '/images/projects/penglobe/13.jpg',
@@ -225,6 +228,7 @@ const allProjects = [
     name: '딱쿠(Takku) – 소상공인 펀딩 플랫폼',
     period: '2025.06 ~ 2025.07',
     thumbnailUrl: '/images/projects/takku/takku_1.gif',
+    cardImageUrl: '/images/projects/cards/takku.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [
       '/images/projects/takku/takku_1.gif',
       '/images/projects/takku/takku_2.gif',
@@ -257,6 +261,7 @@ const allProjects = [
     name: 'commINUty – 위치 기반 소셜 네트워킹 앱',
     period: '2023.09 ~ 2024.05',
     thumbnailUrl: 'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
+    cardImageUrl: '/images/projects/cards/comminuty.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [],
     galleryVideoUrls: [
       'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
