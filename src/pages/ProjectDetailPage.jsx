@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Lightbox from '../components/Lightbox/Lightbox';
 import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../components/ProjectSections/ProjectSections';
@@ -18,6 +18,7 @@ function ProjectDetailPage({ projects = [] }) {
   const navigate = useNavigate();
   const [mediaIndex, setMediaIndex] = useState(0);
   const [lightboxMedia, setLightboxMedia] = useState(null);
+  const closeLightbox = useCallback(() => setLightboxMedia(null), []);
 
   const index = projects.findIndex((p) => p.id === Number(projectId));
   const project = index >= 0 ? projects[index] : null;
@@ -186,7 +187,7 @@ function ProjectDetailPage({ projects = [] }) {
         </Link>
       </footer>
 
-      {lightboxMedia && <Lightbox media={lightboxMedia} onClose={() => setLightboxMedia(null)} />}
+      {lightboxMedia && <Lightbox media={lightboxMedia} alt={`${title} 화면 크게 보기`} onClose={closeLightbox} />}
     </div>
   );
 }
