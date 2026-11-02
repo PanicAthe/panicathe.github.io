@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Marquee from './components/Marquee/Marquee';
@@ -317,7 +317,8 @@ function App() {
     <ProjectProvider projects={allProjects}>
       <Routes>
         <Route path="/" element={<PortfolioContent />} />
-        <Route path="/project/:projectId" element={<ProjectDetailPage projects={allProjects} />} />
+        <Route path="/project/:projectId" element={<ProjectDetailPage projects={allProjects} awards={awards} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ProjectProvider>
   );
