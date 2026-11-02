@@ -4,6 +4,7 @@
 
 ## 현재 구조 핵심
 - 메인 포트폴리오 데이터는 `src/data/portfolio.js`에 있고, 수상은 `projectId`로 프로젝트의 `award`에 자동 연결된다
+- 영어 페이지는 `/en`, `/en/project/:id`이며 번역은 `src/data/portfolio.en.js`(콘텐츠)와 `src/data/messages.js`(화면 문구)에 있다
 - 모달과 상세 페이지는 `getProjectView`(utils)와 `ProjectSections` 공용 컴포넌트를 함께 쓴다
 - 메인은 `Hero`(3D 사원증) → `Marquee`(기술 띠) → `WorkStack`(프로젝트 카드) → `About`(수상·교육·자격증) → `Footer`(연락) 순서다
 - 카드·모달·상세 페이지가 공통으로 쓰는 표시 헬퍼는 `src/utils/project.js`에 있다
