@@ -18,6 +18,7 @@
 src/
   App.jsx                 # 전체 레이아웃과 라우팅
   components/             # 재사용 컴포넌트
+  data/                   # 포트폴리오 콘텐츠 데이터
   contexts/               # 프로젝트·모달 상태
   utils/                  # 프로젝트 표시용 헬퍼
   pages/                  # 라우트 단위 페이지

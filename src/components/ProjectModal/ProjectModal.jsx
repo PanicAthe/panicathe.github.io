@@ -1,18 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../../contexts/ProjectContext';
-import { findMetric, getProjectMedia, isVideo, splitLead, splitName, stripEmoji } from '../../utils/project';
+import { getPoster, getProjectView, isVideo } from '../../utils/project';
+import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../ProjectSections/ProjectSections';
 import './ProjectModal.css';
-
-const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript', 'Swift', 'SwiftUI', 'React'];
-
-const REPO_LABELS = {
-  repository: 'Repository',
-  backend: 'Backend Repository',
-  frontend: 'Frontend Repository',
-  aiApi: 'AI API Repository',
-  organization: 'GitHub Organization',
-};
 
 // 영상은 자동 재생하지 않고(최대 수십 MB) 썸네일을 포스터로 보여준다
 function MediaView({ url, title, poster }) {
@@ -24,76 +15,92 @@ function MediaView({ url, title, poster }) {
   return <img src={url} alt={`${title} 화면`} />;
 }
 
-function ProjectModal({ project, onClose, awards = [] }) {
+const FOCUSABLE = 'a[href], button:not([disabled]), video[controls], [tabindex]:not([tabindex="-1"])';
+
+// 방향키를 직접 쓰는 요소(영상 탐색, 입력창)에서는 프로젝트 이동을 하지 않는다
+function usesArrowKeys(target) {
+  return target instanceof Element && Boolean(target.closest('video, audio, input, textarea, select, [contenteditable="true"]'));
+}
+
+// Tab 포커스가 모달 밖(뒤의 페이지)으로 나가지 않도록 처음과 끝을 이어 준다
+function trapFocus(event, container) {
+  if (!container) return;
+  const items = [...container.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+  if (items.length === 0) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  const active = document.activeElement;
+
+  if (!container.contains(active)) {
+    event.preventDefault();
+    first.focus();
+  } else if (event.shiftKey && active === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function ProjectModal({ project, onClose }) {
   const { projects = [], selectProject } = useProjects();
   const navigate = useNavigate();
   const [mediaIndex, setMediaIndex] = useState(0);
+  const sheetRef = useRef(null);
   const closeRef = useRef(null);
   const bodyRef = useRef(null);
 
+  const isOpen = Boolean(project);
   const position = project ? projects.findIndex((p) => p.id === project.id) : -1;
+
+  const goTo = useCallback(
+    (offset) => {
+      if (position < 0 || projects.length < 2) return;
+      selectProject(projects[(position + offset + projects.length) % projects.length]);
+    },
+    [position, projects, selectProject]
+  );
 
   useEffect(() => {
     setMediaIndex(0);
     bodyRef.current?.scrollTo({ top: 0 });
   }, [project]);
 
+  // 열릴 때 스크롤을 잠그고 닫기 버튼으로 포커스를 옮기며, 닫히면 원래 누른 요소로 포커스를 돌려준다
   useEffect(() => {
-    if (!project) return undefined;
+    if (!isOpen) return undefined;
+    const previouslyFocused = document.activeElement;
     document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
 
-    const goTo = (offset) => {
-      if (position < 0 || projects.length < 2) return;
-      selectProject(projects[(position + offset + projects.length) % projects.length]);
-    };
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') goTo(1);
-      if (e.key === 'ArrowLeft') goTo(-1);
-    };
-    document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
+        previouslyFocused.focus({ preventScroll: true });
+      }
     };
-  }, [project, onClose, position, projects, selectProject]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'Tab') trapFocus(e, sheetRef.current);
+      else if (e.key === 'ArrowRight' && !usesArrowKeys(e.target)) goTo(1);
+      else if (e.key === 'ArrowLeft' && !usesArrowKeys(e.target)) goTo(-1);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose, goTo]);
 
   if (!project) return null;
 
-  const { title, subtitle } = splitName(project.name);
-  const media = getProjectMedia(project);
-  const award = awards.find((a) => a.projectId === project.id);
+  const view = getProjectView(project);
+  const { title, subtitle, media, award, awardLabel, repos, primaryRepo, websiteUrl } = view;
   const total = String(projects.length).padStart(2, '0');
-
-  const metricTiles = (project.learnings || [])
-    .map((sentence) => ({ sentence, metric: findMetric(sentence) }))
-    .filter((item) => item.metric);
-  const otherLearnings = (project.learnings || []).filter(
-    (sentence) => !findMetric(sentence) && !(award && sentence.includes(stripEmoji(award.label)))
-  );
-
-  const technologies = project.technologies || [];
-  const coreTechs = technologies.filter((tech) => CORE_TECHS.includes(tech));
-  const otherTechs = technologies.filter((tech) => !CORE_TECHS.includes(tech));
-
-  const repos = Object.entries(project.githubUrls || {});
-  const primaryRepo = repos.find(([key]) => key === 'repository' || key === 'backend') || repos[0];
-
-  // 썸네일 줄에서는 무거운 GIF·영상 원본 대신 경량 이미지나 표시만 보여준다
-  const renderThumb = (url) => {
-    if (url === project.thumbnailUrl && project.cardImageUrl) {
-      return <img src={project.cardImageUrl} alt="" loading="lazy" />;
-    }
-    if (isVideo(url)) return <span className="sheet__thumb-video">▶</span>;
-    if (url.split('?')[0].endsWith('.gif')) return <span className="sheet__thumb-video">GIF</span>;
-    return <img src={url} alt="" loading="lazy" />;
-  };
-
-  const goTo = (offset) => {
-    if (position < 0) return;
-    selectProject(projects[(position + offset + projects.length) % projects.length]);
-  };
+  const currentMedia = media[mediaIndex];
 
   const openDetailPage = () => {
     onClose();
@@ -103,6 +110,7 @@ function ProjectModal({ project, onClose, awards = [] }) {
   return (
     <div className="sheet-overlay" onClick={onClose}>
       <aside
+        ref={sheetRef}
         className="sheet"
         role="dialog"
         aria-modal="true"
@@ -128,10 +136,10 @@ function ProjectModal({ project, onClose, awards = [] }) {
 
         <div className="sheet__body" ref={bodyRef}>
           <div className="sheet__meta">
-            {award && <span className="sheet__award">{stripEmoji(award.label)}</span>}
+            {award && <span className="sheet__award">{awardLabel}</span>}
             <span className="sheet__period">{project.period}</span>
           </div>
-          <h2 id="sheet-title" className={`sheet__title${title.length > 12 ? ' sheet__title--long' : ''}`}>
+          <h2 id="sheet-title" className={`sheet__title${view.isLongTitle ? ' sheet__title--long' : ''}`}>
             {title}
           </h2>
           {subtitle && <p className="sheet__subtitle">{subtitle}</p>}
@@ -139,123 +147,39 @@ function ProjectModal({ project, onClose, awards = [] }) {
           {media.length > 0 && (
             <div className="sheet__media">
               <div className="sheet__viewer">
-                <MediaView
-                  url={media[mediaIndex]}
-                  title={title}
-                  poster={media[mediaIndex] === project.thumbnailUrl ? project.cardImageUrl : undefined}
-                />
+                <MediaView url={currentMedia} title={title} poster={getPoster(project, currentMedia)} />
               </div>
-              {media.length > 1 && (
-                <div className="sheet__thumbs" role="list" aria-label="프로젝트 미디어">
-                  {media.map((url, index) => (
-                    <button
-                      key={url}
-                      type="button"
-                      role="listitem"
-                      className={`sheet__thumb${index === mediaIndex ? ' is-active' : ''}`}
-                      onClick={() => setMediaIndex(index)}
-                      aria-label={`${isVideo(url) ? '영상' : '이미지'} ${index + 1} 보기`}
-                      aria-current={index === mediaIndex}
-                    >
-                      {renderThumb(url)}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <MediaThumbs project={project} media={media} activeIndex={mediaIndex} onSelect={setMediaIndex} />
             </div>
           )}
 
           <p className="sheet__overview">{project.overview}</p>
 
-          {(metricTiles.length > 0 || award || otherLearnings.length > 0) && (
+          {(view.metrics.length > 0 || award || view.otherLearnings.length > 0) && (
             <section className="sheet__section">
               <h3 className="sheet__label">RESULTS</h3>
-              {(metricTiles.length > 0 || award) && (
-                <div className="sheet__tiles">
-                  {metricTiles.map(({ sentence, metric }) => (
-                    <div key={sentence} className="sheet__tile sheet__tile--klein">
-                      <strong className={`sheet__tile-figure${metric.length > 7 ? ' sheet__tile-figure--long' : ''}`}>{metric}</strong>
-                      <span className="sheet__tile-text">{sentence}</span>
-                    </div>
-                  ))}
-                  {award && (
-                    <div className="sheet__tile sheet__tile--ink">
-                      <strong className="sheet__tile-figure">{stripEmoji(award.label)}</strong>
-                      <span className="sheet__tile-text">
-                        {award.name} · {award.date}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-              {otherLearnings.length > 0 && (
-                <ul className="sheet__bullets">
-                  {otherLearnings.map((sentence) => (
-                    <li key={sentence}>{sentence}</li>
-                  ))}
-                </ul>
-              )}
+              <ProjectResults view={view} />
             </section>
           )}
 
-          {project.role?.length > 0 && (
+          {view.roles.length > 0 && (
             <section className="sheet__section">
               <h3 className="sheet__label">WHAT I DID</h3>
-              <ol className="sheet__roles">
-                {project.role.map((sentence, index) => {
-                  const { lead, text } = splitLead(sentence);
-                  return (
-                    <li key={sentence}>
-                      <span className="sheet__role-no">{String(index + 1).padStart(2, '0')}</span>
-                      <span>
-                        {lead && <strong>{lead}</strong>}
-                        {lead && ' — '}
-                        {text}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
+              <ProjectRoles roles={view.roles} />
             </section>
           )}
 
-          {technologies.length > 0 && (
+          {view.coreTechs.length + view.otherTechs.length > 0 && (
             <section className="sheet__section">
               <h3 className="sheet__label">STACK</h3>
-              <ul className="sheet__chips">
-                {coreTechs.map((tech) => (
-                  <li key={tech} className="sheet__chip sheet__chip--core">
-                    {tech}
-                  </li>
-                ))}
-                {otherTechs.map((tech) => (
-                  <li key={tech} className="sheet__chip">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+              <ProjectStack coreTechs={view.coreTechs} otherTechs={view.otherTechs} />
             </section>
           )}
 
-          {(repos.length > 1 || project.websiteUrl) && (
+          {(repos.length > 1 || websiteUrl) && (
             <section className="sheet__section">
               <h3 className="sheet__label">LINKS</h3>
-              <ul className="sheet__links">
-                {project.websiteUrl && (
-                  <li>
-                    <a href={project.websiteUrl}>
-                      홈페이지 · 사용 안내 · 개인정보처리방침 <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                )}
-                {repos.map(([key, url]) => (
-                  <li key={key}>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      {REPO_LABELS[key] || key} <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ProjectLinks websiteUrl={websiteUrl} repos={repos} />
             </section>
           )}
         </div>
@@ -264,13 +188,13 @@ function ProjectModal({ project, onClose, awards = [] }) {
           <button type="button" className="sheet__btn sheet__btn--primary" onClick={openDetailPage}>
             상세 페이지 보기 <span aria-hidden="true">→</span>
           </button>
-          {project.websiteUrl ? (
-            <a className="sheet__btn" href={project.websiteUrl}>
+          {websiteUrl ? (
+            <a className="sheet__btn" href={websiteUrl}>
               홈페이지 <span aria-hidden="true">↗</span>
             </a>
           ) : (
             primaryRepo && (
-              <a className="sheet__btn" href={primaryRepo[1]} target="_blank" rel="noopener noreferrer">
+              <a className="sheet__btn" href={primaryRepo.url} target="_blank" rel="noopener noreferrer">
                 GitHub <span aria-hidden="true">↗</span>
               </a>
             )

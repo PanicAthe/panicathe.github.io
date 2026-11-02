@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import cardFace from '../../assets/lanyard/card-face.png';
+import { profile } from '../../data/portfolio';
 import './Hero.css';
 
 const Lanyard = lazy(() => import('../Lanyard/Lanyard'));
@@ -91,7 +92,7 @@ function Hero() {
         </p>
       </div>
 
-      <div className="hero__stage" ref={stageRef} role="img" aria-label="최은진 사원증 카드 — Backend Developer, panicatheworks@gmail.com">
+      <div className="hero__stage" ref={stageRef} role="img" aria-label={`${profile.name} 사원증 카드 — Backend Developer, ${profile.email}`}>
         {useStaticCard || !load3D ? (
           <StaticCard />
         ) : (

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { profile } from '../../data/portfolio';
 import './Footer.css';
 
-const EMAIL = 'panicatheworks@gmail.com';
+const EMAIL = profile.email;
 
 function Footer() {
   const [copied, setCopied] = useState(false);
@@ -34,7 +35,7 @@ function Footer() {
           {copied ? '복사했어요' : '이메일 복사'}
         </button>
         <a
-          href="https://github.com/PanicAthe"
+          href={profile.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="footer__btn"

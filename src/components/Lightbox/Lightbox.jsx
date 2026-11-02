@@ -1,27 +1,48 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { isVideo } from '../../utils/project';
 import './Lightbox.css';
 
-function Lightbox({ media, onClose }) {
+function Lightbox({ media, alt = '', onClose }) {
+  const closeRef = useRef(null);
+
+  // 열려 있는 동안 뒤 페이지 스크롤을 막고, 닫으면 원래 포커스로 돌아간다
   useEffect(() => {
-    const handleKeyDown = (e) => { if (e.key === 'Escape') onClose(); };
+    if (!media) return undefined;
+    const previouslyFocused = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
 
-  if (!media) {
-    return null;
-  }
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
+        previouslyFocused.focus({ preventScroll: true });
+      }
+    };
+  }, [media, onClose]);
 
-  const isVideo = media.endsWith('.mp4');
+  if (!media) return null;
 
   return (
-    <div className="lightbox-overlay" onClick={onClose}>
-      <div className="lightbox-content" onClick={e => e.stopPropagation()}>
-        <button className="lightbox-close-button" onClick={onClose}>&times;</button>
-        {isVideo ? (
-          <video src={media} controls autoPlay muted loop playsInline />
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={alt || '크게 보기'} onClick={onClose}>
+      <button type="button" className="lightbox__close" onClick={onClose} aria-label="닫기" ref={closeRef}>
+        ✕
+      </button>
+      <div className="lightbox__content" onClick={(e) => e.stopPropagation()}>
+        {isVideo(media) ? (
+          <video src={media} controls autoPlay muted playsInline />
         ) : (
-          <img src={media} alt="Fullscreen media" />
+          <img src={media} alt={alt} />
         )}
       </div>
     </div>
