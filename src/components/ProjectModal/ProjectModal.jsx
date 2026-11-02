@@ -1,18 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../../contexts/ProjectContext';
-import { findMetric, getProjectMedia, isVideo, splitLead, splitName, stripEmoji } from '../../utils/project';
+import { getPoster, getProjectView, isVideo } from '../../utils/project';
+import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../ProjectSections/ProjectSections';
 import './ProjectModal.css';
-
-const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript', 'Swift', 'SwiftUI', 'React'];
-
-const REPO_LABELS = {
-  repository: 'Repository',
-  backend: 'Backend Repository',
-  frontend: 'Frontend Repository',
-  aiApi: 'AI API Repository',
-  organization: 'GitHub Organization',
-};
 
 // 영상은 자동 재생하지 않고(최대 수십 MB) 썸네일을 포스터로 보여준다
 function MediaView({ url, title, poster }) {
@@ -61,34 +52,10 @@ function ProjectModal({ project, onClose }) {
 
   if (!project) return null;
 
-  const { title, subtitle } = splitName(project.name);
-  const media = getProjectMedia(project);
-  const { award } = project;
+  const view = getProjectView(project);
+  const { title, subtitle, media, award, awardLabel, repos, primaryRepo, websiteUrl } = view;
   const total = String(projects.length).padStart(2, '0');
-
-  const metricTiles = (project.learnings || [])
-    .map((sentence) => ({ sentence, metric: findMetric(sentence) }))
-    .filter((item) => item.metric);
-  const otherLearnings = (project.learnings || []).filter(
-    (sentence) => !findMetric(sentence) && !(award && sentence.includes(stripEmoji(award.label)))
-  );
-
-  const technologies = project.technologies || [];
-  const coreTechs = technologies.filter((tech) => CORE_TECHS.includes(tech));
-  const otherTechs = technologies.filter((tech) => !CORE_TECHS.includes(tech));
-
-  const repos = Object.entries(project.githubUrls || {});
-  const primaryRepo = repos.find(([key]) => key === 'repository' || key === 'backend') || repos[0];
-
-  // 썸네일 줄에서는 무거운 GIF·영상 원본 대신 경량 이미지나 표시만 보여준다
-  const renderThumb = (url) => {
-    if (url === project.thumbnailUrl && project.cardImageUrl) {
-      return <img src={project.cardImageUrl} alt="" loading="lazy" />;
-    }
-    if (isVideo(url)) return <span className="sheet__thumb-video">▶</span>;
-    if (url.split('?')[0].endsWith('.gif')) return <span className="sheet__thumb-video">GIF</span>;
-    return <img src={url} alt="" loading="lazy" />;
-  };
+  const currentMedia = media[mediaIndex];
 
   const goTo = (offset) => {
     if (position < 0) return;
@@ -128,10 +95,10 @@ function ProjectModal({ project, onClose }) {
 
         <div className="sheet__body" ref={bodyRef}>
           <div className="sheet__meta">
-            {award && <span className="sheet__award">{stripEmoji(award.label)}</span>}
+            {award && <span className="sheet__award">{awardLabel}</span>}
             <span className="sheet__period">{project.period}</span>
           </div>
-          <h2 id="sheet-title" className={`sheet__title${title.length > 12 ? ' sheet__title--long' : ''}`}>
+          <h2 id="sheet-title" className={`sheet__title${view.isLongTitle ? ' sheet__title--long' : ''}`}>
             {title}
           </h2>
           {subtitle && <p className="sheet__subtitle">{subtitle}</p>}
@@ -139,123 +106,39 @@ function ProjectModal({ project, onClose }) {
           {media.length > 0 && (
             <div className="sheet__media">
               <div className="sheet__viewer">
-                <MediaView
-                  url={media[mediaIndex]}
-                  title={title}
-                  poster={media[mediaIndex] === project.thumbnailUrl ? project.cardImageUrl : undefined}
-                />
+                <MediaView url={currentMedia} title={title} poster={getPoster(project, currentMedia)} />
               </div>
-              {media.length > 1 && (
-                <div className="sheet__thumbs" role="list" aria-label="프로젝트 미디어">
-                  {media.map((url, index) => (
-                    <button
-                      key={url}
-                      type="button"
-                      role="listitem"
-                      className={`sheet__thumb${index === mediaIndex ? ' is-active' : ''}`}
-                      onClick={() => setMediaIndex(index)}
-                      aria-label={`${isVideo(url) ? '영상' : '이미지'} ${index + 1} 보기`}
-                      aria-current={index === mediaIndex}
-                    >
-                      {renderThumb(url)}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <MediaThumbs project={project} media={media} activeIndex={mediaIndex} onSelect={setMediaIndex} />
             </div>
           )}
 
           <p className="sheet__overview">{project.overview}</p>
 
-          {(metricTiles.length > 0 || award || otherLearnings.length > 0) && (
+          {(view.metrics.length > 0 || award || view.otherLearnings.length > 0) && (
             <section className="sheet__section">
               <h3 className="sheet__label">RESULTS</h3>
-              {(metricTiles.length > 0 || award) && (
-                <div className="sheet__tiles">
-                  {metricTiles.map(({ sentence, metric }) => (
-                    <div key={sentence} className="sheet__tile sheet__tile--klein">
-                      <strong className={`sheet__tile-figure${metric.length > 7 ? ' sheet__tile-figure--long' : ''}`}>{metric}</strong>
-                      <span className="sheet__tile-text">{sentence}</span>
-                    </div>
-                  ))}
-                  {award && (
-                    <div className="sheet__tile sheet__tile--ink">
-                      <strong className="sheet__tile-figure">{stripEmoji(award.label)}</strong>
-                      <span className="sheet__tile-text">
-                        {award.name} · {award.date}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )}
-              {otherLearnings.length > 0 && (
-                <ul className="sheet__bullets">
-                  {otherLearnings.map((sentence) => (
-                    <li key={sentence}>{sentence}</li>
-                  ))}
-                </ul>
-              )}
+              <ProjectResults view={view} />
             </section>
           )}
 
-          {project.role?.length > 0 && (
+          {view.roles.length > 0 && (
             <section className="sheet__section">
               <h3 className="sheet__label">WHAT I DID</h3>
-              <ol className="sheet__roles">
-                {project.role.map((sentence, index) => {
-                  const { lead, text } = splitLead(sentence);
-                  return (
-                    <li key={sentence}>
-                      <span className="sheet__role-no">{String(index + 1).padStart(2, '0')}</span>
-                      <span>
-                        {lead && <strong>{lead}</strong>}
-                        {lead && ' — '}
-                        {text}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
+              <ProjectRoles roles={view.roles} />
             </section>
           )}
 
-          {technologies.length > 0 && (
+          {view.coreTechs.length + view.otherTechs.length > 0 && (
             <section className="sheet__section">
               <h3 className="sheet__label">STACK</h3>
-              <ul className="sheet__chips">
-                {coreTechs.map((tech) => (
-                  <li key={tech} className="sheet__chip sheet__chip--core">
-                    {tech}
-                  </li>
-                ))}
-                {otherTechs.map((tech) => (
-                  <li key={tech} className="sheet__chip">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+              <ProjectStack coreTechs={view.coreTechs} otherTechs={view.otherTechs} />
             </section>
           )}
 
-          {(repos.length > 1 || project.websiteUrl) && (
+          {(repos.length > 1 || websiteUrl) && (
             <section className="sheet__section">
               <h3 className="sheet__label">LINKS</h3>
-              <ul className="sheet__links">
-                {project.websiteUrl && (
-                  <li>
-                    <a href={project.websiteUrl}>
-                      홈페이지 · 사용 안내 · 개인정보처리방침 <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                )}
-                {repos.map(([key, url]) => (
-                  <li key={key}>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      {REPO_LABELS[key] || key} <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ProjectLinks websiteUrl={websiteUrl} repos={repos} />
             </section>
           )}
         </div>
@@ -264,13 +147,13 @@ function ProjectModal({ project, onClose }) {
           <button type="button" className="sheet__btn sheet__btn--primary" onClick={openDetailPage}>
             상세 페이지 보기 <span aria-hidden="true">→</span>
           </button>
-          {project.websiteUrl ? (
-            <a className="sheet__btn" href={project.websiteUrl}>
+          {websiteUrl ? (
+            <a className="sheet__btn" href={websiteUrl}>
               홈페이지 <span aria-hidden="true">↗</span>
             </a>
           ) : (
             primaryRepo && (
-              <a className="sheet__btn" href={primaryRepo[1]} target="_blank" rel="noopener noreferrer">
+              <a className="sheet__btn" href={primaryRepo.url} target="_blank" rel="noopener noreferrer">
                 GitHub <span aria-hidden="true">↗</span>
               </a>
             )
