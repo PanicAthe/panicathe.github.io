@@ -1,4 +1,6 @@
 // 포트폴리오 콘텐츠 데이터 — 화면 코드와 분리해 두고, 내용을 고칠 때는 이 파일만 수정한다
+// 영어 번역은 portfolio.en.js에 id별로 있고, 화면에서는 getPortfolio(lang)로 언어에 맞춘 데이터를 받는다
+import { awardsEn, certificationsEn, educationEn, profileEn, projectsEn } from './portfolio.en';
 
 export const profile = {
   name: '최은진',
@@ -254,8 +256,32 @@ const projectEntries = [
   },
 ];
 
-// 수상 정보를 프로젝트에 미리 붙여 카드·모달·상세 페이지가 각자 찾지 않게 한다
-export const projects = projectEntries.map((project) => ({
-  ...project,
-  award: awards.find((award) => award.projectId === project.id) ?? null,
-}));
+// id가 같은 항목에 번역 필드를 덮어쓴다 (번역이 없으면 한국어 원본 그대로)
+const localize = (items, translations = {}) => items.map((item) => ({ ...item, ...translations[item.id] }));
+
+function buildPortfolio(lang) {
+  const isEnglish = lang === 'en';
+  const localizedAwards = isEnglish ? localize(awards, awardsEn) : awards;
+  const localizedProjects = isEnglish ? localize(projectEntries, projectsEn) : projectEntries;
+
+  return {
+    profile: isEnglish ? { ...profile, ...profileEn } : profile,
+    marqueeSkills,
+    awards: localizedAwards,
+    education: isEnglish ? localize(education, educationEn) : education,
+    certifications: isEnglish ? localize(certifications, certificationsEn) : certifications,
+    // 수상 정보를 프로젝트에 미리 붙여 카드·모달·상세 페이지가 각자 찾지 않게 한다
+    projects: localizedProjects.map((project) => ({
+      ...project,
+      award: localizedAwards.find((award) => award.projectId === project.id) ?? null,
+    })),
+  };
+}
+
+// 언어별로 한 번만 만들어 두고 같은 객체를 돌려준다
+const portfolioCache = {};
+
+export function getPortfolio(lang = 'ko') {
+  portfolioCache[lang] ??= buildPortfolio(lang);
+  return portfolioCache[lang];
+}

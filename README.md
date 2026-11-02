@@ -102,10 +102,10 @@ panicathe.github.io/
 ├── src/
 │   ├── assets/          # 코드에서 직접 참조하는 에셋
 │   ├── components/      # 재사용 가능한 React 컴포넌트
-│   ├── contexts/        # React Context (프로젝트·모달 상태)
+│   ├── contexts/        # React Context (언어, 프로젝트·모달 상태)
 │   ├── utils/           # 프로젝트 표시용 헬퍼
 │   ├── pages/           # 페이지 단위 컴포넌트
-│   ├── data/            # 포트폴리오 콘텐츠 데이터 (portfolio.js)
+│   ├── data/            # 콘텐츠 데이터 (portfolio.js, 영어 번역 portfolio.en.js, 화면 문구 messages.js)
 │   ├── App.jsx          # 라우팅, 레이아웃
 │   └── main.jsx         # 애플리케이션 진입점
 ├── .claude/             # Claude Code 설정 (훅, 슬래시 커맨드)

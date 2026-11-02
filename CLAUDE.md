@@ -26,8 +26,9 @@ src/
     ProjectModal/      - 프로젝트 사이드 시트 모달
     ProjectSections/   - 모달·상세 페이지 공용 섹션 (성과·역할·스택·링크·썸네일)
     Lightbox/          - 이미지 라이트박스 (상세 페이지)
+    LanguageSwitch/    - KO/EN 언어 전환 링크 (헤더·상세 페이지)
   data/                - 포트폴리오 콘텐츠 데이터 (profile, 프로젝트, 수상, 교육, 자격증)
-  contexts/            - React Context (프로젝트·모달 상태)
+  contexts/            - React Context (언어, 프로젝트·모달 상태)
   utils/               - 카드·모달·상세 페이지 공용 표시 헬퍼
   pages/               - 라우트별 페이지
   assets/              - 이미지, 문서 등 정적 자산
@@ -35,7 +36,11 @@ src/
 
 ## 현재 프로젝트 구조 메모
 - 프로젝트, 수상, 교육, 자격증, 연락처 데이터는 `src/data/portfolio.js`에 모여 있음 (수상은 `projectId`로 프로젝트에 자동 연결)
-- 메인 화면은 섹션 기반 단일 페이지이고 프로젝트 상세는 `/project/:projectId` 라우트를 사용
+- 다국어(한/영): 주소가 `/en`으로 시작하면 영어. 화면 문구는 `src/data/messages.js`, 영어 콘텐츠는 `src/data/portfolio.en.js`(id별 덮어쓰기)
+  - 컴포넌트는 `useLanguage()`로 `t`(문구), `content`(언어별 데이터), `localePath()`(언어 주소)를 받는다
+  - 한국어 콘텐츠를 고치면 `portfolio.en.js`의 같은 id 항목도 함께 고칠 것
+  - 영어 프로젝트 이름은 "제목 - 부제" 형식, 수상 문장에는 수상 label 문구(이모지 제외)를 그대로 넣어야 수상 카드와 중복되지 않음
+- 메인 화면은 섹션 기반 단일 페이지이고 프로젝트 상세는 `/project/:projectId` 라우트를 사용 (영어는 앞에 `/en`)
 - 모달 UX와 상세 페이지 UX가 함께 존재하므로 둘 중 하나를 건드리면 다른 쪽 영향도 확인
 - 메인 카드는 `cardImageUrl`(경량 WebP), 모달·상세 페이지는 `thumbnailUrl`과 갤러리 원본을 사용함
 - 상세 주소 직접 접속은 빌드 시 생성되는 `dist/404.html` 폴백으로 처리함

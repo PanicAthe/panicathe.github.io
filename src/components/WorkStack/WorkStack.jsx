@@ -1,4 +1,5 @@
-import { isVideo, splitName, stripEmoji } from '../../utils/project';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { isLongTitle, isVideo, splitName, stripEmoji } from '../../utils/project';
 import './WorkStack.css';
 
 // Paper · Klein Blue 카드 색 순환
@@ -6,15 +7,17 @@ const CARD_THEMES = ['klein', 'ink', 'white', 'stone', 'ink'];
 
 // 카드는 경량 썸네일(cardImageUrl)을 쓰고, 원본 영상·GIF는 모달에서만 불러온다
 function ProjectMedia({ project, title }) {
+  const { t } = useLanguage();
   const url = project.cardImageUrl || project.thumbnailUrl;
   if (!url) return <div className="work-card__media-empty">{title}</div>;
   if (isVideo(url)) {
-    return <video src={url} muted playsInline preload="metadata" aria-label={`${title} 데모 영상`} />;
+    return <video src={url} muted playsInline preload="metadata" aria-label={t.project.video(title)} />;
   }
-  return <img src={url} alt={`${title} 화면`} loading="lazy" decoding="async" width="1200" height="675" />;
+  return <img src={url} alt={t.project.image(title)} loading="lazy" decoding="async" width="1200" height="675" />;
 }
 
 function WorkStack({ projects = [], onSelect }) {
+  const { t } = useLanguage();
   const total = String(projects.length).padStart(2, '0');
 
   return (
@@ -23,7 +26,7 @@ function WorkStack({ projects = [], onSelect }) {
         <h2 className="work__title">
           WORK<span className="work__count">({projects.length})</span>
         </h2>
-        <p className="work__note">카드를 누르면 자세한 내용을 볼 수 있어요</p>
+        <p className="work__note">{t.work.note}</p>
       </div>
 
       <ol className="work__list">
@@ -47,7 +50,7 @@ function WorkStack({ projects = [], onSelect }) {
                   </span>
                   <span>{project.period}</span>
                 </div>
-                <h3 className={`work-card__title${title.length > 12 ? ' work-card__title--long' : ''}`}>{title}</h3>
+                <h3 className={`work-card__title${isLongTitle(title) ? ' work-card__title--long' : ''}`}>{title}</h3>
                 {(subtitle || award) && (
                   <p className="work-card__subtitle">
                     {subtitle}
@@ -56,7 +59,7 @@ function WorkStack({ projects = [], onSelect }) {
                 )}
                 <p className="work-card__overview">{project.overview}</p>
                 <div className="work-card__footer">
-                  <ul className="work-card__tags" aria-label="사용 기술">
+                  <ul className="work-card__tags" aria-label={t.work.tags}>
                     {tags.map((tag) => (
                       <li key={tag}>{tag}</li>
                     ))}
@@ -69,7 +72,7 @@ function WorkStack({ projects = [], onSelect }) {
                       onSelect(project);
                     }}
                   >
-                    자세히 보기 <span aria-hidden="true">→</span>
+                    {t.work.cta} <span aria-hidden="true">→</span>
                   </button>
                 </div>
               </div>

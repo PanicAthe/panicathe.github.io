@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { useProjects } from '../../contexts/ProjectContext';
 import { getPoster, getProjectView, isVideo } from '../../utils/project';
 import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../ProjectSections/ProjectSections';
@@ -7,12 +8,13 @@ import './ProjectModal.css';
 
 // 영상은 자동 재생하지 않고(최대 수십 MB) 썸네일을 포스터로 보여준다
 function MediaView({ url, title, poster }) {
+  const { t } = useLanguage();
   if (isVideo(url)) {
     return (
-      <video key={url} src={url} poster={poster} controls muted playsInline preload="metadata" aria-label={`${title} 데모 영상`} />
+      <video key={url} src={url} poster={poster} controls muted playsInline preload="metadata" aria-label={t.project.video(title)} />
     );
   }
-  return <img src={url} alt={`${title} 화면`} />;
+  return <img src={url} alt={t.project.image(title)} />;
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled]), video[controls], [tabindex]:not([tabindex="-1"])';
@@ -46,6 +48,7 @@ function trapFocus(event, container) {
 function ProjectModal({ project, onClose }) {
   const { projects = [], selectProject } = useProjects();
   const navigate = useNavigate();
+  const { t, localePath } = useLanguage();
   const [mediaIndex, setMediaIndex] = useState(0);
   const sheetRef = useRef(null);
   const closeRef = useRef(null);
@@ -62,10 +65,11 @@ function ProjectModal({ project, onClose }) {
     [position, projects, selectProject]
   );
 
+  const projectId = project?.id;
   useEffect(() => {
     setMediaIndex(0);
     bodyRef.current?.scrollTo({ top: 0 });
-  }, [project]);
+  }, [projectId]);
 
   // 열릴 때 스크롤을 잠그고 닫기 버튼으로 포커스를 옮기며, 닫히면 원래 누른 요소로 포커스를 돌려준다
   useEffect(() => {
@@ -104,7 +108,7 @@ function ProjectModal({ project, onClose }) {
 
   const openDetailPage = () => {
     onClose();
-    navigate(`/project/${project.id}`);
+    navigate(localePath(`/project/${project.id}`));
   };
 
   return (
@@ -122,13 +126,13 @@ function ProjectModal({ project, onClose }) {
             {String(position + 1).padStart(2, '0')} / {total} · PROJECT
           </span>
           <div className="sheet__bar-actions">
-            <button type="button" className="sheet__round" onClick={() => goTo(-1)} aria-label="이전 프로젝트">
+            <button type="button" className="sheet__round" onClick={() => goTo(-1)} aria-label={t.modal.prev}>
               ←
             </button>
-            <button type="button" className="sheet__round" onClick={() => goTo(1)} aria-label="다음 프로젝트">
+            <button type="button" className="sheet__round" onClick={() => goTo(1)} aria-label={t.modal.next}>
               →
             </button>
-            <button type="button" className="sheet__round sheet__round--close" onClick={onClose} aria-label="닫기" ref={closeRef}>
+            <button type="button" className="sheet__round sheet__round--close" onClick={onClose} aria-label={t.modal.close} ref={closeRef}>
               ✕
             </button>
           </div>
@@ -186,11 +190,11 @@ function ProjectModal({ project, onClose }) {
 
         <footer className="sheet__footer">
           <button type="button" className="sheet__btn sheet__btn--primary" onClick={openDetailPage}>
-            상세 페이지 보기 <span aria-hidden="true">→</span>
+            {t.modal.openDetail} <span aria-hidden="true">→</span>
           </button>
           {websiteUrl ? (
             <a className="sheet__btn" href={websiteUrl}>
-              홈페이지 <span aria-hidden="true">↗</span>
+              {t.project.website} <span aria-hidden="true">↗</span>
             </a>
           ) : (
             primaryRepo && (

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import cardFace from '../../assets/lanyard/card-face.png';
-import { profile } from '../../data/portfolio';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './Hero.css';
 
 const Lanyard = lazy(() => import('../Lanyard/Lanyard'));
@@ -72,13 +72,15 @@ function Hero() {
   const useStaticCard = useMediaQuery(STATIC_CARD_QUERY);
   const stageRef = useRef(null);
   const load3D = useDeferredLoad(stageRef, !useStaticCard);
+  const { t, content } = useLanguage();
+  const { profile } = content;
 
   return (
     <section id="top" className="hero">
       <div className="hero__copy">
-        <p className="hero__eyebrow">[ 최은진 — 백엔드 개발자 ]</p>
+        <p className="hero__eyebrow">{t.hero.eyebrow}</p>
         <h1 className="hero__title">
-          <span className="visually-hidden">최은진, 확장 가능한 시스템을 만드는 백엔드 개발자</span>
+          <span className="visually-hidden">{t.hero.srTitle}</span>
           <span aria-hidden="true">
             BUILDS
             <br />
@@ -87,19 +89,17 @@ function Hero() {
             THAT <span className="hero__title-accent">SCALE.</span>
           </span>
         </h1>
-        <p className="hero__intro">
-          확장성 있는 설계와 AI·백엔드 융합을 고민합니다. 서버에서 앱, 배포와 운영까지 끝까지 책임진 프로젝트들을 소개합니다.
-        </p>
+        <p className="hero__intro">{t.hero.intro}</p>
       </div>
 
-      <div className="hero__stage" ref={stageRef} role="img" aria-label={`${profile.name} 사원증 카드 — Backend Developer, ${profile.email}`}>
+      <div className="hero__stage" ref={stageRef} role="img" aria-label={t.hero.cardLabel(profile.name, profile.email)}>
         {useStaticCard || !load3D ? (
           <StaticCard />
         ) : (
           <ErrorBoundary fallback={<StaticCard />}>
             <Suspense fallback={<StaticCard />}>
               <Lanyard />
-              <p className="hero__hint" aria-hidden="true">드래그해서 카드를 흔들어 보세요</p>
+              <p className="hero__hint" aria-hidden="true">{t.hero.hint}</p>
             </Suspense>
           </ErrorBoundary>
         )}

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { profile } from '../../data/portfolio';
+import { useLanguage } from '../../contexts/LanguageContext';
 import './Footer.css';
 
-const EMAIL = profile.email;
-
 function Footer() {
+  const { t, content } = useLanguage();
+  const { profile } = content;
+  const EMAIL = profile.email;
   const [copied, setCopied] = useState(false);
   const timerRef = useRef(null);
 
@@ -20,7 +21,7 @@ function Footer() {
 
   return (
     <footer id="contact" className="footer">
-      <p className="footer__eyebrow">[ 다음 프로젝트를 함께할 분 ]</p>
+      <p className="footer__eyebrow">{t.footer.eyebrow}</p>
       <h2 className="footer__title">
         LET’S
         <br />
@@ -32,7 +33,7 @@ function Footer() {
           {EMAIL} <span aria-hidden="true">↗</span>
         </a>
         <button type="button" className="footer__btn" onClick={handleCopy}>
-          {copied ? '복사했어요' : '이메일 복사'}
+          {copied ? t.footer.copied : t.footer.copy}
         </button>
         <a
           href={profile.githubUrl}
@@ -44,7 +45,7 @@ function Footer() {
         </a>
       </div>
       <p className="visually-hidden" aria-live="polite">
-        {copied ? '이메일 주소를 클립보드에 복사했습니다.' : ''}
+        {copied ? t.footer.copiedLive : ''}
       </p>
 
       <div className="footer__bottom">

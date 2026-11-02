@@ -1,14 +1,16 @@
+import { useLanguage } from '../../contexts/LanguageContext';
 import { getThumbnail, isVideo } from '../../utils/project';
 import './ProjectSections.css';
 
 // 프로젝트 모달(ProjectModal)과 상세 페이지(ProjectDetailPage)가 함께 쓰는 섹션들.
 // 크기 차이는 각 컨테이너에서 --ps-* CSS 변수로 조정한다.
 
-export function MediaThumbs({ project, media, activeIndex, onSelect, label = '프로젝트 미디어' }) {
+export function MediaThumbs({ project, media, activeIndex, onSelect }) {
+  const { t } = useLanguage();
   if (media.length < 2) return null;
 
   return (
-    <div className="ps-thumbs" role="list" aria-label={label}>
+    <div className="ps-thumbs" role="list" aria-label={t.project.media}>
       {media.map((url, index) => {
         const thumb = getThumbnail(project, url);
         return (
@@ -18,7 +20,7 @@ export function MediaThumbs({ project, media, activeIndex, onSelect, label = '�
             role="listitem"
             className={`ps-thumb${index === activeIndex ? ' is-active' : ''}`}
             onClick={() => onSelect(index)}
-            aria-label={`${isVideo(url) ? '영상' : '이미지'} ${index + 1} 보기`}
+            aria-label={t.project.thumb(isVideo(url), index + 1)}
             aria-current={index === activeIndex}
           >
             {thumb.src ? <img src={thumb.src} alt="" loading="lazy" /> : <span className="ps-thumb-label">{thumb.label}</span>}
@@ -103,6 +105,7 @@ export function ProjectStack({ coreTechs, otherTechs }) {
 }
 
 export function ProjectLinks({ websiteUrl, repos }) {
+  const { t } = useLanguage();
   if (!websiteUrl && repos.length === 0) return null;
 
   return (
@@ -110,7 +113,7 @@ export function ProjectLinks({ websiteUrl, repos }) {
       {websiteUrl && (
         <li>
           <a href={websiteUrl}>
-            홈페이지 · 사용 안내 · 개인정보처리방침 <span aria-hidden="true">↗</span>
+            {t.project.websiteLinks} <span aria-hidden="true">↗</span>
           </a>
         </li>
       )}
