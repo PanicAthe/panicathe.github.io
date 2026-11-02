@@ -34,14 +34,6 @@ const dbAndTools = [
   { id: 'github', name: 'GitHub', imageUrl: 'https://techstack-generator.vercel.app/github-icon.svg' },
 ];
 
-// Skills 섹션 제거로 현재 화면에서는 쓰지 않음 — 다시 노출할 때를 위해 데이터는 보관
-// eslint-disable-next-line no-unused-vars
-const collaborationAndDesign = [
-  { id: 'slack', name: 'Slack', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/slack.svg' },
-  { id: 'notion', name: 'Notion', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg' },
-  { id: 'figma', name: 'Figma', imageUrl: 'https://skillicons.dev/icons?i=figma' },
-];
-
 const awards = [
   {
     id: 'shinhan-best',
