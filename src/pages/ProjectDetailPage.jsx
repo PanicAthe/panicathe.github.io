@@ -22,7 +22,7 @@ const SECTIONS = [
   { id: 'links', label: '링크' },
 ];
 
-function ProjectDetailPage({ projects = [], awards = [] }) {
+function ProjectDetailPage({ projects = [] }) {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [mediaIndex, setMediaIndex] = useState(0);
@@ -60,7 +60,7 @@ function ProjectDetailPage({ projects = [], awards = [] }) {
 
   const { title, subtitle } = splitName(project.name);
   const media = getProjectMedia(project);
-  const award = awards.find((a) => a.projectId === project.id);
+  const { award } = project;
   const next = projects[(index + 1) % projects.length];
   const nextTitle = splitName(next.name).title;
 

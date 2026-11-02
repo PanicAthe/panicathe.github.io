@@ -24,7 +24,7 @@ function MediaView({ url, title, poster }) {
   return <img src={url} alt={`${title} 화면`} />;
 }
 
-function ProjectModal({ project, onClose, awards = [] }) {
+function ProjectModal({ project, onClose }) {
   const { projects = [], selectProject } = useProjects();
   const navigate = useNavigate();
   const [mediaIndex, setMediaIndex] = useState(0);
@@ -63,7 +63,7 @@ function ProjectModal({ project, onClose, awards = [] }) {
 
   const { title, subtitle } = splitName(project.name);
   const media = getProjectMedia(project);
-  const award = awards.find((a) => a.projectId === project.id);
+  const { award } = project;
   const total = String(projects.length).padStart(2, '0');
 
   const metricTiles = (project.learnings || [])

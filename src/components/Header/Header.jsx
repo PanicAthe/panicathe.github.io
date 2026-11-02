@@ -1,3 +1,4 @@
+import { profile } from '../../data/portfolio';
 import './Header.css';
 
 function Header() {
@@ -10,7 +11,7 @@ function Header() {
         <a href="#work" className="header__link">WORK</a>
         <a href="#about" className="header__link">ABOUT</a>
         <a
-          href="https://github.com/PanicAthe"
+          href={profile.githubUrl}
           className="header__link header__link--github"
           target="_blank"
           rel="noopener noreferrer"

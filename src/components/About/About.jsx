@@ -1,8 +1,5 @@
+import { stripEmoji } from '../../utils/project';
 import './About.css';
-
-function stripEmoji(text = '') {
-  return text.replace(/[^\p{L}\p{N}\s·().,]/gu, '').trim();
-}
 
 function AboutRow({ date, title, meta, href, onClick, highlight }) {
   const content = (
