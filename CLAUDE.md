@@ -6,7 +6,6 @@ GitHub Pages에 배포되는 개인 포트폴리오 사이트 (`https://panicath
 ## 기술 스택
 - **Framework**: React 19 + Vite 7
 - **3D**: Three.js, `@react-three/fiber`, `@react-three/drei`, `@react-three/rapier`
-- **Animation**: GSAP, motion
 - **Routing**: react-router-dom v7
 - **Styling**: 일반 `.css` 파일 import 방식 (CSS Modules 아님)
 - **Lint**: ESLint 9
@@ -17,17 +16,17 @@ GitHub Pages에 배포되는 개인 포트폴리오 사이트 (`https://panicath
 src/
   App.jsx              - 라우팅 및 전체 레이아웃 + 포트폴리오 데이터
   components/
-    Banner/            - 메인 히어로 섹션
     Header/            - 네비게이션
-    Footer/            - 푸터
-    Row/               - 프로젝트/수상/자격증/스택 목록 행
-    ProjectModal/      - 프로젝트 상세 모달
-    StackModal/        - 기술스택 상세 모달
-    ContactModal/      - 연락처 모달
-    Lightbox/          - 이미지 라이트박스
-    DecryptedText/     - 텍스트 디코딩 애니메이션
-    SplitText/         - 텍스트 분할 애니메이션
-  contexts/            - React Context
+    Hero/              - 메인 히어로 (타이포 + 사원증)
+    Lanyard/           - 3D 사원증 (R3F + rapier, 지연 로딩)
+    Marquee/           - 기술 스택 띠
+    WorkStack/         - 겹쳐 쌓이는 프로젝트 카드
+    About/             - 수상·교육·자격증
+    Footer/            - 연락(LET'S TALK) 푸터
+    ProjectModal/      - 프로젝트 사이드 시트 모달
+    Lightbox/          - 이미지 라이트박스 (상세 페이지)
+  contexts/            - React Context (프로젝트·모달 상태)
+  utils/               - 카드·모달·상세 페이지 공용 표시 헬퍼
   pages/               - 라우트별 페이지
   assets/              - 이미지, 문서 등 정적 자산
 ```
@@ -36,7 +35,8 @@ src/
 - 프로젝트, 수상, 자격증, 기술 스택 데이터는 현재 `src/App.jsx`에 모여 있음
 - 메인 화면은 섹션 기반 단일 페이지이고 프로젝트 상세는 `/project/:projectId` 라우트를 사용
 - 모달 UX와 상세 페이지 UX가 함께 존재하므로 둘 중 하나를 건드리면 다른 쪽 영향도 확인
-- `Row` 컴포넌트가 여러 종류의 목록 UI를 공용으로 처리함
+- 메인 카드는 `cardImageUrl`(경량 WebP), 모달·상세 페이지는 `thumbnailUrl`과 갤러리 원본을 사용함
+- 상세 주소 직접 접속은 빌드 시 생성되는 `dist/404.html` 폴백으로 처리함
 - 큰 구조 개편은 사용자가 명시적으로 원할 때만 진행
 
 ## 커밋 메시지 규칙
@@ -63,7 +63,7 @@ src/
 - 새 컴포넌트 추가 시 `src/components/컴포넌트명/` 폴더 생성
 - `no-unused-vars` 규칙: 대문자로 시작하는 변수는 예외 (`varsIgnorePattern: '^[A-Z_]'`)
 - 기존 레이아웃과 애니메이션 톤을 크게 깨지 않는 선에서 수정
-- 데이터 구조를 손댈 때는 `App.jsx`, `Row`, `ProjectDetailPage` 영향 범위를 함께 확인
+- 데이터 구조를 손댈 때는 `App.jsx`, `WorkStack`, `ProjectModal`, `ProjectDetailPage` 영향 범위를 함께 확인
 
 ## 배포
 ```bash

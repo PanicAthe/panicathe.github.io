@@ -10,7 +10,6 @@
 - Vite 7
 - react-router-dom 7
 - Three.js + `@react-three/fiber` + `@react-three/drei` + `@react-three/rapier`
-- GSAP, Motion
 - CSS Modules가 아닌 일반 `.css` 파일 사용
 - ESLint 9
 
@@ -19,7 +18,8 @@
 src/
   App.jsx                 # 전체 레이아웃과 라우팅
   components/             # 재사용 컴포넌트
-  contexts/               # 테마, 프로젝트 상태
+  contexts/               # 프로젝트·모달 상태
+  utils/                  # 프로젝트 표시용 헬퍼
   pages/                  # 라우트 단위 페이지
   assets/                 # 번들되는 정적 자산
 public/                   # 배포용 정적 파일

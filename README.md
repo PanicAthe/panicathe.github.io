@@ -4,11 +4,11 @@
 
 ## ✨ 주요 기능
 
-- **인터랙티브 프로젝트 목록**: 가로 스크롤을 통해 프로젝트 썸네일을 탐색할 수 있습니다.
-- **프로젝트 상세 모달 & 페이지**: 프로젝트 클릭 시 기술 스택, 기여 역할, 데모 영상 등을 모달 또는 별도 페이지(`/project/:id`)에서 확인할 수 있습니다.
-- **기술 스택 숙련도 시각화**: 프로젝트 참여 횟수 기반으로 스택별 숙련도를 색상으로 표시합니다.
-- **동적 텍스트 효과**: GSAP SplitText와 디코딩 애니메이션으로 시각적 인터랙션을 제공합니다.
-- **수상 / 자격증 섹션**: 수상 항목 클릭 시 연관 프로젝트 모달로 연결됩니다.
+- **3D 사원증 히어로**: `@react-three/rapier` 물리로 매달린 사원증을 드래그할 수 있습니다. 작은 화면·동작 줄이기 설정에서는 정적 카드로 대체하고, 3D 청크는 화면에 보일 때 늦게 불러옵니다.
+- **겹쳐 쌓이는 프로젝트 카드**: 스크롤하면 카드가 위로 쌓이며, 카드에는 경량 WebP 썸네일(`public/images/projects/cards/`)만 사용합니다.
+- **사이드 시트 모달 & 케이스 스터디 페이지**: 카드를 누르면 오른쪽 시트에서 성과·역할·기술 스택을 보고, `/project/:id` 상세 페이지로 이어집니다. 상세 주소는 새로고침·공유 링크로 바로 열 수 있습니다(`404.html` 폴백).
+- **About 섹션**: 수상·교육·자격증을 3열로 보여주며, 수상 항목은 연관 프로젝트 모달로 연결됩니다.
+- **공유 미리보기**: Open Graph 이미지(`public/og-image.png`)와 파비콘을 제공합니다.
 
 <br/>
 
@@ -21,9 +21,9 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router_7-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
 
-### Animation
-![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
-![Motion](https://img.shields.io/badge/Motion-000000?style=for-the-badge&logo=framer&logoColor=white)
+### 3D
+![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white)
+![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-000000?style=for-the-badge&logo=react&logoColor=white)
 
 ### Deployment
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)
@@ -101,7 +101,8 @@ panicathe.github.io/
 ├── src/
 │   ├── assets/          # 코드에서 직접 참조하는 에셋
 │   ├── components/      # 재사용 가능한 React 컴포넌트
-│   ├── contexts/        # React Context (테마, 프로젝트 상태)
+│   ├── contexts/        # React Context (프로젝트·모달 상태)
+│   ├── utils/           # 프로젝트 표시용 헬퍼
 │   ├── pages/           # 페이지 단위 컴포넌트
 │   ├── App.jsx          # 라우팅, 레이아웃, 포트폴리오 데이터
 │   └── main.jsx         # 애플리케이션 진입점
