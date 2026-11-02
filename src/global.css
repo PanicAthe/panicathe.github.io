@@ -15,66 +15,18 @@
   --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'Space Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* Semantic tokens (used by modals and detail page) */
-  --primary: var(--klein);
-  --primary-light: #4A61FF;
-  --primary-dark: var(--klein-dark);
-  --primary-accent: var(--klein);
-  --accent-purple: var(--klein-dark);
-  --accent-green: #1E7A52;
-  --accent-amber: #B45309;
-
-  --text-primary: var(--ink);
-  --text-secondary: var(--ink-body);
-  --text-tertiary: var(--ink-muted);
-
-  --bg-primary: var(--white);
-  --bg-secondary: var(--paper);
-  --bg-tertiary: var(--paper-deep);
-  --bg-elevated: var(--white);
-
-  --border-light: rgba(17, 17, 17, 0.08);
-  --border-medium: rgba(17, 17, 17, 0.16);
-
-  /* Legacy support */
-  --background-color: var(--paper);
-  --text-color: var(--ink);
-  --text-color-hover: var(--ink-body);
-  --primary-color: var(--klein);
-  --header-bg-color: var(--paper);
-  --card-bg-color: var(--white);
-  --card-bg-hover: var(--paper-deep);
-  --footer-text-color: var(--ink-muted);
-  --footer-border-color: var(--line);
-
-  /* Shadows */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-soft: 0 18px 40px rgba(17, 17, 17, 0.08);
-
   /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
   --radius-2xl: 28px;
   --radius-full: 9999px;
 
   /* Layout */
   --content-max-width: 1440px;
   --page-gutter: clamp(16px, 4vw, 56px);
-  --page-horizontal-padding: var(--page-gutter);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 *,
@@ -135,54 +87,6 @@ a {
   background: var(--ink);
   border-radius: var(--radius-full);
   border: 3px solid var(--paper);
-}
-
-/* Buttons (shared by modals) */
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 0 26px;
-  border-radius: var(--radius-full);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform var(--transition-base), background-color var(--transition-base), color var(--transition-base);
-}
-
-.btn-primary {
-  background: var(--klein);
-  color: var(--white);
-  border: none;
-}
-
-.btn-primary:hover {
-  background: var(--klein-dark);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--ink);
-  border: 1px solid var(--ink);
-}
-
-.btn-secondary:hover {
-  background: var(--ink);
-  color: var(--paper);
-  transform: translateY(-2px);
-}
-
-.btn-primary .icon,
-.btn-secondary .icon {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
 }
 
 /* App layout */

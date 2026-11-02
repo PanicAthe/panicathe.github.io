@@ -17,4 +17,4 @@
 ## 배포 준비
 1. `npm run lint` 실행
 2. `npm run build` 실행
-3. 사용자가 원하면 `npm run deploy` 진행
+3. main에 머지·푸시하면 GitHub Actions가 자동 배포 (별도 배포 명령 없음)

@@ -14,7 +14,7 @@ function ProjectMedia({ project, title }) {
   return <img src={url} alt={`${title} 화면`} loading="lazy" decoding="async" width="1200" height="675" />;
 }
 
-function WorkStack({ projects = [], awards = [], onSelect }) {
+function WorkStack({ projects = [], onSelect }) {
   const total = String(projects.length).padStart(2, '0');
 
   return (
@@ -29,7 +29,7 @@ function WorkStack({ projects = [], awards = [], onSelect }) {
       <ol className="work__list">
         {projects.map((project, index) => {
           const { title, subtitle } = splitName(project.name);
-          const award = awards.find((a) => a.projectId === project.id);
+          const { award } = project;
           const theme = CARD_THEMES[index % CARD_THEMES.length];
           const tags = (project.technologies || []).slice(0, 4);
 

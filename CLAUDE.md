@@ -9,12 +9,12 @@ GitHub Pages에 배포되는 개인 포트폴리오 사이트 (`https://panicath
 - **Routing**: react-router-dom v7
 - **Styling**: 일반 `.css` 파일 import 방식 (CSS Modules 아님)
 - **Lint**: ESLint 9
-- **Deploy**: gh-pages (`npm run deploy`)
+- **Deploy**: GitHub Actions → GitHub Pages (main 푸시 시 자동)
 
 ## 컴포넌트 구조
 ```text
 src/
-  App.jsx              - 라우팅 및 전체 레이아웃 + 포트폴리오 데이터
+  App.jsx              - 라우팅 및 전체 레이아웃
   components/
     Header/            - 네비게이션
     Hero/              - 메인 히어로 (타이포 + 사원증)
@@ -24,7 +24,9 @@ src/
     About/             - 수상·교육·자격증
     Footer/            - 연락(LET'S TALK) 푸터
     ProjectModal/      - 프로젝트 사이드 시트 모달
+    ProjectSections/   - 모달·상세 페이지 공용 섹션 (성과·역할·스택·링크·썸네일)
     Lightbox/          - 이미지 라이트박스 (상세 페이지)
+  data/                - 포트폴리오 콘텐츠 데이터 (profile, 프로젝트, 수상, 교육, 자격증)
   contexts/            - React Context (프로젝트·모달 상태)
   utils/               - 카드·모달·상세 페이지 공용 표시 헬퍼
   pages/               - 라우트별 페이지
@@ -32,7 +34,7 @@ src/
 ```
 
 ## 현재 프로젝트 구조 메모
-- 프로젝트, 수상, 자격증, 기술 스택 데이터는 현재 `src/App.jsx`에 모여 있음
+- 프로젝트, 수상, 교육, 자격증, 연락처 데이터는 `src/data/portfolio.js`에 모여 있음 (수상은 `projectId`로 프로젝트에 자동 연결)
 - 메인 화면은 섹션 기반 단일 페이지이고 프로젝트 상세는 `/project/:projectId` 라우트를 사용
 - 모달 UX와 상세 페이지 UX가 함께 존재하므로 둘 중 하나를 건드리면 다른 쪽 영향도 확인
 - 메인 카드는 `cardImageUrl`(경량 WebP), 모달·상세 페이지는 `thumbnailUrl`과 갤러리 원본을 사용함
@@ -63,12 +65,11 @@ src/
 - 새 컴포넌트 추가 시 `src/components/컴포넌트명/` 폴더 생성
 - `no-unused-vars` 규칙: 대문자로 시작하는 변수는 예외 (`varsIgnorePattern: '^[A-Z_]'`)
 - 기존 레이아웃과 애니메이션 톤을 크게 깨지 않는 선에서 수정
-- 데이터 구조를 손댈 때는 `App.jsx`, `WorkStack`, `ProjectModal`, `ProjectDetailPage` 영향 범위를 함께 확인
+- 데이터 구조를 손댈 때는 `src/data/portfolio.js`, `utils/project.js`(`getProjectView`), `WorkStack`, `ProjectModal`, `ProjectDetailPage` 영향 범위를 함께 확인
 
 ## 배포
-```bash
-npm run deploy
-```
+- main 브랜치에 푸시(또는 PR 머지)하면 GitHub Actions(`.github/workflows/deploy.yml`)가 빌드해 GitHub Pages에 배포한다
+- 머지 전 로컬에서 `npm run lint`, `npm run build` 확인
 
 ## 파일 삭제 규칙
 - 파일 또는 폴더 삭제 전 반드시 사용자에게 확인받을 것

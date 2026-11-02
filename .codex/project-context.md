@@ -3,7 +3,8 @@
 이 파일은 이 포트폴리오 레포에서 AI 에이전트가 헷갈리기 쉬운 부분을 빠르게 파악하기 위한 메모입니다.
 
 ## 현재 구조 핵심
-- 메인 포트폴리오 데이터는 `src/App.jsx`에 직접 들어 있다
+- 메인 포트폴리오 데이터는 `src/data/portfolio.js`에 있고, 수상은 `projectId`로 프로젝트의 `award`에 자동 연결된다
+- 모달과 상세 페이지는 `getProjectView`(utils)와 `ProjectSections` 공용 컴포넌트를 함께 쓴다
 - 메인은 `Hero`(3D 사원증) → `Marquee`(기술 띠) → `WorkStack`(프로젝트 카드) → `About`(수상·교육·자격증) → `Footer`(연락) 순서다
 - 카드·모달·상세 페이지가 공통으로 쓰는 표시 헬퍼는 `src/utils/project.js`에 있다
 - 프로젝트 상세는 모달과 별도 페이지(`/project/:projectId`)가 함께 존재한다
