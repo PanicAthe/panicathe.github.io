@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProjects } from '../../contexts/ProjectContext';
 import { getPoster, getProjectView, isVideo } from '../../utils/project';
@@ -15,40 +15,85 @@ function MediaView({ url, title, poster }) {
   return <img src={url} alt={`${title} 화면`} />;
 }
 
+const FOCUSABLE = 'a[href], button:not([disabled]), video[controls], [tabindex]:not([tabindex="-1"])';
+
+// 방향키를 직접 쓰는 요소(영상 탐색, 입력창)에서는 프로젝트 이동을 하지 않는다
+function usesArrowKeys(target) {
+  return target instanceof Element && Boolean(target.closest('video, audio, input, textarea, select, [contenteditable="true"]'));
+}
+
+// Tab 포커스가 모달 밖(뒤의 페이지)으로 나가지 않도록 처음과 끝을 이어 준다
+function trapFocus(event, container) {
+  if (!container) return;
+  const items = [...container.querySelectorAll(FOCUSABLE)].filter((el) => el.offsetParent !== null);
+  if (items.length === 0) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  const active = document.activeElement;
+
+  if (!container.contains(active)) {
+    event.preventDefault();
+    first.focus();
+  } else if (event.shiftKey && active === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && active === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
 function ProjectModal({ project, onClose }) {
   const { projects = [], selectProject } = useProjects();
   const navigate = useNavigate();
   const [mediaIndex, setMediaIndex] = useState(0);
+  const sheetRef = useRef(null);
   const closeRef = useRef(null);
   const bodyRef = useRef(null);
 
+  const isOpen = Boolean(project);
   const position = project ? projects.findIndex((p) => p.id === project.id) : -1;
+
+  const goTo = useCallback(
+    (offset) => {
+      if (position < 0 || projects.length < 2) return;
+      selectProject(projects[(position + offset + projects.length) % projects.length]);
+    },
+    [position, projects, selectProject]
+  );
 
   useEffect(() => {
     setMediaIndex(0);
     bodyRef.current?.scrollTo({ top: 0 });
   }, [project]);
 
+  // 열릴 때 스크롤을 잠그고 닫기 버튼으로 포커스를 옮기며, 닫히면 원래 누른 요소로 포커스를 돌려준다
   useEffect(() => {
-    if (!project) return undefined;
+    if (!isOpen) return undefined;
+    const previouslyFocused = document.activeElement;
     document.body.style.overflow = 'hidden';
     closeRef.current?.focus();
 
-    const goTo = (offset) => {
-      if (position < 0 || projects.length < 2) return;
-      selectProject(projects[(position + offset + projects.length) % projects.length]);
-    };
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') goTo(1);
-      if (e.key === 'ArrowLeft') goTo(-1);
-    };
-    document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused instanceof HTMLElement && previouslyFocused.isConnected) {
+        previouslyFocused.focus({ preventScroll: true });
+      }
     };
-  }, [project, onClose, position, projects, selectProject]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'Tab') trapFocus(e, sheetRef.current);
+      else if (e.key === 'ArrowRight' && !usesArrowKeys(e.target)) goTo(1);
+      else if (e.key === 'ArrowLeft' && !usesArrowKeys(e.target)) goTo(-1);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose, goTo]);
 
   if (!project) return null;
 
@@ -56,11 +101,6 @@ function ProjectModal({ project, onClose }) {
   const { title, subtitle, media, award, awardLabel, repos, primaryRepo, websiteUrl } = view;
   const total = String(projects.length).padStart(2, '0');
   const currentMedia = media[mediaIndex];
-
-  const goTo = (offset) => {
-    if (position < 0) return;
-    selectProject(projects[(position + offset + projects.length) % projects.length]);
-  };
 
   const openDetailPage = () => {
     onClose();
@@ -70,6 +110,7 @@ function ProjectModal({ project, onClose }) {
   return (
     <div className="sheet-overlay" onClick={onClose}>
       <aside
+        ref={sheetRef}
         className="sheet"
         role="dialog"
         aria-modal="true"
