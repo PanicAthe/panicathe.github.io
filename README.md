@@ -87,9 +87,10 @@ npm run build
 ### 빌드 및 배포
 
 ```sh
-npm run build       # 프로덕션 빌드
-npm run deploy      # GitHub Pages 배포
+npm run build       # 프로덕션 빌드 (dist/404.html 폴백 포함)
 ```
+
+main 브랜치에 푸시하거나 PR을 머지하면 GitHub Actions(`.github/workflows/deploy.yml`)가 빌드해 GitHub Pages에 배포합니다.
 
 <br/>
 
@@ -104,7 +105,8 @@ panicathe.github.io/
 │   ├── contexts/        # React Context (프로젝트·모달 상태)
 │   ├── utils/           # 프로젝트 표시용 헬퍼
 │   ├── pages/           # 페이지 단위 컴포넌트
-│   ├── App.jsx          # 라우팅, 레이아웃, 포트폴리오 데이터
+│   ├── data/            # 포트폴리오 콘텐츠 데이터 (portfolio.js)
+│   ├── App.jsx          # 라우팅, 레이아웃
 │   └── main.jsx         # 애플리케이션 진입점
 ├── .claude/             # Claude Code 설정 (훅, 슬래시 커맨드)
 ├── .codex/              # Codex 에이전트용 문맥 문서
