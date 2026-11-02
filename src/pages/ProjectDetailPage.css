@@ -41,6 +41,13 @@
   justify-self: end;
 }
 
+/* 언어 전환 + 다음 프로젝트 */
+.case__bar-end {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .case__logo {
   font-family: var(--font-display);
   font-weight: 800;

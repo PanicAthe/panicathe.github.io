@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { isVideo } from '../../utils/project';
 import './Lightbox.css';
 
 function Lightbox({ media, alt = '', onClose }) {
   const closeRef = useRef(null);
+  const { t } = useLanguage();
 
   // 열려 있는 동안 뒤 페이지 스크롤을 막고, 닫으면 원래 포커스로 돌아간다
   useEffect(() => {
@@ -34,8 +36,8 @@ function Lightbox({ media, alt = '', onClose }) {
   if (!media) return null;
 
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={alt || '크게 보기'} onClick={onClose}>
-      <button type="button" className="lightbox__close" onClick={onClose} aria-label="닫기" ref={closeRef}>
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={alt || t.lightbox.label} onClick={onClose}>
+      <button type="button" className="lightbox__close" onClick={onClose} aria-label={t.lightbox.close} ref={closeRef}>
         ✕
       </button>
       <div className="lightbox__content" onClick={(e) => e.stopPropagation()}>

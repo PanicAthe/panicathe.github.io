@@ -1,21 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import LanguageSwitch from '../components/LanguageSwitch/LanguageSwitch';
 import Lightbox from '../components/Lightbox/Lightbox';
+import { useLanguage } from '../contexts/LanguageContext';
 import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../components/ProjectSections/ProjectSections';
 import { getPoster, getProjectView, isVideo, splitName } from '../utils/project';
 import './ProjectDetailPage.css';
 
-const SECTIONS = [
-  { id: 'overview', label: '개요' },
-  { id: 'results', label: '성과' },
-  { id: 'role', label: '내가 한 일' },
-  { id: 'stack', label: '기술 스택' },
-  { id: 'links', label: '링크' },
-];
+const SECTION_IDS = ['overview', 'results', 'role', 'stack', 'links'];
 
 function ProjectDetailPage({ projects = [] }) {
   const { projectId } = useParams();
   const navigate = useNavigate();
+  const { t, localePath } = useLanguage();
   const [mediaIndex, setMediaIndex] = useState(0);
   const [lightboxMedia, setLightboxMedia] = useState(null);
   const closeLightbox = useCallback(() => setLightboxMedia(null), []);
@@ -23,28 +20,31 @@ function ProjectDetailPage({ projects = [] }) {
   const index = projects.findIndex((p) => p.id === Number(projectId));
   const project = index >= 0 ? projects[index] : null;
 
+  // 다른 프로젝트로 넘어갈 때만 처음으로 돌아가고, 언어만 바뀌면 보던 위치를 유지한다
+  const projectKey = project?.id;
   useEffect(() => {
     setMediaIndex(0);
     window.scrollTo({ top: 0 });
-    if (project) document.title = `${splitName(project.name).title} — 최은진`;
-    return () => {
-      document.title = '최은진 — Backend Developer';
-    };
-  }, [project]);
+  }, [projectKey]);
+
+  const pageTitle = project ? t.detail.title(splitName(project.name).title) : t.meta.title;
+  useEffect(() => {
+    document.title = pageTitle;
+  }, [pageTitle]);
 
   // 사이트 안에서 들어왔으면 뒤로, 링크로 바로 들어왔으면 메인으로 이동
   const goBack = () => {
     if (window.history.state?.idx > 0) navigate(-1);
-    else navigate('/');
+    else navigate(localePath('/'));
   };
 
   if (!project) {
     return (
       <main className="case case--empty">
         <p className="case__eyebrow">[ 404 ]</p>
-        <h1 className="case__title">프로젝트를 찾을 수 없어요</h1>
-        <Link to="/" className="case__btn case__btn--primary">
-          메인으로 가기 →
+        <h1 className="case__title">{t.detail.notFound}</h1>
+        <Link to={localePath('/')} className="case__btn case__btn--primary">
+          {t.detail.goHome}
         </Link>
       </main>
     );
@@ -58,16 +58,19 @@ function ProjectDetailPage({ projects = [] }) {
 
   return (
     <div className="case">
-      <nav className="case__bar" aria-label="프로젝트 탐색">
+      <nav className="case__bar" aria-label={t.detail.nav}>
         <button type="button" className="case__btn" onClick={goBack}>
-          ← 목록으로
+          {t.detail.back}
         </button>
-        <Link to="/" className="case__logo">
+        <Link to={localePath('/')} className="case__logo">
           EJ/CHOI
         </Link>
-        <Link to={`/project/${next.id}`} className="case__btn case__btn--ink">
-          다음 · {nextTitle} →
-        </Link>
+        <div className="case__bar-end">
+          <LanguageSwitch />
+          <Link to={localePath(`/project/${next.id}`)} className="case__btn case__btn--ink">
+            {t.detail.next(nextTitle)}
+          </Link>
+        </div>
       </nav>
 
       <header className="case__hero">
@@ -80,12 +83,12 @@ function ProjectDetailPage({ projects = [] }) {
         </div>
         <dl className="case__facts">
           <div>
-            <dt>기간</dt>
+            <dt>{t.detail.period}</dt>
             <dd>{project.period}</dd>
           </div>
           {award && (
             <div>
-              <dt>수상</dt>
+              <dt>{t.detail.award}</dt>
               <dd className="case__facts-accent">
                 {award.name} {awardLabel}
               </dd>
@@ -93,7 +96,7 @@ function ProjectDetailPage({ projects = [] }) {
           )}
           {coreTechs.length > 0 && (
             <div>
-              <dt>핵심 스택</dt>
+              <dt>{t.detail.coreStack}</dt>
               <dd>{coreTechs.slice(0, 4).join(' · ')}</dd>
             </div>
           )}
@@ -101,7 +104,7 @@ function ProjectDetailPage({ projects = [] }) {
             <div className="case__facts-links">
               {websiteUrl && (
                 <a href={websiteUrl} className="case__btn case__btn--primary">
-                  홈페이지 ↗
+                  {t.project.website} ↗
                 </a>
               )}
               {repos.slice(0, 2).map(({ key, url, label }) => (
@@ -115,7 +118,7 @@ function ProjectDetailPage({ projects = [] }) {
       </header>
 
       {media.length > 0 && (
-        <section className="case__gallery" aria-label="프로젝트 미디어">
+        <section className="case__gallery" aria-label={t.project.media}>
           <div className="case__viewer">
             {isVideo(currentMedia) ? (
               <video
@@ -129,8 +132,8 @@ function ProjectDetailPage({ projects = [] }) {
               />
             ) : (
               <>
-                <img src={currentMedia} alt={`${title} 화면 ${mediaIndex + 1}`} />
-                <button type="button" className="case__zoom" onClick={() => setLightboxMedia(currentMedia)} aria-label="크게 보기">
+                <img src={currentMedia} alt={t.project.screen(title, mediaIndex + 1)} />
+                <button type="button" className="case__zoom" onClick={() => setLightboxMedia(currentMedia)} aria-label={t.lightbox.label}>
                   ⤢
                 </button>
               </>
@@ -141,10 +144,10 @@ function ProjectDetailPage({ projects = [] }) {
       )}
 
       <div className="case__body">
-        <nav className="case__toc" aria-label="목차">
-          {SECTIONS.map((section, i) => (
-            <a key={section.id} href={`#${section.id}`}>
-              <span>{String(i + 1).padStart(2, '0')}</span> {section.label}
+        <nav className="case__toc" aria-label={t.detail.toc}>
+          {SECTION_IDS.map((id, i) => (
+            <a key={id} href={`#${id}`}>
+              <span>{String(i + 1).padStart(2, '0')}</span> {t.detail.sections[id]}
             </a>
           ))}
         </nav>
@@ -155,26 +158,26 @@ function ProjectDetailPage({ projects = [] }) {
           </section>
 
           <section id="results" className="case__section">
-            <h2 className="case__heading">성과</h2>
+            <h2 className="case__heading">{t.detail.sections.results}</h2>
             <ProjectResults view={view} />
           </section>
 
           <section id="role" className="case__section">
-            <h2 className="case__heading">내가 한 일</h2>
+            <h2 className="case__heading">{t.detail.sections.role}</h2>
             <ProjectRoles roles={view.roles} />
           </section>
 
           <section id="stack" className="case__section">
-            <h2 className="case__heading">기술 스택</h2>
+            <h2 className="case__heading">{t.detail.sections.stack}</h2>
             <ProjectStack coreTechs={view.coreTechs} otherTechs={view.otherTechs} />
           </section>
 
           <section id="links" className="case__section">
-            <h2 className="case__heading">링크</h2>
+            <h2 className="case__heading">{t.detail.sections.links}</h2>
             {websiteUrl || repos.length > 0 ? (
               <ProjectLinks websiteUrl={websiteUrl} repos={repos} />
             ) : (
-              <p className="case__muted">공개된 저장소가 없는 프로젝트예요.</p>
+              <p className="case__muted">{t.detail.noRepo}</p>
             )}
           </section>
         </article>
@@ -182,12 +185,12 @@ function ProjectDetailPage({ projects = [] }) {
 
       <footer className="case__next">
         <p className="case__eyebrow">[ NEXT PROJECT ]</p>
-        <Link to={`/project/${next.id}`} className="case__next-link">
+        <Link to={localePath(`/project/${next.id}`)} className="case__next-link">
           {nextTitle} <span aria-hidden="true">→</span>
         </Link>
       </footer>
 
-      {lightboxMedia && <Lightbox media={lightboxMedia} alt={`${title} 화면 크게 보기`} onClose={closeLightbox} />}
+      {lightboxMedia && <Lightbox media={lightboxMedia} alt={t.lightbox.enlarged(title)} onClose={closeLightbox} />}
     </div>
   );
 }
