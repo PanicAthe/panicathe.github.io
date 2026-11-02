@@ -19,4 +19,4 @@
 - `npm run dev`
 - `npm run lint`
 - `npm run build`
-- `npm run deploy`
+- 배포: main 푸시 시 GitHub Actions가 자동 배포
