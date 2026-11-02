@@ -1,18 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Lightbox from '../components/Lightbox/Lightbox';
-import { findMetric, getProjectMedia, isVideo, splitLead, splitName, stripEmoji } from '../utils/project';
+import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../components/ProjectSections/ProjectSections';
+import { getPoster, getProjectView, isVideo, splitName } from '../utils/project';
 import './ProjectDetailPage.css';
-
-const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript', 'Swift', 'SwiftUI', 'React'];
-
-const REPO_LABELS = {
-  repository: 'Repository',
-  backend: 'Backend Repository',
-  frontend: 'Frontend Repository',
-  aiApi: 'AI API Repository',
-  organization: 'GitHub Organization',
-};
 
 const SECTIONS = [
   { id: 'overview', label: '개요' },
@@ -58,32 +49,11 @@ function ProjectDetailPage({ projects = [] }) {
     );
   }
 
-  const { title, subtitle } = splitName(project.name);
-  const media = getProjectMedia(project);
-  const { award } = project;
+  const view = getProjectView(project);
+  const { title, subtitle, media, award, awardLabel, coreTechs, repos, websiteUrl } = view;
   const next = projects[(index + 1) % projects.length];
   const nextTitle = splitName(next.name).title;
-
-  const technologies = project.technologies || [];
-  const coreTechs = technologies.filter((tech) => CORE_TECHS.includes(tech));
-  const otherTechs = technologies.filter((tech) => !CORE_TECHS.includes(tech));
-
-  const metricTiles = (project.learnings || [])
-    .map((sentence) => ({ sentence, metric: findMetric(sentence) }))
-    .filter((item) => item.metric);
-  const otherLearnings = (project.learnings || []).filter(
-    (sentence) => !findMetric(sentence) && !(award && sentence.includes(stripEmoji(award.label)))
-  );
-
-  const repos = Object.entries(project.githubUrls || {});
   const currentMedia = media[mediaIndex];
-
-  const renderThumb = (url) => {
-    if (url === project.thumbnailUrl && project.cardImageUrl) return <img src={project.cardImageUrl} alt="" loading="lazy" />;
-    if (isVideo(url)) return <span className="case__thumb-label">▶</span>;
-    if (url.split('?')[0].endsWith('.gif')) return <span className="case__thumb-label">GIF</span>;
-    return <img src={url} alt="" loading="lazy" />;
-  };
 
   return (
     <div className="case">
@@ -102,7 +72,7 @@ function ProjectDetailPage({ projects = [] }) {
       <header className="case__hero">
         <div>
           <p className="case__eyebrow">[ CASE STUDY{subtitle ? ` — ${subtitle}` : ''} ]</p>
-          <h1 className={`case__title${title.length > 12 ? ' case__title--long' : ''}`}>
+          <h1 className={`case__title${view.isLongTitle ? ' case__title--long' : ''}`}>
             {title}
             <span className="case__dot">.</span>
           </h1>
@@ -116,7 +86,7 @@ function ProjectDetailPage({ projects = [] }) {
             <div>
               <dt>수상</dt>
               <dd className="case__facts-accent">
-                {award.name} {stripEmoji(award.label)}
+                {award.name} {awardLabel}
               </dd>
             </div>
           )}
@@ -126,16 +96,16 @@ function ProjectDetailPage({ projects = [] }) {
               <dd>{coreTechs.slice(0, 4).join(' · ')}</dd>
             </div>
           )}
-          {(project.websiteUrl || repos.length > 0) && (
+          {(websiteUrl || repos.length > 0) && (
             <div className="case__facts-links">
-              {project.websiteUrl && (
-                <a href={project.websiteUrl} className="case__btn case__btn--primary">
+              {websiteUrl && (
+                <a href={websiteUrl} className="case__btn case__btn--primary">
                   홈페이지 ↗
                 </a>
               )}
-              {repos.slice(0, 2).map(([key, url]) => (
+              {repos.slice(0, 2).map(({ key, url, label }) => (
                 <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="case__btn">
-                  {REPO_LABELS[key] || key} ↗
+                  {label} ↗
                 </a>
               ))}
             </div>
@@ -150,7 +120,7 @@ function ProjectDetailPage({ projects = [] }) {
               <video
                 key={currentMedia}
                 src={currentMedia}
-                poster={currentMedia === project.thumbnailUrl ? project.cardImageUrl : undefined}
+                poster={getPoster(project, currentMedia)}
                 controls
                 muted
                 playsInline
@@ -165,22 +135,7 @@ function ProjectDetailPage({ projects = [] }) {
               </>
             )}
           </div>
-          {media.length > 1 && (
-            <div className="case__thumbs">
-              {media.map((url, i) => (
-                <button
-                  key={url}
-                  type="button"
-                  className={`case__thumb${i === mediaIndex ? ' is-active' : ''}`}
-                  onClick={() => setMediaIndex(i)}
-                  aria-label={`${isVideo(url) ? '영상' : '이미지'} ${i + 1} 보기`}
-                  aria-current={i === mediaIndex}
-                >
-                  {renderThumb(url)}
-                </button>
-              ))}
-            </div>
-          )}
+          <MediaThumbs project={project} media={media} activeIndex={mediaIndex} onSelect={setMediaIndex} />
         </section>
       )}
 
@@ -200,87 +155,23 @@ function ProjectDetailPage({ projects = [] }) {
 
           <section id="results" className="case__section">
             <h2 className="case__heading">성과</h2>
-            {(metricTiles.length > 0 || award) && (
-              <div className="case__stats">
-                {metricTiles.map(({ sentence, metric }) => (
-                  <div key={sentence} className="case__stat">
-                    <strong className={metric.length > 7 ? 'is-long' : undefined}>{metric}</strong>
-                    <span>{sentence}</span>
-                  </div>
-                ))}
-                {award && (
-                  <div className="case__stat case__stat--ink">
-                    <strong>{stripEmoji(award.label)}</strong>
-                    <span>
-                      {award.name} · {award.date}
-                    </span>
-                  </div>
-                )}
-              </div>
-            )}
-            {otherLearnings.length > 0 && (
-              <ul className="case__bullets">
-                {otherLearnings.map((sentence) => (
-                  <li key={sentence}>{sentence}</li>
-                ))}
-              </ul>
-            )}
+            <ProjectResults view={view} />
           </section>
 
           <section id="role" className="case__section">
             <h2 className="case__heading">내가 한 일</h2>
-            <ol className="case__roles">
-              {(project.role || []).map((sentence, i) => {
-                const { lead, text } = splitLead(sentence);
-                return (
-                  <li key={sentence}>
-                    <span className="case__role-no">{String(i + 1).padStart(2, '0')}</span>
-                    <span>
-                      {lead && <strong>{lead}</strong>}
-                      {lead && ' — '}
-                      {text}
-                    </span>
-                  </li>
-                );
-              })}
-            </ol>
+            <ProjectRoles roles={view.roles} />
           </section>
 
           <section id="stack" className="case__section">
             <h2 className="case__heading">기술 스택</h2>
-            <ul className="case__chips">
-              {coreTechs.map((tech) => (
-                <li key={tech} className="case__chip case__chip--core">
-                  {tech}
-                </li>
-              ))}
-              {otherTechs.map((tech) => (
-                <li key={tech} className="case__chip">
-                  {tech}
-                </li>
-              ))}
-            </ul>
+            <ProjectStack coreTechs={view.coreTechs} otherTechs={view.otherTechs} />
           </section>
 
           <section id="links" className="case__section">
             <h2 className="case__heading">링크</h2>
-            {project.websiteUrl || repos.length > 0 ? (
-              <ul className="case__links">
-                {project.websiteUrl && (
-                  <li>
-                    <a href={project.websiteUrl}>
-                      홈페이지 · 사용 안내 · 개인정보처리방침 <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                )}
-                {repos.map(([key, url]) => (
-                  <li key={key}>
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      {REPO_LABELS[key] || key} <span aria-hidden="true">↗</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            {websiteUrl || repos.length > 0 ? (
+              <ProjectLinks websiteUrl={websiteUrl} repos={repos} />
             ) : (
               <p className="case__muted">공개된 저장소가 없는 프로젝트예요.</p>
             )}
