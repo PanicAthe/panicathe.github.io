@@ -94,6 +94,7 @@ export const certifications = [
 const projectEntries = [
   {
     id: 5,
+    hidden: true, // 포트폴리오에서 임시 숨김. 다시 공개할 때 false로 변경
     name: 'TypeCat - 타건음과 작은 데스크톱 친구',
     period: '2026.10 ~ 현재',
     thumbnailUrl: '/typecat/assets/preview.png?v=2026-10',
@@ -271,7 +272,7 @@ function buildPortfolio(lang) {
     education: isEnglish ? localize(education, educationEn) : education,
     certifications: isEnglish ? localize(certifications, certificationsEn) : certifications,
     // 수상 정보를 프로젝트에 미리 붙여 카드·모달·상세 페이지가 각자 찾지 않게 한다
-    projects: localizedProjects.map((project) => ({
+    projects: localizedProjects.filter((project) => !project.hidden).map((project) => ({
       ...project,
       award: localizedAwards.find((award) => award.projectId === project.id) ?? null,
     })),
