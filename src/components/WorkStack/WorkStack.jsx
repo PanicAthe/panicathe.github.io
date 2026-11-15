@@ -57,6 +57,7 @@ function WorkStack({ projects = [], onSelect }) {
                     {award && <span className="work-card__award">{stripEmoji(award.label)}</span>}
                   </p>
                 )}
+                {project.highlight && <p className="work-card__highlight">{project.highlight}</p>}
                 <p className="work-card__overview">{project.overview}</p>
                 <div className="work-card__footer">
                   <ul className="work-card__tags" aria-label={t.work.tags}>

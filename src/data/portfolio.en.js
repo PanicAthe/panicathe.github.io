@@ -27,7 +27,7 @@ export const educationEn = {
     name: 'AI·SW Maestro Busan, 17th cohort',
     label: 'In progress',
     date: '2026.05 ~ Present',
-    description: 'Team project in progress',
+    description: 'Built, launched, and now operating Focopia as a team project',
   },
   'shinhan-ds-finance-sw-academy': {
     name: 'Shinhan DS Finance SW Academy',
@@ -66,6 +66,26 @@ export const projectsEn = {
       'Preparing the Mac App Store submission while testing the free character lineup, the custom library, and distribution policies',
     ],
   },
+  6: {
+    name: 'Focopia - A 3D online study café for focusing together',
+    period: '2026.07 ~ Present',
+    highlight: '#64 in App Store Free Productivity · 4.9 rating',
+    overview:
+      'An online study café app where friends gather in a 3D space to focus on their own tasks. Avatars show each other’s focus status, and focus time turns into records and customization rewards. It started as an AI·SW Maestro team project and launched on iOS and Android in October 2026, where it is in live operation.',
+    role: [
+      'Contributed across server, clients, and infrastructure: 207 merged backend PRs and 178 merged Web/iOS/Android client PRs',
+      'Real-time study rooms: Unified status and chat delivery across three platforms with WebRTC (P2P/TURN) and an SSE fallback, and collected connection-path and quality metrics to improve reconnection and recovery',
+      'Payments: Built atomic purchases with two in-app currencies, Apple/Google in-app purchase settlement, and refund offsetting',
+      'Production infrastructure: Managed the AWS production environment (ECS, RDS, Valkey) with Terraform, and set up CircleCI deployment and Datadog monitoring and alerts',
+      'Cost optimization: Cut cloud costs by scheduling test-infrastructure uptime and right-sizing production tasks',
+      'Clients: Built iOS, Android, and Web screens integrated with the Unity 3D study room, and reused caches to cut duplicate API calls',
+    ],
+    learnings: [
+      'Reached #64 on the App Store free Productivity chart after the October 2026 launch (Korea, 2026.11.15)',
+      '4.9 App Store rating (15 ratings) and 1K+ Google Play downloads',
+      'Launched and now operate iOS, Android, and Web apps and the AWS production environment as a team',
+    ],
+  },
   4: {
     name: 'RAIM Visitor Check-in System',
     overview:
@@ -86,6 +106,7 @@ export const projectsEn = {
   },
   1: {
     name: '🐧 Penglobe - Eco-conscious consumption platform',
+    highlight: '94.4% of pilot users said it helped build green habits',
     overview:
       'A mobile platform that converts walking and eating habits into carbon savings, and links the rewards to eco-friendly purchases and donations. It turns what users do into visual feedback and rewards so green habits stick.',
     role: [
@@ -122,6 +143,7 @@ export const projectsEn = {
   },
   3: {
     name: 'commINUty – Location-based social networking app',
+    highlight: 'Comment API response 0.271s → 0.033s',
     overview: 'A mobile community service that uses GPS-based location verification to help nearby users talk and share information.',
     role: [
       'As team lead, managed schedules and issues and drove key technical decisions',

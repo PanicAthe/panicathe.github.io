@@ -20,8 +20,8 @@ export function splitLead(sentence = '') {
   return { lead: '', text: sentence };
 }
 
-// 성과 문장에서 강조할 수치("94.4%", "0.271s → 0.033s")를 찾는다
-const METRIC_PATTERN = /\d+(?:\.\d+)?s\s*→\s*\d+(?:\.\d+)?s|\d+(?:\.\d+)?%/;
+// 성과 문장에서 강조할 수치("94.4%", "0.271s → 0.033s", "64위", "#64")를 찾는다
+const METRIC_PATTERN = /\d+(?:\.\d+)?s\s*→\s*\d+(?:\.\d+)?s|\d+(?:\.\d+)?%|#\d+|\d+위/;
 
 export function findMetric(sentence = '') {
   const match = sentence.match(METRIC_PATTERN);
@@ -35,12 +35,21 @@ export function getProjectMedia(project) {
   );
 }
 
+// 외부 주소(https://…)는 새 탭에서 열고, 이 사이트 안의 페이지는 그대로 이동한다
+export function isExternalUrl(url = '') {
+  return /^https?:\/\//.test(url);
+}
+
+export function getLinkProps(url) {
+  return isExternalUrl(url) ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+}
+
 export function isVideo(url = '') {
   return url.split('?')[0].endsWith('.mp4');
 }
 
 // 메인 기술로 강조할 스택 (나머지는 보조 칩으로 표시)
-export const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript', 'Swift', 'SwiftUI', 'React'];
+export const CORE_TECHS = ['Java', 'Spring Boot', 'Spring Legacy', 'Python', 'AWS', 'Docker', 'JPA', 'MySQL', 'Redis', 'React Native', 'JavaScript', 'Swift', 'SwiftUI', 'React', 'Kotlin', 'Terraform', 'PostgreSQL'];
 
 const REPO_LABELS = {
   repository: 'Repository',

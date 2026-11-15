@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useProjects } from '../../contexts/ProjectContext';
-import { getPoster, getProjectView, isVideo } from '../../utils/project';
+import { getLinkProps, getPoster, getProjectView, isVideo } from '../../utils/project';
 import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../ProjectSections/ProjectSections';
 import './ProjectModal.css';
 
@@ -193,7 +193,7 @@ function ProjectModal({ project, onClose }) {
             {t.modal.openDetail} <span aria-hidden="true">→</span>
           </button>
           {websiteUrl ? (
-            <a className="sheet__btn" href={websiteUrl}>
+            <a className="sheet__btn" href={websiteUrl} {...getLinkProps(websiteUrl)}>
               {t.project.website} <span aria-hidden="true">↗</span>
             </a>
           ) : (
