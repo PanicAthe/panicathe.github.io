@@ -69,7 +69,7 @@ export const projectsEn = {
   6: {
     name: 'Focopia - A 3D online study café for focusing together',
     period: '2026.07 ~ Present',
-    highlight: '#64 in App Store Productivity · 4.9 rating',
+    highlight: '#64 in App Store Free Productivity · 4.9 rating',
     overview:
       'An online study café app where friends gather in a 3D space to focus on their own tasks. Avatars show each other’s focus status, and focus time turns into records and customization rewards. It started as an AI·SW Maestro team project and launched on iOS and Android in October 2026, where it is in live operation.',
     role: [
@@ -81,7 +81,7 @@ export const projectsEn = {
       'Clients: Built iOS, Android, and Web screens integrated with the Unity 3D study room, and reused caches to cut duplicate API calls',
     ],
     learnings: [
-      'Reached #64 in the App Store Productivity category after the October 2026 launch (Korea, 2026.11)',
+      'Reached #64 on the App Store free Productivity chart after the October 2026 launch (Korea, 2026.11.15)',
       '4.9 App Store rating (15 ratings) and 1K+ Google Play downloads',
       'Launched and now operate iOS, Android, and Web apps and the AWS production environment as a team',
     ],

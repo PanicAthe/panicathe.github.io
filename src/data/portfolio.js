@@ -120,7 +120,7 @@ const projectEntries = [
     id: 6,
     name: '포코피아(Focopia) - 함께 집중하는 3D 온라인 스터디 카페',
     period: '2026.07 ~ 현재',
-    highlight: 'App Store 생산성 64위 · 평점 4.9', // 메인 카드에 보여줄 대표 성과 한 줄
+    highlight: 'App Store 생산성 무료 64위 · 평점 4.9', // 메인 카드에 보여줄 대표 성과 한 줄
     thumbnailUrl: '/images/projects/focopia/cover.webp',
     cardImageUrl: '/images/projects/cards/focopia.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [],
@@ -136,7 +136,7 @@ const projectEntries = [
       '클라이언트: iOS·Android·Web 화면과 Unity 3D 스터디룸 연동, 캐시 재사용으로 중복 API 조회 축소'
     ],
     learnings: [
-      '2026년 10월 출시 후 App Store 생산성 카테고리 64위 (2026.11, 한국)',
+      '2026년 10월 출시 후 App Store 생산성 무료 차트 64위 (2026.11.15, 한국)',
       'App Store 평점 4.9 (15개), Google Play 1천+ 다운로드',
       'iOS·Android·Web 세 플랫폼과 AWS 운영 환경을 팀이 직접 출시하고 운영'
     ],
