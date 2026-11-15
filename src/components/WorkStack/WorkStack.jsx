@@ -2,7 +2,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { isLongTitle, isVideo, splitName, stripEmoji } from '../../utils/project';
 import './WorkStack.css';
 
-// Paper · Klein Blue 카드 색 순환
+// Paper · Klein Blue 카드 색 순환 (프로젝트에 cardTheme이 있으면 그 색을 쓴다)
 const CARD_THEMES = ['klein', 'ink', 'white', 'stone', 'ink'];
 
 // 카드는 경량 썸네일(cardImageUrl)을 쓰고, 원본 영상·GIF는 모달에서만 불러온다
@@ -33,7 +33,7 @@ function WorkStack({ projects = [], onSelect }) {
         {projects.map((project, index) => {
           const { title, subtitle } = splitName(project.name);
           const { award } = project;
-          const theme = CARD_THEMES[index % CARD_THEMES.length];
+          const theme = project.cardTheme || CARD_THEMES[index % CARD_THEMES.length];
           const tags = (project.technologies || []).slice(0, 4);
 
           return (

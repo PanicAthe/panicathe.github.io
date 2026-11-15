@@ -127,6 +127,7 @@ const projectEntries = [
     name: '포코피아(Focopia) - 함께 집중하는 3D 온라인 스터디 카페',
     period: '2026.07 ~ 현재',
     highlight: 'App Store 생산성 무료 64위 · 평점 4.9', // 메인 카드에 보여줄 대표 성과 한 줄
+    cardTheme: 'white', // 메인 카드 색 (klein·ink·white·stone 중 하나, 없으면 순서대로 순환)
     thumbnailUrl: '/images/projects/focopia/cover.webp',
     cardImageUrl: '/images/projects/cards/focopia.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [],
