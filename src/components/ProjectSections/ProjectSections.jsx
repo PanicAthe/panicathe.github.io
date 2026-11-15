@@ -1,5 +1,5 @@
 import { useLanguage } from '../../contexts/LanguageContext';
-import { getThumbnail, isVideo } from '../../utils/project';
+import { getLinkProps, getThumbnail, isExternalUrl, isVideo } from '../../utils/project';
 import './ProjectSections.css';
 
 // 프로젝트 모달(ProjectModal)과 상세 페이지(ProjectDetailPage)가 함께 쓰는 섹션들.
@@ -107,13 +107,15 @@ export function ProjectStack({ coreTechs, otherTechs }) {
 export function ProjectLinks({ websiteUrl, repos }) {
   const { t } = useLanguage();
   if (!websiteUrl && repos.length === 0) return null;
+  // 외부 서비스는 '홈페이지', 이 사이트 안의 소개 페이지(TypeCat 등)는 안내·방침 묶음 문구를 쓴다
+  const isExternal = isExternalUrl(websiteUrl);
 
   return (
     <ul className="ps-links">
       {websiteUrl && (
         <li>
-          <a href={websiteUrl}>
-            {t.project.websiteLinks} <span aria-hidden="true">↗</span>
+          <a href={websiteUrl} {...getLinkProps(websiteUrl)}>
+            {isExternal ? t.project.website : t.project.websiteLinks} <span aria-hidden="true">↗</span>
           </a>
         </li>
       )}

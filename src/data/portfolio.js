@@ -39,7 +39,7 @@ export const education = [
     label: '참여 중',
     date: '2026.05 ~ 현재',
     linkUrl: 'https://www.swmaestro.ai/busan/sw/main/main.do',
-    description: '팀 프로젝트 진행 중'
+    description: '팀 프로젝트로 포코피아(Focopia)를 개발해 출시·운영 중'
   },
   {
     id: 'shinhan-ds-finance-sw-academy',
@@ -117,6 +117,34 @@ const projectEntries = [
     technologies: ['Swift', 'SwiftUI', 'AppKit', 'Core Graphics', 'AVFoundation', 'Xcode', 'GitHub Pages']
   },
   {
+    id: 6,
+    name: '포코피아(Focopia) - 함께 집중하는 AI 스터디 카페 앱',
+    period: '2026.07 ~ 현재',
+    highlight: 'App Store 생산성 64위 · 평점 4.9', // 메인 카드에 보여줄 대표 성과 한 줄
+    thumbnailUrl: 'https://focopia.com/landing/focopia-social-card-v2.jpg',
+    galleryImageUrls: [],
+    galleryVideoUrls: [],
+    websiteUrl: 'https://www.focopia.com/',
+    overview: '친구와 3D 공간에 모여 각자의 할 일에 집중하는 온라인 스터디 카페 앱입니다. 카메라 영상을 기기 안에서만 분석해 집중·딴짓·졸음·자리 비움 상태를 아바타로 보여 주고, 쌓인 집중 시간은 기록과 꾸미기 보상으로 돌려줍니다. AI·SW마에스트로 팀 프로젝트로 시작해 2026년 10월 iOS·Android로 출시하고 운영하고 있습니다.',
+    role: [
+      '서버·클라이언트·인프라 전반 기여: 백엔드 PR 207건, Web·iOS·Android 클라이언트 PR 178건 머지',
+      '기획 단계: 구현 전에 기능 명세와 IA를 먼저 작성하자고 제안하고, 기능 후보 18개를 핵심 8개로 좁혀 API와 아키텍처를 미리 설계',
+      '실시간 스터디룸: WebRTC(P2P·TURN)와 SSE 폴백으로 상태·채팅 전송을 세 플랫폼에 통일하고, 연결 경로·품질 지표를 수집해 재연결과 복구 개선',
+      '결제·재화: 두 가지 재화의 원자적 구매와 Apple·Google 인앱 결제 정산, 환불 상계 처리 구현',
+      '운영 인프라: Terraform으로 AWS 운영 환경(ECS, RDS, Valkey)을 관리하고 CircleCI 자동 배포와 Datadog 관측·경보 구성',
+      '비용 최적화: 테스트 인프라 가동 시간 스케줄링과 운영 작업 사양 조정으로 클라우드 비용 절감',
+      '클라이언트: iOS·Android·Web 화면과 Unity 3D 스터디룸 연동, 캐시 재사용으로 중복 API 조회 축소'
+    ],
+    learnings: [
+      '2026년 10월 출시 후 App Store 생산성 카테고리 64위 (2026.11, 한국)',
+      'App Store 평점 4.9 (15개), Google Play 1천+ 다운로드',
+      '기능 명세와 IA를 먼저 작성해 2주 만에 MVP 완성',
+      '사용자 10명의 피드백으로 책 읽는 자세를 졸음으로 오판하는 문제를 찾아 손 움직임 추적으로 보완',
+      '카메라 영상은 기기 밖으로 보내지 않는 온디바이스 분석으로 프라이버시 우려를 줄인 설계'
+    ],
+    technologies: ['Java', 'Spring Boot', 'AWS', 'Terraform', 'PostgreSQL', 'Valkey', 'WebRTC', 'SSE', 'Swift', 'Kotlin', 'React', 'Unity', 'CircleCI', 'Datadog', 'Firebase']
+  },
+  {
     id: 4,
     name: 'RAIM 방문자 입장 등록 시스템',
     period: '2026.01 ~ 2026.02',
@@ -150,6 +178,7 @@ const projectEntries = [
     id: 1,
     name: '🐧 Penglobe - 친환경 가치 소비 플랫폼',
     period: '2025.08 ~ 2025.09',
+    highlight: '시범 운영 사용자 94.4% "친환경 습관에 도움"',
     thumbnailUrl: '/images/projects/penglobe/8.jpg',
     cardImageUrl: '/images/projects/cards/penglobe.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [
@@ -229,6 +258,7 @@ const projectEntries = [
     id: 3,
     name: 'commINUty – 위치 기반 소셜 네트워킹 앱',
     period: '2023.09 ~ 2024.05',
+    highlight: '댓글 조회 API 응답 0.271s → 0.033s',
     thumbnailUrl: 'https://panicathe.github.io/images/projects/comminuty/comINUty_Demo.mp4',
     cardImageUrl: '/images/projects/cards/comminuty.webp', // 메인 카드용 경량 썸네일
     galleryImageUrls: [],

@@ -129,6 +129,18 @@
   font-weight: 700;
 }
 
+/* 대표 성과 한 줄 (데이터의 highlight) */
+.work-card__highlight {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid var(--card-line);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .work-card__overview {
   font-size: 15px;
   line-height: 1.7;

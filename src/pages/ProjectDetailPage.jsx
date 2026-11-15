@@ -4,7 +4,7 @@ import LanguageSwitch from '../components/LanguageSwitch/LanguageSwitch';
 import Lightbox from '../components/Lightbox/Lightbox';
 import { useLanguage } from '../contexts/LanguageContext';
 import { MediaThumbs, ProjectLinks, ProjectResults, ProjectRoles, ProjectStack } from '../components/ProjectSections/ProjectSections';
-import { getPoster, getProjectView, isVideo, splitName } from '../utils/project';
+import { getLinkProps, getPoster, getProjectView, isVideo, splitName } from '../utils/project';
 import './ProjectDetailPage.css';
 
 const SECTION_IDS = ['overview', 'results', 'role', 'stack', 'links'];
@@ -103,7 +103,7 @@ function ProjectDetailPage({ projects = [] }) {
           {(websiteUrl || repos.length > 0) && (
             <div className="case__facts-links">
               {websiteUrl && (
-                <a href={websiteUrl} className="case__btn case__btn--primary">
+                <a href={websiteUrl} className="case__btn case__btn--primary" {...getLinkProps(websiteUrl)}>
                   {t.project.website} ↗
                 </a>
               )}

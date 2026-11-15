@@ -13,7 +13,7 @@ const ko = {
   hero: {
     eyebrow: '[ 최은진 — 백엔드 개발자 ]',
     srTitle: '최은진, 확장 가능한 시스템을 만드는 백엔드 개발자',
-    intro: '확장성 있는 설계와 AI·백엔드 융합을 고민합니다. 서버에서 앱, 배포와 운영까지 끝까지 책임진 프로젝트들을 소개합니다.',
+    intro: '사용자의 문제에서 출발해 확장 가능한 구조로 풀어냅니다. 서버에서 앱, 배포와 운영까지 끝까지 책임진 프로젝트들을 소개합니다.',
     hint: '드래그해서 카드를 흔들어 보세요',
     cardLabel: (name, email) => `${name} 사원증 카드 — Backend Developer, ${email}`,
   },
@@ -81,7 +81,7 @@ const en = {
     eyebrow: '[ EUNJIN CHOI — BACKEND DEVELOPER ]',
     srTitle: 'Eunjin Choi, a backend developer who builds systems that scale',
     intro:
-      'I think about scalable design and bringing AI and backend together. Here are projects I owned end to end — from server and app to deployment and operations.',
+      'I start from the user’s problem and solve it with structures that scale. Here are projects I owned end to end — from server and app to deployment and operations.',
     hint: 'Drag the card to swing it',
     cardLabel: (name, email) => `${name} ID card — Backend Developer, ${email}`,
   },
