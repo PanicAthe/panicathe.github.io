@@ -59,6 +59,12 @@ export const education = [
 
 export const certifications = [
   {
+    id: 'topcit',
+    name: 'TOPCIT',
+    label: 'Level 4 (700)',
+    date: '2026.11',
+  },
+  {
     id: 'aws-saa',
     name: 'AWS Certified Solutions Architect – Associate',
     label: 'Pass',
